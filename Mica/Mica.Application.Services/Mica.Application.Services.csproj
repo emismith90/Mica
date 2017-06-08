@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Feature1\" />
+    <Folder Include="Feature2\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mica.Application.Mapper\Mica.Application.Mapper.csproj" />
+    <ProjectReference Include="..\Mica.Application.Model\Mica.Application.Models.csproj" />
+    <ProjectReference Include="..\Mica.Application.Services.Abstract\Mica.Application.Services.Abstract.csproj" />
+    <ProjectReference Include="..\Mica.Domain.Data\Mica.Domain.Data.csproj" />
+    <ProjectReference Include="..\Mica.Domain.EF\Mica.Domain.EF.csproj" />
+    <ProjectReference Include="..\Mica.Infrastructure\Mica.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
