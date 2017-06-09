@@ -1,9 +1,13 @@
 ﻿using Mica.Domain.Data.Models.Abstract;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mica.Domain.Data.Models
 {
     public abstract class EntityBase<T> : IEntity<T>
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual T Id { get; set; }
 
         public override bool Equals(object obj)
