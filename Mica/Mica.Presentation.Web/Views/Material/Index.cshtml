@@ -10,18 +10,19 @@
 
 <table class="table">
     <tbody>
-        <tr>
-            <th>No.</th>
-            <th>Tên</th>
-            <th>Mô tả</th>
-            <th>Đơn vị</th>
-            <th>Giá/Đơn vị</th>
-            <th></th>
-        </tr>
-
         @if (Model != null && Model.Any())
         {
-            for (var index = 0; index < Model.Count; index++)
+            var dummyDetail = Model.FirstOrDefault();
+            <tr>
+                <th>@Html.DisplayNameFor(m => dummyDetail.Id)</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.Name)</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.Description)</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.Unit)</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.UnitPrice)</th>
+                <th></th>
+            </tr>
+       
+            @for (var index = 0; index < Model.Count; index++)
             {
                 <tr>
                     <td>@Model[index].Id</td>

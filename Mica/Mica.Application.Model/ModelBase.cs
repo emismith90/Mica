@@ -1,7 +1,10 @@
-﻿namespace Mica.Application.Models
+﻿using System.ComponentModel;
+
+namespace Mica.Application.Models
 {
     public abstract class ModelBase<T>
     {
+        [DisplayName("No.")]
         public virtual T Id { get; set; }
 
         public override bool Equals(object obj)
