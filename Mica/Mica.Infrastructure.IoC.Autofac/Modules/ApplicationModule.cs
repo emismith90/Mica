@@ -12,6 +12,10 @@ namespace Mica.Infrastructure.IoC.Autofac.Modules
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
 
+            //// Add application services.
+            //services.AddTransient<IEmailSender, AuthMessageSender>();
+            //services.AddTransient<ISmsSender, AuthMessageSender>();
+
             // automapper
             var mapperConfig = AutoMapperConfig.RegisterMappings();
             builder.RegisterInstance(mapperConfig.CreateMapper());

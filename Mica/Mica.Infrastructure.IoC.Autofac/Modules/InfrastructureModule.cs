@@ -18,10 +18,13 @@ namespace Mica.Infrastructure.IoC.Autofac.Modules
                .SingleInstance();
 
             builder.RegisterType<ConnectionStringsOptions>()
+                 .As<IConnectionStringsOptions>()
                 .SingleInstance();
             builder.RegisterType<LoggingOptions>()
+                .As<ILoggingOptions>()
                 .SingleInstance();
             builder.RegisterType<CachingOptions>()
+                .As<ICachingOptions>()
                 .SingleInstance();
 
             // Logging

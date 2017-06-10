@@ -2,7 +2,14 @@
 
 namespace Mica.Infrastructure.Configuration.Options
 {
-    public class CachingOptions : OptionsBase
+    public interface ICachingOptions 
+    {
+        int ExpiredInMinute { get; }
+        int SlidingInMinute { get; }
+        int RetryInSecond { get; }
+    }
+
+    public class CachingOptions : OptionsBase, ICachingOptions
     {
         public CachingOptions(IAppSettings appSettings) : base(appSettings)
         {

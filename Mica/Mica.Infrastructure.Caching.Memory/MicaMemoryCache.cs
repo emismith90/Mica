@@ -4,6 +4,7 @@ using System.Threading;
 using System.Collections.Generic;
 using Microsoft.Extensions.Caching.Memory;
 using Mica.Infrastructure.Caching.Abstract;
+using Mica.Infrastructure.Configuration.Options;
 
 namespace Mica.Infrastructure.Caching.Memory
 {
@@ -13,10 +14,12 @@ namespace Mica.Infrastructure.Caching.Memory
         private readonly ReaderWriterLockSlim _memoryCacheLock = new ReaderWriterLockSlim();
 
         protected readonly IMemoryCache Cache;
+        protected readonly ICachingOptions CachingOptions;
 
-        public MicaMemoryCache(IMemoryCache cache)
+        public MicaMemoryCache(IMemoryCache cache, ICachingOptions cachingOptions)
         {
             this.Cache = cache;
+            this.CachingOptions = cachingOptions;
 
             _keys = new List<string>();
         }
@@ -38,7 +41,7 @@ namespace Mica.Infrastructure.Caching.Memory
             return keys;
         }
 
-        public IList<string> FindKeys(string startWith)
+        public IList<string> GetAllKeys(string startWith)
         {
             _memoryCacheLock.EnterReadLock();
             string[] keys = null;
@@ -62,6 +65,26 @@ namespace Mica.Infrastructure.Caching.Memory
             return Cache.Get<T>(key);
         }
 
+        public virtual T GetOrFetch<T>(string key, Func<T> fetch)
+        {
+            if (this.TryGet(key, out T result))
+            {
+                return result;
+            }
+
+            try
+            {
+                result = fetch();
+                this.Set(key, result);
+                return result;
+            }
+            catch
+            {
+                this.Set(key, default(T), TimeSpan.FromSeconds(CachingOptions.RetryInSecond));
+                return default(T);
+            }
+        }
+
         public bool TryGet<T>(string key, out T value)
         {
             return Cache.TryGetValue(key, out value);
@@ -69,25 +92,7 @@ namespace Mica.Infrastructure.Caching.Memory
 
         public bool Set<T>(string key, T value)
         {
-            if (string.IsNullOrEmpty(key))
-                return false;
-
-            _memoryCacheLock.EnterWriteLock();
-            ICacheEntry entry = null;
-
-            try
-            {
-                entry = Cache.CreateEntry(key);
-                entry.Value = value;
-                _keys.Add(key);
-            }
-            finally
-            {
-                if (entry != null) entry.Dispose();
-                _memoryCacheLock.ExitWriteLock();
-            }
-
-            return true;
+            return Set(key, value, TimeSpan.FromMinutes(CachingOptions.ExpiredInMinute));
         }
 
         public bool Set<T>(string key, T value, DateTime expiresAt)

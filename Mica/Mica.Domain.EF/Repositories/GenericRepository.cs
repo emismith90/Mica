@@ -29,9 +29,9 @@ namespace Mica.Domain.EF.Repositories
             return DbSet.Find(id);
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
-            return DbSet.ToList();
+            return DbSet.AsNoTracking();
         }
 
         public virtual void Update(TEntity obj)
@@ -44,7 +44,7 @@ namespace Mica.Domain.EF.Repositories
             DbSet.Remove(DbSet.Find(id));
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
             return DbSet.AsNoTracking().Where(predicate);
         }

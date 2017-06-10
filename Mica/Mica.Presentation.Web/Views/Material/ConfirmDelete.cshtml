@@ -1,0 +1,49 @@
+﻿@model MaterialModel
+
+@{
+    ViewData["Title"] = "Xóa vật tư";
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<form asp-controller="Material" asp-action="Delete" method="post" class="form-horizontal">
+    <input asp-for="Id" hidden />
+
+    <div class="text-danger">Bạn có chắc muốn xóa vật tư '@Model.Name' (#@Model.Id) với nội dung: </div>
+    <div class="form-group">
+        <label asp-for="Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @Model.Name
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @Model.Description
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Unit" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @Model.Unit
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="UnitPrice" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @Model.UnitPrice
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Xóa</button>
+        </div>
+    </div>
+</form>
+
+<a asp-controller="Material" asp-action="Index">Hủy</a>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

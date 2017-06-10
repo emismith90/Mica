@@ -1,0 +1,47 @@
+﻿@model IPagedList<MaterialModel>
+@{
+    ViewData["Title"] = "Vật tư";
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<h4>Danh sách vật tư</h4>
+<a asp-controller="Material" asp-action="Edit">Tạo mới</a>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>No.</th>
+            <th>Tên</th>
+            <th>Mô tả</th>
+            <th>Đơn vị</th>
+            <th>Giá/Đơn vị</th>
+            <th></th>
+        </tr>
+
+        @if (Model != null && Model.Any())
+        {
+            for (var index = 0; index < Model.Count; index++)
+            {
+                <tr>
+                    <td>@Model[index].Id</td>
+                    <td><a asp-controller="Material" asp-action="Edit" asp-route-id="@Model[index].Id">@Model[index].Name</a></td>
+                    <td>@Model[index].Description</td>
+                    <td>@Model[index].Unit</td>
+                    <td>@Model[index].UnitPrice</td>
+
+                    <td>
+                        @*@if ((bool)ViewData["ShowRemoveButton"])
+                        {*@
+                            <a asp-controller="Material" asp-action="ConfirmDelete" asp-route-id="@Model[index].Id">Xóa</a>
+                        @*}
+                        else
+                        {
+                            @: &nbsp;
+                        }*@
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

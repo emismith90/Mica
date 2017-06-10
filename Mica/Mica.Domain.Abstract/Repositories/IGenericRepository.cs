@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Mica.Domain.Abstract.Repositories
@@ -8,10 +9,10 @@ namespace Mica.Domain.Abstract.Repositories
     {
         void Add(TEntity obj);
         TEntity GetById(TEntityKey id);
-        IEnumerable<TEntity> GetAll();
+        IQueryable<TEntity> GetAll();
         void Update(TEntity obj);
         void Remove(TEntityKey id);
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         int SaveChanges();
     }
 }

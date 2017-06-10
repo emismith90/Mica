@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Feature1\" />
-    <Folder Include="Feature2\" />
+    <Compile Remove="Feature2\**" />
+    <EmbeddedResource Remove="Feature2\**" />
+    <None Remove="Feature2\**" />
   </ItemGroup>
 
   <ItemGroup>

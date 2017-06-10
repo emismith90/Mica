@@ -1,34 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Mica.Presentation.Web.Models;
-using Mica.Presentation.Web.Models.ManageViewModels;
-using Mica.Presentation.Web.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Mica.Application.Services.Abstract.Sender;
+using Mica.Application.Models.Manage;
 
 namespace Mica.Presentation.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly string _externalCookieScheme;
-        private readonly IEmailSender _emailSender;
-        private readonly ISmsSender _smsSender;
+        private readonly IEmailSenderService _emailSender;
+        private readonly ISmsSenderService _smsSender;
         private readonly ILogger _logger;
 
         public ManageController(
-          UserManager<ApplicationUser> userManager,
-          SignInManager<ApplicationUser> signInManager,
+          UserManager<IdentityUser> userManager,
+          SignInManager<IdentityUser> signInManager,
           IOptions<IdentityCookieOptions> identityCookieOptions,
-          IEmailSender emailSender,
-          ISmsSender smsSender,
+          IEmailSenderService emailSender,
+          ISmsSenderService smsSender,
           ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
@@ -363,7 +361,7 @@ namespace Mica.Presentation.Web.Controllers
             Error
         }
 
-        private Task<ApplicationUser> GetCurrentUserAsync()
+        private Task<IdentityUser> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
         }

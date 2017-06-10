@@ -2,17 +2,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mica.Presentation.Web.Data;
-using Mica.Presentation.Web.Models;
 using Mica.Infrastructure.IoC;
 using Serilog;
 using Mica.Infrastructure.IoC.Autofac;
 using Mica.Infrastructure.Logger;
 using System.IO;
+using Mica.Domain.Data.Contexts;
 
 namespace Mica.Presentation.Web
 {
@@ -41,11 +39,11 @@ namespace Mica.Presentation.Web
               .Build();
 
             // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("MicaConnection")));
+            //services.AddDbContext<MicaContext>(options =>
+            //    options.UseSqlServer(config.GetConnectionString("MicaConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<MicaContext>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
@@ -56,18 +54,11 @@ namespace Mica.Presentation.Web
             ContainerManager = new AutofacIoCManager();
 
             return ContainerManager.PopulateAndGetServiceProvider(services);
-
-            //// Add application services.
-            //services.AddTransient<IEmailSender, AuthMessageSender>();
-            //services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IMicaLogManager micaLogManager)
         {
-            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            //loggerFactory.AddDebug();
-
             loggerFactory.AddSerilog(micaLogManager.CreateLogger());
 
             if (env.IsDevelopment())

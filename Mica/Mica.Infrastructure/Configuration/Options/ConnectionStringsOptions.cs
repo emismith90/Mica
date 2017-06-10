@@ -2,7 +2,12 @@
 
 namespace Mica.Infrastructure.Configuration.Options
 {
-    public class ConnectionStringsOptions : OptionsBase
+    public interface IConnectionStringsOptions 
+    {
+        string MicaConnection { get; }
+    }
+
+    public class ConnectionStringsOptions : OptionsBase, IConnectionStringsOptions
     {
         public ConnectionStringsOptions(IAppSettings appSettings) : base(appSettings)
         {

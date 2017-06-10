@@ -1,0 +1,61 @@
+﻿@model MaterialModel
+
+@{
+    var createNew = Model.Id == 0;
+
+    ViewData["Title"] = createNew ? "Vật tư" : $"Vật tư #{Model.Id}";
+
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<form asp-controller="Material" asp-action="Save" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+    <h4>@(createNew ? "Tạo mới" : "Sửa") vật tư.</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input asp-for="Id" hidden />
+    <div class="form-group">
+        <label asp-for="Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Name" required maxlength="255" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <textarea asp-for="Description" maxlength="1000" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Unit" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Unit" required maxlength="255" class="form-control" />
+            <span asp-validation-for="Unit" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="UnitPrice" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input type="number" asp-for="UnitPrice" class="form-control" />
+            <span asp-validation-for="UnitPrice" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Lưu</button>
+        </div>
+    </div>
+</form>
+
+@if (!createNew)
+{
+    <a asp-controller="Material" asp-action="ConfirmDelete" asp-route-id="@Model.Id">Xóa</a>
+}
+
+<a asp-controller="Material" asp-action="Index">Hủy</a>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

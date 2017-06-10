@@ -1,19 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Mica.Domain.Data.Models;
-using Mica.Domain.Data.TypeBuilders;
-using Mica.Domain.Data.TypeBuilders.Extensions;
+﻿using System.IO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.IO;
+using Mica.Domain.Data.Models;
+using Mica.Domain.Data.Models.Inventory;
+using Mica.Domain.Data.TypeBuilders.Extensions;
+using Mica.Domain.Data.TypeBuilders.Inventory;
 
 namespace Mica.Domain.Data.Contexts
 {
-    public class MicaContext : DbContext
+    public class MicaContext : IdentityDbContext
     {
-        public DbSet<TodoEntity> Todos { get; set; }
+        public DbSet<MaterialEntity> Materials { get; set; }
+        public DbSet<MaterialVariantEntity> MaterialVariants { get; set; }
+        public DbSet<InventoryEntity> Inventories { get; set; }
+        public DbSet<InventoryOperationEntity> InventoryOperations { get; set; }
+        public DbSet<TicketEntity> Tickets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.AddConfiguration(new TodoType());
+            modelBuilder.AddConfiguration(new MaterialType());
+            modelBuilder.AddConfiguration(new MaterialVariantType());
+            modelBuilder.AddConfiguration(new InventoryType());
+            modelBuilder.AddConfiguration(new InventoryOperationType());
 
             base.OnModelCreating(modelBuilder);
         }
