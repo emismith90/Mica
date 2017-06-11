@@ -1,15 +1,18 @@
-﻿@model IPagedList<MaterialModel>
+﻿@using Mica.Presentation.Web.ViewComponents.Material
+
+@model IPagedList<MaterialModel>
 @{
-    ViewData["Title"] = "Vật tư";
+    ViewData["Title"] = "Danh sách vật tư";
 }
 
 <h2>@ViewData["Title"].</h2>
-
-<h4>Danh sách vật tư</h4>
+<div>
+    <button type="button" class="btn btn-default create-new--btn js-open-modal" 
+            data-toggle="modal" data-target="#material-modal" data-form-type="add"
+            data-modal-content-url="/Material/Edit/0">Tạo mới</button>
+</div>
 
 @Html.Partial("SmartPaging", Model)
-
-<a class="create-new--btn" asp-controller="Material" asp-action="Edit">Tạo mới</a>
 <table class="table material-detail">
     <tbody>
         @if (Model != null && Model.Any())
@@ -28,20 +31,17 @@
             {
                 <tr>
                     <td>@Model[index].Id</td>
-                    <td><a asp-controller="Material" asp-action="Edit" asp-route-id="@Model[index].Id">@Model[index].Name</a></td>
+                    <td><a class="js-open-modal" 
+                           data-toggle="modal" data-target="#material-modal" data-form-type="edit" 
+                           data-modal-content-url="/Material/Edit/@Model[index].Id">@Model[index].Name</a></td>
                     <td>@Model[index].Description</td>
                     <td>@Model[index].Unit</td>
                     <td>@Model[index].UnitPrice</td>
 
                     <td>
-                        @*@if ((bool)ViewData["ShowRemoveButton"])
-                            {*@
-                        <a asp-controller="Material" asp-action="ConfirmDelete" asp-route-id="@Model[index].Id">Xóa</a>
-                        @*}
-                            else
-                            {
-                                @: &nbsp;
-                            }*@
+                        <a class="js-open-modal" 
+                           data-toggle="modal" data-target="#material-modal" data-form-type="delete" 
+                           data-modal-content-url="/Material/ConfirmDelete/@Model[index].Id">Xóa</a>
                     </td>
                 </tr>
             }
@@ -49,4 +49,13 @@
     </tbody>
 </table>
 
+<div class="modal fade" id="material-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

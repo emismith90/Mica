@@ -13,7 +13,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\css\Inventory\material-page.css" />
+    <Content Include="wwwroot\css\modal.css" />
+    <Content Include="wwwroot\css\form.css" />
+    <Content Include="wwwroot\css\inventory\material-page.css" />
+    <Content Include="wwwroot\js\inventory\material-delete-modal.js" />
+    <Content Include="wwwroot\js\inventory\material-edit-modal - Copy.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\js\inventory\material-edit-modal.js" />
+    <Content Include="wwwroot\js\inventory\material-page - Copy.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\js\inventory\material-page.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />

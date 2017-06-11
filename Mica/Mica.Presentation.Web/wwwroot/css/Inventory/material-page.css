@@ -1,5 +1,5 @@
 ﻿.create-new--btn {
-    display: block;
+    margin: 1em 0;
 }
 
 .table.material-detail th:nth-child(1), .table.material-detail td:nth-child(1) {
