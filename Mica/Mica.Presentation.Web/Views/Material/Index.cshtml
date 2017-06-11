@@ -6,9 +6,11 @@
 <h2>@ViewData["Title"].</h2>
 
 <h4>Danh sách vật tư</h4>
-<a asp-controller="Material" asp-action="Edit">Tạo mới</a>
 
-<table class="table">
+@Html.Partial("SmartPaging", Model)
+
+<a class="create-new--btn" asp-controller="Material" asp-action="Edit">Tạo mới</a>
+<table class="table material-detail">
     <tbody>
         @if (Model != null && Model.Any())
         {
@@ -21,7 +23,7 @@
                 <th>@Html.DisplayNameFor(m => dummyDetail.UnitPrice)</th>
                 <th></th>
             </tr>
-       
+
             @for (var index = 0; index < Model.Count; index++)
             {
                 <tr>
@@ -33,16 +35,18 @@
 
                     <td>
                         @*@if ((bool)ViewData["ShowRemoveButton"])
-                        {*@
-                            <a asp-controller="Material" asp-action="ConfirmDelete" asp-route-id="@Model[index].Id">Xóa</a>
+                            {*@
+                        <a asp-controller="Material" asp-action="ConfirmDelete" asp-route-id="@Model[index].Id">Xóa</a>
                         @*}
-                        else
-                        {
-                            @: &nbsp;
-                        }*@
+                            else
+                            {
+                                @: &nbsp;
+                            }*@
                     </td>
                 </tr>
             }
         }
     </tbody>
 </table>
+
+

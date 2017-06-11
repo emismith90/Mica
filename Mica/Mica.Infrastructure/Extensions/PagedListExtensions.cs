@@ -1,7 +1,5 @@
-﻿using Mica.Infrastructure.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Mica.Infrastructure.Helpers;
 
 namespace Mica.Infrastructure.Extensions
 {

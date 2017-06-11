@@ -25,14 +25,15 @@ namespace Mica.Infrastructure.Helpers
             pageNumber = pageNumber.NoLessThan(1);
             pageSize = pageSize.NoLessThan(1);
 
+            PageSize = pageSize;
+            PageNumber = (pageNumber == int.MaxValue) ? TotalPageCount : pageNumber;
+
             // set source to blank list if superset is null to prevent exceptions
             TotalItemCount = superset == null ? 0 : superset.Count();
             TotalPageCount = TotalItemCount > 0
                         ? (int)Math.Ceiling(TotalItemCount / (double)PageSize)
                         : 0;
 
-            PageSize = pageSize;
-            PageNumber = (pageNumber == int.MaxValue) ? TotalPageCount : pageNumber;
             HasPreviousPage = PageNumber > 1;
             HasNextPage = PageNumber < TotalPageCount;
 

@@ -11,7 +11,12 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-Mica.Presentation.Web-72d1535d-146e-42bd-8842-8577277b7a9d</UserSecretsId>
   </PropertyGroup>
+
   <ItemGroup>
+    <Content Include="wwwroot\css\Inventory\material-page.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />

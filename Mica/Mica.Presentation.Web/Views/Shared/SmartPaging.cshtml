@@ -1,0 +1,103 @@
+﻿@using System.Linq
+@using Mica.Infrastructure.Extensions
+
+@model IPagedList
+
+@{
+    var from = Model.PageSize * (Model.PageNumber - 1) + 1;
+    var to = from + Model.Count - 1;
+}
+
+<div>
+    Kết quả từ @from đến @to trên @Model.TotalItemCount kết quả.
+</div>
+
+@if (Model.TotalPageCount != 1)
+{
+    <ul class="pagination">
+        @{
+            var defaultCssClass = string.Empty;
+            var disableCssClass = "disabled";
+            var disableLink = "return false;";
+            var activeCssClass = "active";
+
+            var prevPageClass = Model.HasPreviousPage ? defaultCssClass : $"{defaultCssClass} {disableCssClass}";
+            var nextPageClass = Model.HasNextPage ? defaultCssClass : $"{defaultCssClass} {disableCssClass}";
+        }
+
+        <li class="@prevPageClass">
+            <a title="Trang đầu"
+               onclick="@(Model.HasPreviousPage ? string.Empty : disableLink)"
+               asp-controller="Material" asp-action="Index"
+               asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="1">«</a>
+        </li>
+        <li class="@prevPageClass">
+            <a title="Trang trước"
+               onclick="@(Model.HasPreviousPage ? string.Empty : disableLink)"
+               asp-controller="Material" asp-action="Index"
+               asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@(Model.PageNumber - 1)">‹</a>
+        </li>
+        
+        @if (Model.TotalPageCount > 5) // in case of very long long list
+        {
+            var start = Model.PageNumber - 2;
+            var stop = Model.PageNumber + 2;
+            if (start > 1)
+            {
+                <li>
+                    <a title="1"
+                       asp-controller="Material" asp-action="Index"
+                       asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="1">1</a>
+                </li>
+                <li><a href="javscript:void(0);">...</a></li>
+            }
+
+            for (var pgNumber = start.NoLessThan(1); pgNumber <= stop.NoGreaterThan(Model.TotalPageCount); pgNumber++)
+            {
+                var isActive = Model.PageNumber == pgNumber;
+                <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
+                    <a title="@pgNumber"
+                       onclick="@(isActive ? disableLink : string.Empty)"
+                       asp-controller="Material" asp-action="Index"
+                       asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@pgNumber">@pgNumber</a>
+                </li>
+            }
+
+            if (stop < Model.TotalPageCount)
+            {
+                <li><a href="javscript:void(0);">...</a></li>
+                <li class="@nextPageClass">
+                    <a title="@Model.TotalPageCount"
+                       asp-controller="Material" asp-action="Index"
+                       asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@Model.TotalPageCount">@Model.TotalPageCount</a>
+                </li>
+            }
+        }
+        else // just render it all
+        {
+            for (var pgNumber = 1; pgNumber <= Model.TotalPageCount; pgNumber++)
+            {
+                var isActive = Model.PageNumber == pgNumber;
+                <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
+                    <a title="@pgNumber"
+                       onclick="@(isActive ? disableLink : string.Empty)"
+                       asp-controller="Material" asp-action="Index"
+                       asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@pgNumber">@pgNumber</a>
+                </li>
+            }
+        }
+
+        <li class="@nextPageClass">
+            <a title="Trang tiếp"
+               onclick="@(Model.HasNextPage ? string.Empty : disableLink)"
+               asp-controller="Material" asp-action="Index"
+               asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@(Model.PageNumber + 1)">›</a>
+        </li>
+        <li class="@nextPageClass">
+            <a title="Trang cuối"
+               onclick="@(Model.HasNextPage ? string.Empty : disableLink)"
+               asp-controller="Material" asp-action="Index"
+               asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@Model.TotalPageCount">»</a>
+        </li>
+    </ul>
+}

@@ -14,7 +14,7 @@ namespace Mica.Presentation.Web.Controllers.Inventory
             _materialService = materialService;
         }
 
-        public IActionResult Index(int pageNumber, int pageSize)
+        public IActionResult Index(int pageNumber = 1, int pageSize = 10)
         {
             var result = this._materialService.GetAll(pageNumber, pageSize);
             return View(result);

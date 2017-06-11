@@ -48,3 +48,9 @@ textarea {
         display: none;
     }
 }
+
+.active a, .disabled a {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+}

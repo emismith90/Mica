@@ -1,0 +1,25 @@
+﻿.create-new--btn {
+    display: block;
+}
+
+.table.material-detail th:nth-child(1), .table.material-detail td:nth-child(1) {
+    width: 3em;
+    text-align: center;
+}
+
+.table.material-detail th:nth-child(2) {
+    width: 15em;
+}
+
+.table.material-detail th:nth-child(4) {
+    width: 10em;
+}
+
+.table.material-detail th:nth-child(5) {
+    width: 10em;
+}
+
+.table.material-detail th:last-child, .table.material-detail td:last-child {
+    width: 3em;
+    text-align: center;
+}

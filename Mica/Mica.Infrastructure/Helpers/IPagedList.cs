@@ -8,15 +8,15 @@ namespace Mica.Infrastructure.Helpers
 		/// Gets the element at the specified index.
 		///</summary>
         T this[int index] { get; }
-
-        ///<summary>
-		/// Gets the number of elements contained on this page.
-		///</summary>
-        int Count { get; }
     }
 
     public interface IPagedList
     {
+        ///<summary>
+		/// Gets the number of elements contained on this page.
+		///</summary>
+        int Count { get; }
+
         /// <summary>
         /// Total number of objects contained within the superset.
         /// </summary>
