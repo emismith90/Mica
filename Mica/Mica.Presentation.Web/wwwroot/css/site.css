@@ -54,3 +54,10 @@ textarea {
     cursor: default;
     opacity: 0.6;
 }
+
+.inline {
+    display: inline;
+}
+.inline-block {
+    display: inline-block;
+}

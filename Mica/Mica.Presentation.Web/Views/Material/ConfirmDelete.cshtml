@@ -1,15 +1,17 @@
 ﻿@model MaterialModel
 
 @{
-    ViewData["Title"] = "Xóa vật tư";
+    ViewData["Title"] = $"(#{Model.Id}) {Model.Name}";
 }
 
 <h2>@ViewData["Title"].</h2>
 
-<form asp-controller="Material" asp-action="Delete" method="post" class="form-horizontal">
-    <input asp-for="Id" hidden />
+<h4 class="inline-block">Xóa vật tư.</h4>
+<div class="text-danger">Bạn có chắc muốn xóa vật tư '@Model.Name' (#@Model.Id) với nội dung: </div>
 
-    <div class="text-danger">Bạn có chắc muốn xóa vật tư '@Model.Name' (#@Model.Id) với nội dung: </div>
+<hr />
+<form asp-controller="Material" asp-action="Delete" method="post" class="form-horizontal form-readonly">
+    <input asp-for="Id" hidden />
     <div class="form-group">
         <label asp-for="Name" class="col-md-2 control-label"></label>
         <div class="col-md-10">

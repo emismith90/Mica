@@ -1,0 +1,7 @@
+﻿.form-horizontal {
+    padding-top: 1em;
+}
+
+.form-horizontal.form-readonly .control-label {
+    padding-top: 0;
+}

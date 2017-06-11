@@ -3,16 +3,24 @@
 @{
     var createNew = Model.Id == 0;
 
-    ViewData["Title"] = createNew ? "Vật tư" : $"Vật tư #{Model.Id}";
-
+    ViewData["Title"] = createNew ? "Vật tư" : $"(#{Model.Id}) {Model.Name}";
 }
 
 <h2>@ViewData["Title"].</h2>
 
-<form asp-controller="Material" asp-action="Save" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-    <h4>@(createNew ? "Tạo mới" : "Sửa") vật tư.</h4>
-    <hr />
-    <div asp-validation-summary="All" class="text-danger"></div>
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<h4 class="inline-block">@(createNew ? "Tạo mới" : "Sửa") vật tư.</h4>
+@if (!createNew)
+{
+    <span>(<a asp-controller="Material" asp-action="ConfirmDelete" asp-route-id="@Model.Id">Xóa</a>)</span>
+}
+<hr />
+
+<form asp-controller="Material" asp-action="Save" method="post" class="form-horizontal">
+   
+    
+    
     <input asp-for="Id" hidden />
     <div class="form-group">
         <label asp-for="Name" class="col-md-2 control-label"></label>
@@ -49,10 +57,7 @@
     </div>
 </form>
 
-@if (!createNew)
-{
-    <a asp-controller="Material" asp-action="ConfirmDelete" asp-route-id="@Model.Id">Xóa</a>
-}
+
 
 <a asp-controller="Material" asp-action="Index">Hủy</a>
 
