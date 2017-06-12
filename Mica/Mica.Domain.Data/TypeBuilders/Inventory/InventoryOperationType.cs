@@ -10,9 +10,10 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
         {
             base.Configure(builder);
 
-            builder.HasOne(m => m.Inventory)
+            builder.HasOne(m => m.Material)
                 .WithMany()
-                .HasForeignKey(m => m.InventoryId);
+                .HasForeignKey(m => m.MaterialId)
+                .IsRequired();
 
             builder.HasOne(m => m.Ticket)
                 .WithMany()
@@ -23,7 +24,8 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
                .HasMaxLength(1000);
 
             builder.Property(c => c.Quantity)
-               .HasColumnType("bigint");
+               .HasColumnType("bigint")
+               .IsRequired();
         }
     }
 }

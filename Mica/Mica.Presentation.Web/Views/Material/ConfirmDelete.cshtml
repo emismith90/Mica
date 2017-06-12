@@ -38,6 +38,12 @@
                     @Model.UnitPrice
                 </div>
             </div>
+            <div class="form-group">
+                <label asp-for="Active" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    @(Model.Active ? "Đang hoạt động" : "Ngừng hoạt động")
+                </div>
+            </div>
         </form>
     </div>
     <div class="modal-footer">

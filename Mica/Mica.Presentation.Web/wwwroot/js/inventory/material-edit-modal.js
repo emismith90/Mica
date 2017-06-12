@@ -15,5 +15,13 @@
                 }
             });
         });
+
+        $("input[type='checkbox']", $form).on("click", function () {
+            if ($(this).prop('checked')) {
+                $(this).attr('value', true);
+            } else {
+                $(this).attr('value', false);
+            }
+        }); 
     }
 })(jQuery);

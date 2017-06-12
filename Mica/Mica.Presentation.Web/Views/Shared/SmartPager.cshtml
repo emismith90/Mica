@@ -9,12 +9,19 @@
 }
 
 <div>
-    Kết quả từ @from đến @to trên @Model.TotalItemCount kết quả.
+    @if (Model.TotalItemCount == 0)
+    {
+        <span>Không có kết quả</span>
+    }
+    else
+    {
+        <span>Kết quả từ @from đến @to trên @Model.TotalItemCount kết quả.</span>
+    }
 </div>
 
-@if (Model.TotalPageCount != 1)
+@if (Model.TotalPageCount > 1)
 {
-    <ul class="pagination">
+    <ul class="pagination js-smart-pager">
         @{
             var defaultCssClass = string.Empty;
             var disableCssClass = "disabled";
@@ -27,15 +34,15 @@
 
         <li class="@prevPageClass">
             <a title="Trang đầu"
-               onclick="@(Model.HasPreviousPage ? string.Empty : disableLink)"
-               asp-controller="Material" asp-action="Index"
-               asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="1">«</a>
+               sr-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
+               sr-to="/Material"
+               sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="1">«</a>
         </li>
         <li class="@prevPageClass">
             <a title="Trang trước"
-               onclick="@(Model.HasPreviousPage ? string.Empty : disableLink)"
-               asp-controller="Material" asp-action="Index"
-               asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@(Model.PageNumber - 1)">‹</a>
+               sr-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
+               sr-to="/Material"
+               sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@(Model.PageNumber - 1)">‹</a>
         </li>
         
         @if (Model.TotalPageCount > 5) // in case of very long long list
@@ -46,8 +53,8 @@
             {
                 <li>
                     <a title="1"
-                       asp-controller="Material" asp-action="Index"
-                       asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="1">1</a>
+                       sr-to="/Material"
+                       sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="1">1</a>
                 </li>
                 <li><a href="javscript:void(0);">...</a></li>
             }
@@ -57,9 +64,9 @@
                 var isActive = Model.PageNumber == pgNumber;
                 <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
                     <a title="@pgNumber"
-                       onclick="@(isActive ? disableLink : string.Empty)"
-                       asp-controller="Material" asp-action="Index"
-                       asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@pgNumber">@pgNumber</a>
+                       sr-to="/Material"
+                       sr-can-redirect="@(!isActive ? "True" : "False")"
+                       sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@pgNumber">@pgNumber</a>
                 </li>
             }
 
@@ -68,8 +75,8 @@
                 <li><a href="javscript:void(0);">...</a></li>
                 <li class="@nextPageClass">
                     <a title="@Model.TotalPageCount"
-                       asp-controller="Material" asp-action="Index"
-                       asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@Model.TotalPageCount">@Model.TotalPageCount</a>
+                       sr-to="/Material"
+                       sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@Model.TotalPageCount">@Model.TotalPageCount</a>
                 </li>
             }
         }
@@ -80,24 +87,24 @@
                 var isActive = Model.PageNumber == pgNumber;
                 <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
                     <a title="@pgNumber"
-                       onclick="@(isActive ? disableLink : string.Empty)"
-                       asp-controller="Material" asp-action="Index"
-                       asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@pgNumber">@pgNumber</a>
+                       sr-to="/Material"
+                       sr-can-redirect="@(!isActive ? "True" : "False")"
+                       sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@pgNumber">@pgNumber</a>
                 </li>
             }
         }
 
         <li class="@nextPageClass">
             <a title="Trang tiếp"
-               onclick="@(Model.HasNextPage ? string.Empty : disableLink)"
-               asp-controller="Material" asp-action="Index"
-               asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@(Model.PageNumber + 1)">›</a>
+               sr-to="/Material"
+               sr-can-redirect="@(Model.HasNextPage ? "True" : "False")"
+               sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@(Model.PageNumber + 1)">›</a>
         </li>
         <li class="@nextPageClass">
             <a title="Trang cuối"
-               onclick="@(Model.HasNextPage ? string.Empty : disableLink)"
-               asp-controller="Material" asp-action="Index"
-               asp-route-pageSize="@Model.PageSize" asp-route-pageNumber="@Model.TotalPageCount">»</a>
+               sr-to="/Material"
+               sr-can-redirect="@(Model.HasNextPage ? "True" : "False")"
+               sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@Model.TotalPageCount">»</a>
         </li>
     </ul>
 }

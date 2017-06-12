@@ -14,9 +14,10 @@ namespace Mica.Domain.Data.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Unit = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Unit = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(12, 2)", nullable: false)
                 },
                 constraints: table =>
@@ -31,9 +32,9 @@ namespace Mica.Domain.Data.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     CreatedBy = table.Column<Guid>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedBy = table.Column<Guid>(nullable: true),
-                    ModifiedOn = table.Column<DateTime>(nullable: true)
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -96,25 +97,54 @@ namespace Mica.Domain.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MaterialVariants",
+                name: "Inventories",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    InActive = table.Column<bool>(type: "bit", nullable: false),
-                    MaterialId = table.Column<long>(nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(12, 2)", nullable: false)
+                    InStock = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MaterialVariants", x => x.Id);
+                    table.PrimaryKey("PK_Inventories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MaterialVariants_Materials_MaterialId",
+                        name: "FK_Inventories_Materials_Id",
+                        column: x => x.Id,
+                        principalTable: "Materials",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InventoryOperations",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    CreatedBy = table.Column<Guid>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    MaterialId = table.Column<long>(nullable: false),
+                    ModifiedBy = table.Column<Guid>(nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    Quantity = table.Column<long>(type: "bigint", nullable: false),
+                    TicketId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventoryOperations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InventoryOperations_Materials_MaterialId",
                         column: x => x.MaterialId,
                         principalTable: "Materials",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InventoryOperations_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,71 +233,15 @@ namespace Mica.Domain.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Inventories",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    InStock = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Inventories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Inventories_MaterialVariants_Id",
-                        column: x => x.Id,
-                        principalTable: "MaterialVariants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InventoryOperations",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    CreatedBy = table.Column<Guid>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    InventoryId = table.Column<long>(nullable: false),
-                    ModifiedBy = table.Column<Guid>(nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    Quantity = table.Column<long>(type: "bigint", nullable: false),
-                    TicketId = table.Column<long>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InventoryOperations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_InventoryOperations_Inventories_InventoryId",
-                        column: x => x.InventoryId,
-                        principalTable: "Inventories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_InventoryOperations_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
-                name: "IX_InventoryOperations_InventoryId",
+                name: "IX_InventoryOperations_MaterialId",
                 table: "InventoryOperations",
-                column: "InventoryId");
+                column: "MaterialId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InventoryOperations_TicketId",
                 table: "InventoryOperations",
                 column: "TicketId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MaterialVariants_MaterialId",
-                table: "MaterialVariants",
-                column: "MaterialId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -310,6 +284,9 @@ namespace Mica.Domain.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Inventories");
+
+            migrationBuilder.DropTable(
                 name: "InventoryOperations");
 
             migrationBuilder.DropTable(
@@ -328,7 +305,7 @@ namespace Mica.Domain.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Inventories");
+                name: "Materials");
 
             migrationBuilder.DropTable(
                 name: "Tickets");
@@ -338,12 +315,6 @@ namespace Mica.Domain.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "MaterialVariants");
-
-            migrationBuilder.DropTable(
-                name: "Materials");
         }
     }
 }

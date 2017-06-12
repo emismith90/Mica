@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Mica.Domain.Data.Models.Inventory
+﻿namespace Mica.Domain.Data.Models.Inventory
 {
     public class InventoryEntity : EntityBase<long>
     {
@@ -9,6 +7,6 @@ namespace Mica.Domain.Data.Models.Inventory
 
         public long InStock{ get; set; }
 
-        public virtual MaterialVariantEntity MaterialVariant { get; set; }
+        public virtual MaterialEntity Material { get; set; }
     }
 }

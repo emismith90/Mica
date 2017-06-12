@@ -19,6 +19,10 @@
     width: 10em;
 }
 
+.table.material-detail th:nth-child(6) {
+    width: 3em;
+}
+
 .table.material-detail th:last-child, .table.material-detail td:last-child {
     width: 3em;
     text-align: center;

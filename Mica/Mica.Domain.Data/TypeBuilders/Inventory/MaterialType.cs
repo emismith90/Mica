@@ -12,16 +12,23 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
 
             builder.Property(c => c.Name)
                 .HasColumnType("nvarchar(255)")
-                .HasMaxLength(255);
+                .HasMaxLength(255)
+                .IsRequired();
+
             builder.Property(c => c.Description)
                .HasColumnType("nvarchar(1000)")
                .HasMaxLength(1000);
 
             builder.Property(c => c.Unit)
                .HasColumnType("nvarchar(255)")
-               .HasMaxLength(255);
+               .HasMaxLength(255)
+               .IsRequired();
             builder.Property(c => c.UnitPrice)
                .HasColumnType("decimal(12, 2)");
+
+            builder.Property(c => c.Active)
+               .HasColumnType("bit")
+               .IsRequired();
         }
     }
 }

@@ -3,7 +3,7 @@ using Mica.Application.Services.Abstract;
 
 namespace Mica.Application.Services.Inventory
 {
-    public interface IInventoryService : ICrudService<InventoryModel, long>
+    public interface IInventoryService : ICrudService<InventoryModel, long>, IModelCreatorService<InventoryModel>
     {
     }
 }

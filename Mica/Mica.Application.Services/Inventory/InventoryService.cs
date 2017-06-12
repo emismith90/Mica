@@ -5,18 +5,28 @@ using Mica.Domain.Abstract.Repositories;
 using Mica.Domain.Abstract.UoW;
 using Mica.Infrastructure.Caching.Abstract;
 using Mica.Infrastructure.Configuration.Options;
+using System;
 
 namespace Mica.Application.Services.Inventory
 {
     public class InventoryService : CrudServiceBase<long, InventoryModel, InventoryEntity>, IInventoryService
     {
-        public InventoryService(IMapper mapper, 
+        public InventoryService(
+            IMapper mapper, 
             IUnitOfWork unitOfWork, 
             IMicaCache cache, 
             ICachingOptions cachingOptions, 
             IGenericRepository<InventoryEntity, long> repository) 
             : base(mapper, unitOfWork, cache, cachingOptions, repository)
         {
+        }
+
+        public InventoryModel CreateDefaultObject()
+        {
+            return new InventoryModel
+            {
+                InStock = 0
+            };
         }
     }
 }

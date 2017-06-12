@@ -12,9 +12,9 @@ namespace Mica.Presentation.Web.Controllers.Inventory
             _materialService = materialService;
         }
 
-        public IActionResult Index(int pageNumber = 1, int pageSize = 10)
+        public IActionResult Index(string query, int pageNumber = 1, int pageSize = 10)
         {
-            var result = this._materialService.GetAll(pageNumber, pageSize);
+            var result = this._materialService.GetAll(query, pageNumber, pageSize);
             return View(result);
         }
 
@@ -23,7 +23,7 @@ namespace Mica.Presentation.Web.Controllers.Inventory
             MaterialModel model;
             if (id == 0)
             {
-                model = new MaterialModel();
+                model = this._materialService.CreateDefaultObject();
             }
             else
             {

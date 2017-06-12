@@ -45,7 +45,7 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
-                    b.Property<long>("InventoryId");
+                    b.Property<long>("MaterialId");
 
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnName("ModifiedBy");
@@ -61,7 +61,7 @@ namespace Mica.Domain.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InventoryId");
+                    b.HasIndex("MaterialId");
 
                     b.HasIndex("TicketId");
 
@@ -74,15 +74,20 @@ namespace Mica.Domain.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("Id");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
                     b.Property<string>("Unit")
+                        .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
@@ -94,43 +99,24 @@ namespace Mica.Domain.Data.Migrations
                     b.ToTable("Materials");
                 });
 
-            modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.MaterialVariantEntity", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000);
-
-                    b.Property<bool>("InActive")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("MaterialId");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(12, 2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaterialId");
-
-                    b.ToTable("MaterialVariants");
-                });
-
             modelBuilder.Entity("Mica.Domain.Data.Models.TicketEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("CreatedBy");
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnName("CreatedBy");
 
-                    b.Property<DateTime?>("CreatedOn");
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnName("CreatedOn")
+                        .HasColumnType("datetime");
 
-                    b.Property<Guid?>("ModifiedBy");
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnName("ModifiedBy");
 
-                    b.Property<DateTime?>("ModifiedOn");
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnName("ModifiedOn")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -296,7 +282,7 @@ namespace Mica.Domain.Data.Migrations
 
             modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.InventoryEntity", b =>
                 {
-                    b.HasOne("Mica.Domain.Data.Models.Inventory.MaterialVariantEntity", "MaterialVariant")
+                    b.HasOne("Mica.Domain.Data.Models.Inventory.MaterialEntity", "Material")
                         .WithMany()
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -304,22 +290,14 @@ namespace Mica.Domain.Data.Migrations
 
             modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.InventoryOperationEntity", b =>
                 {
-                    b.HasOne("Mica.Domain.Data.Models.Inventory.InventoryEntity", "Inventory")
+                    b.HasOne("Mica.Domain.Data.Models.Inventory.MaterialEntity", "Material")
                         .WithMany()
-                        .HasForeignKey("InventoryId")
+                        .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Mica.Domain.Data.Models.TicketEntity", "Ticket")
                         .WithMany()
                         .HasForeignKey("TicketId");
-                });
-
-            modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.MaterialVariantEntity", b =>
-                {
-                    b.HasOne("Mica.Domain.Data.Models.Inventory.MaterialEntity", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

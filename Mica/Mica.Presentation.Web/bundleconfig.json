@@ -6,6 +6,7 @@
     // An array of relative input file paths. Globbing patterns supported
     "inputFiles": [
       "wwwroot/css/site.css",
+      "wwwroot/css/control.css",
       "wwwroot/css/form.css",
       "wwwroot/css/modal.css",
       "wwwroot/css/inventory/*.css"
@@ -15,6 +16,7 @@
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
       "wwwroot/js/site.js",
+      "wwwroot/js/smart-pager.js",
       "wwwroot/js/inventory/*.js"
     ],
     // Optionally specify minification options

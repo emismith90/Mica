@@ -10,12 +10,14 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
         {
             base.Configure(builder);
 
-            builder.HasOne(m => m.MaterialVariant)
+            builder.HasOne(m => m.Material)
               .WithMany()
-              .HasForeignKey(m => m.Id);
+              .HasForeignKey(m => m.Id)
+              .IsRequired();
 
             builder.Property(c => c.InStock)
-               .HasColumnType("bigint");
+               .HasColumnType("bigint")
+               .IsRequired();
         }
     }
 }

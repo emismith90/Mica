@@ -22,5 +22,8 @@ namespace Mica.Application.Models.Inventory
         [Range(0, 1000000000, ErrorMessage = "Phải nằm trong khoảng {1} tới {2}")]
         [DisplayName("Giá/Đơn vị")]
         public decimal UnitPrice { get; set; }
+
+        [DisplayName("Trạng thái")]
+        public bool Active { get; set; }
     }
 }
