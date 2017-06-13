@@ -1,15 +1,20 @@
-﻿(function ($) {
-    $(document).ready(function () {
-        var $links = $('.js-smart-pager a[sr-to]');
+﻿Mica.Common = {};
+Mica.Common.SmartLink = {
+    bindEvent: function ($scope) {
+        if (!$scope)
+            $scope = $(document);
 
+        var $links = $('a[sr-to]', $scope);
+
+        // clickable look & feel
         $links.each(function (index, element) {
             element.href = 'javascript:void(0);';
-        }); // clickable look & feel
+        });
 
         $links.click(function () {
             var $link = $(this);
             var canRedirect = $link.attr('sr-can-redirect');
-            if (canRedirect !== "True") return;
+            if (canRedirect && canRedirect !== "True") return;
 
             var target = $link.attr('sr-to');
 
@@ -22,10 +27,10 @@
                 }
             });
 
-            var currentQueryString = getQueryStringObject();
+            var currentQueryString = Mica.Utils.QueryString.getObject();
             $.extend(currentQueryString, localQueryString);
 
-            window.location.href = target + serializeToQueryString(currentQueryString);
+            window.location.href = target + Mica.Utils.QueryString.serialize(currentQueryString);
         });
-    });
-})(jQuery);
+    }
+};

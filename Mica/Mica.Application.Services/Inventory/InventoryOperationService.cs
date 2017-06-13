@@ -29,67 +29,20 @@ namespace Mica.Application.Services.Inventory
         }
 
         #region Override Read
-        public override IList<InventoryOperationModel> GetAll()
+        public override IList<InventoryOperationModel> GetAll(string query, string orderBy, string orderDirection)
         {
-            var cacheKey = $"[{typeof(InventoryOperationEntity)}].GetAll";
-            return Cache.GetOrFetch(cacheKey,
-                () => {
-                    var queryableResult = Repository.GetAll().OrderBy(o => o.CreatedOn).ToList();
-                    return Mapper
-                            .Map<IList<InventoryOperationModel>>(queryableResult);
-                });
+            if (string.IsNullOrEmpty(orderBy))
+                orderBy = "CreatedOn";
+
+            return base.GetAll(query, orderBy, orderDirection);
         }
 
-        public override IPagedList<InventoryOperationModel> GetAll(int pageNumber, int pageSize)
+        public override IPagedList<InventoryOperationModel> GetAll(string query, int pageNumber, int pageSize, string orderBy, string orderDirection)
         {
-            var cacheKey = $"[{typeof(InventoryOperationEntity)}].GetAll[pageNumber:{pageNumber}&pageSize:{pageSize}]";
-            return Cache.GetOrFetch(cacheKey,
-                () => {
-                    var queryableResult = Repository.GetAll().OrderBy(o => o.CreatedOn);
-                    return Mapper
-                            .Map<IEnumerable<InventoryOperationModel>>(queryableResult)
-                            .ToPagedList(pageNumber, pageSize);
-                });
-        }
+            if (string.IsNullOrEmpty(orderBy))
+                orderBy = "CreatedOn";
 
-        public override IList<InventoryOperationModel> GetAll(string query)
-        {
-            if (string.IsNullOrEmpty(query))
-                return GetAll();
-
-            var cacheKey = $"[{typeof(InventoryOperationEntity)}].GetAll[query:{query}]";
-            return Cache.GetOrFetch(cacheKey,
-                () =>
-                {
-                    var queryableResult = Repository
-                                            .GetAll()
-                                            .Where(e => e.ToSearchableString().ToLower().Contains(query.ToLower()))
-                                            .OrderBy(o => o.CreatedOn)
-                                            .ToList();
-
-                    return Mapper
-                            .Map<IList<InventoryOperationModel>>(queryableResult);
-                });
-        }
-
-        public override IPagedList<InventoryOperationModel> GetAll(string query, int pageNumber, int pageSize)
-        {
-            if (string.IsNullOrEmpty(query))
-                return GetAll(pageNumber, pageSize);
-
-            var cacheKey = $"[{typeof(InventoryOperationEntity)}].GetAll[query:{query}&pageNumber:{pageNumber}&pageSize:{pageSize}]";
-            return Cache.GetOrFetch(cacheKey,
-                () =>
-                {
-                    var queryableResult = Repository
-                                            .GetAll()
-                                            .Where(e => e.ToSearchableString().ToLower().Contains(query.ToLower()))
-                                            .OrderBy(o => o.CreatedOn);
-
-                    return Mapper
-                            .Map<IEnumerable<InventoryOperationModel>>(queryableResult)
-                            .ToPagedList(pageNumber, pageSize);
-                });
+            return base.GetAll(query, pageNumber, pageSize, orderBy, orderDirection);
         }
         #endregion
 

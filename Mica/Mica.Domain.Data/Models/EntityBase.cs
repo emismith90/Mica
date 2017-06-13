@@ -1,6 +1,6 @@
-﻿using Mica.Domain.Data.Models.Abstract;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Mica.Infrastructure.Models.Abstract;
 
 namespace Mica.Domain.Data.Models
 {

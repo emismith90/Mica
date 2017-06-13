@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Mica.Domain.Data.Models.Abstract
+namespace Mica.Infrastructure.Models.Abstract
 {
-    interface IAuditableEntity
+    public interface IAuditableEntity
     {
         Guid? CreatedBy { get; }
         DateTime? CreatedOn { get; }

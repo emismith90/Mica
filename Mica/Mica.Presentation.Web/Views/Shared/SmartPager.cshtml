@@ -4,6 +4,7 @@
 @model IPagedList
 
 @{
+    var srTo = ViewData["sr-to"] != null ? ViewData["sr-to"]?.ToString() : "/Default";
     var from = Model.PageSize * (Model.PageNumber - 1) + 1;
     var to = from + Model.Count - 1;
 }
@@ -21,11 +22,10 @@
 
 @if (Model.TotalPageCount > 1)
 {
-    <ul class="pagination js-smart-pager">
+    <ul class="pagination">
         @{
             var defaultCssClass = string.Empty;
             var disableCssClass = "disabled";
-            var disableLink = "return false;";
             var activeCssClass = "active";
 
             var prevPageClass = Model.HasPreviousPage ? defaultCssClass : $"{defaultCssClass} {disableCssClass}";
@@ -35,13 +35,13 @@
         <li class="@prevPageClass">
             <a title="Trang đầu"
                sr-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
-               sr-to="/Material"
+               sr-to="@srTo"
                sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="1">«</a>
         </li>
         <li class="@prevPageClass">
             <a title="Trang trước"
                sr-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
-               sr-to="/Material"
+               sr-to="@srTo"
                sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@(Model.PageNumber - 1)">‹</a>
         </li>
         
@@ -53,7 +53,7 @@
             {
                 <li>
                     <a title="1"
-                       sr-to="/Material"
+                       sr-to="@srTo"
                        sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="1">1</a>
                 </li>
                 <li><a href="javscript:void(0);">...</a></li>
@@ -64,7 +64,7 @@
                 var isActive = Model.PageNumber == pgNumber;
                 <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
                     <a title="@pgNumber"
-                       sr-to="/Material"
+                       sr-to="@srTo"
                        sr-can-redirect="@(!isActive ? "True" : "False")"
                        sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@pgNumber">@pgNumber</a>
                 </li>
@@ -75,7 +75,7 @@
                 <li><a href="javscript:void(0);">...</a></li>
                 <li class="@nextPageClass">
                     <a title="@Model.TotalPageCount"
-                       sr-to="/Material"
+                       sr-to="@srTo"
                        sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@Model.TotalPageCount">@Model.TotalPageCount</a>
                 </li>
             }
@@ -87,7 +87,7 @@
                 var isActive = Model.PageNumber == pgNumber;
                 <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
                     <a title="@pgNumber"
-                       sr-to="/Material"
+                       sr-to="@srTo"
                        sr-can-redirect="@(!isActive ? "True" : "False")"
                        sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@pgNumber">@pgNumber</a>
                 </li>
@@ -96,13 +96,13 @@
 
         <li class="@nextPageClass">
             <a title="Trang tiếp"
-               sr-to="/Material"
+               sr-to="@srTo"
                sr-can-redirect="@(Model.HasNextPage ? "True" : "False")"
                sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@(Model.PageNumber + 1)">›</a>
         </li>
         <li class="@nextPageClass">
             <a title="Trang cuối"
-               sr-to="/Material"
+               sr-to="@srTo"
                sr-can-redirect="@(Model.HasNextPage ? "True" : "False")"
                sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@Model.TotalPageCount">»</a>
         </li>

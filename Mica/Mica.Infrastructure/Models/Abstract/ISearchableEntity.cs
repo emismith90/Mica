@@ -1,4 +1,4 @@
-﻿namespace Mica.Domain.Data.Models.Abstract
+﻿namespace Mica.Infrastructure.Models.Abstract
 {
     public interface ISearchableEntity
     {

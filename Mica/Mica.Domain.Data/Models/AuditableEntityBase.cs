@@ -1,5 +1,5 @@
 ﻿using System;
-using Mica.Domain.Data.Models.Abstract;
+using Mica.Infrastructure.Models.Abstract;
 
 namespace Mica.Domain.Data.Models
 {

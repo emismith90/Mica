@@ -6,19 +6,19 @@
     width: 15em;
 }
 .table.material-detail th:nth-child(3) {
-    width: 10em;
+    width: 8em;
 }
 
 .table.material-detail th:nth-child(5) {
-    width: 10em;
+    width: 8em;
 }
 
 .table.material-detail th:nth-child(6) {
-    width: 10em;
+    width: 8em;
 }
 
 .table.material-detail th:nth-child(7), .table.material-detail td:nth-child(7) {
-    width: 3em;
+    width: 8em;
     text-align: center;
 }
 

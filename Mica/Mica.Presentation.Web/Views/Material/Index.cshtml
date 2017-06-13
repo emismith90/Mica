@@ -1,19 +1,23 @@
 ﻿@model IPagedList<MaterialModel>
 @{
     ViewData["Title"] = "Danh sách vật tư";
+    var linkTo = "/Material";
 }
 
 <h2>@ViewData["Title"].</h2>
 <div>
     <button type="button" class="btn btn-default create-new--btn js-open-modal"
             data-toggle="modal" data-target="#material-modal" data-form-type="add"
-            data-modal-content-url="/Material/Edit/0">
+            data-modal-content-url="@linkTo/Edit/0">
         <i class="glyphicon glyphicon glyphicon-plus"></i>
         Tạo mới
     </button>
 </div>
 
-@Html.Partial("SmartPager", Model)
+@Html.Partial("SmartPager", Model, new ViewDataDictionary(ViewData)
+{
+    { "sr-to", linkTo }
+})
 
 @Html.Partial("TableSearchBox", new ViewDataDictionary(ViewData)
 {
@@ -25,14 +29,15 @@
         @if (Model != null && Model.Any())
         {
             var dummyDetail = Model.FirstOrDefault();
+
             <tr>
-                <th>@Html.DisplayNameFor(m => dummyDetail.Id)</th>
-                <th>@Html.DisplayNameFor(m => dummyDetail.Name)</th>
-                <th>@Html.DisplayNameFor(m => dummyDetail.Code)</th>
-                <th>@Html.DisplayNameFor(m => dummyDetail.Description)</th>
-                <th>@Html.DisplayNameFor(m => dummyDetail.Unit)</th>
-                <th>@Html.DisplayNameFor(m => dummyDetail.UnitPrice)</th>
-                <th>@Html.DisplayNameFor(m => dummyDetail.Active)</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "Id", Html.DisplayNameFor(m => dummyDetail.Id))</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "Name", Html.DisplayNameFor(m => dummyDetail.Name))</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "Code", Html.DisplayNameFor(m => dummyDetail.Code))</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "Description", Html.DisplayNameFor(m => dummyDetail.Description))</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "Unit", Html.DisplayNameFor(m => dummyDetail.Unit))</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "UnitPrice", Html.DisplayNameFor(m => dummyDetail.UnitPrice))</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "Active", Html.DisplayNameFor(m => dummyDetail.Active))</th>
                 <th></th>
             </tr>
 
@@ -42,7 +47,7 @@
                     <td>
                         <a class="hover-view js-open-modal" title="Sửa"
                            data-toggle="modal" data-target="#material-modal" data-form-type="edit"
-                           data-modal-content-url="/Material/Edit/@Model[index].Id">
+                           data-modal-content-url="@linkTo/Edit/@Model[index].Id">
                             <i class="glyphicon glyphicon-pencil"></i>
                         </a>
                         <span class="normal-view">@Model[index].Id</span>
@@ -57,13 +62,13 @@
                     <td>
                         <a class="hover-view js-open-modal" title="Xóa"
                            data-toggle="modal" data-target="#material-modal" data-form-type="delete"
-                           data-modal-content-url="/Material/ConfirmDelete/@Model[index].Id">
+                           data-modal-content-url="@linkTo/ConfirmDelete/@Model[index].Id">
                             <i class="glyphicon glyphicon-remove"></i>
                         </a>
                     </td>
                 </tr>
             }
-        }
+                        }
     </tbody>
 </table>
 

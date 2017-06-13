@@ -12,7 +12,7 @@
 .table.allow-edit td:nth-child(1),
 .table.allow-edit td:nth-child(1) .normal-view,
 .table.allow-edit td:nth-child(1) .hover-view {
-    width: 3em;
+    width: 5em;
     text-align: center;
 }
 
@@ -20,6 +20,6 @@
 .table.allow-delete td:last-child,
 .table.allow-delete td:last-child .normal-view,
 .table.allow-delete td:last-child .hover-view {
-    width: 3em;
+    width: 5em;
     text-align: center;
 }

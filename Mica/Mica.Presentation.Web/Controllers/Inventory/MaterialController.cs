@@ -12,9 +12,9 @@ namespace Mica.Presentation.Web.Controllers.Inventory
             _materialService = materialService;
         }
 
-        public IActionResult Index(string query, int pageNumber = 1, int pageSize = 10)
+        public IActionResult Index(string query, int pageNumber = 1, int pageSize = 10, string orderBy = "", string orderDirection = "")
         {
-            var result = this._materialService.GetAll(query, pageNumber, pageSize);
+            var result = this._materialService.GetAll(query, pageNumber, pageSize, orderBy, orderDirection);
             return View(result);
         }
 

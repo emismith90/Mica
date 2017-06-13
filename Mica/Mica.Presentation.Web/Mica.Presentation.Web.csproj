@@ -15,11 +15,7 @@
   <ItemGroup>
     <Content Include="wwwroot\css\control.css" />
     <Content Include="wwwroot\css\Inventory\inventory-operation-page.css" />
-    <Content Include="wwwroot\css\inventory\inventory-page - Copy.css">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="wwwroot\css\Inventory\inventory-page.css" />
-    <Content Include="wwwroot\css\inventory\material-page - Copy.css" />
     <Content Include="wwwroot\css\table.css" />
     <Content Include="wwwroot\css\modal.css" />
     <Content Include="wwwroot\css\form.css" />
@@ -29,7 +25,16 @@
     <Content Include="wwwroot\js\inventory\material-page.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\js\pager.js">
+    <Content Include="wwwroot\js\jquery.plugins.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\js\mica - Copy.utils.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\js\mica.common.js" />
+    <Content Include="wwwroot\js\mica.utils.js" />
+    <Content Include="wwwroot\js\onpageload.js" />
+    <Content Include="wwwroot\js\smart-pager - Copy.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\js\smart-pager.js" />

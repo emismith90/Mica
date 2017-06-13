@@ -6,5 +6,8 @@
         public long? TicketId { get; set; }
         public long Quantity { get; set; }
         public string Description { get; set; }
+
+        public string MaterialCode { get; set; }
+        public string MaterialName { get; set; }
     }
 }
