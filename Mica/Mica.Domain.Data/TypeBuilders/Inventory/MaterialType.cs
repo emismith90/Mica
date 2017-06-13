@@ -10,6 +10,10 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
         {
             base.Configure(builder);
 
+            builder.Property(c => c.Code)
+                .HasColumnType("nvarchar(50)")
+                .HasMaxLength(50);
+
             builder.Property(c => c.Name)
                 .HasColumnType("nvarchar(255)")
                 .HasMaxLength(255)

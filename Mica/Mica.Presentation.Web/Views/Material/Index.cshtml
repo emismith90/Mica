@@ -5,27 +5,22 @@
 
 <h2>@ViewData["Title"].</h2>
 <div>
-    <button type="button" class="btn btn-default create-new--btn js-open-modal" 
+    <button type="button" class="btn btn-default create-new--btn js-open-modal"
             data-toggle="modal" data-target="#material-modal" data-form-type="add"
-            data-modal-content-url="/Material/Edit/0">Tạo mới</button>
+            data-modal-content-url="/Material/Edit/0">
+        <i class="glyphicon glyphicon glyphicon-plus"></i>
+        Tạo mới
+    </button>
 </div>
 
 @Html.Partial("SmartPager", Model)
 
-<form class="clearfix" asp-controller="Material" method="GET">
-    <div class="search-box search-box--float-right">
-        <div class="input-group col-md-12">
-            <input id="query" name="query" value="@Context.Request.Query["query"]" type="text" class="form-control" placeholder="Tìm theo tên hoặc mô tả." />
-            <span class="input-group-btn">
-                <button class="btn btn-info" type="submit">
-                    <i class="glyphicon glyphicon-search"></i>
-                </button>
-            </span>
-        </div>
-    </div>
-</form>
+@Html.Partial("TableSearchBox", new ViewDataDictionary(ViewData)
+{
+    { "asp-controller", "Material" }
+})
 
-<table class="table table-striped table-hover material-detail">
+<table class="table table-striped table-hover allow-edit allow-delete material-detail">
     <tbody>
         @if (Model != null && Model.Any())
         {
@@ -33,6 +28,7 @@
             <tr>
                 <th>@Html.DisplayNameFor(m => dummyDetail.Id)</th>
                 <th>@Html.DisplayNameFor(m => dummyDetail.Name)</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.Code)</th>
                 <th>@Html.DisplayNameFor(m => dummyDetail.Description)</th>
                 <th>@Html.DisplayNameFor(m => dummyDetail.Unit)</th>
                 <th>@Html.DisplayNameFor(m => dummyDetail.UnitPrice)</th>
@@ -43,19 +39,27 @@
             @for (var index = 0; index < Model.Count; index++)
             {
                 <tr>
-                    <td>@Model[index].Id</td>
-                    <td><a class="js-open-modal" 
-                           data-toggle="modal" data-target="#material-modal" data-form-type="edit" 
-                           data-modal-content-url="/Material/Edit/@Model[index].Id">@Model[index].Name</a></td>
+                    <td>
+                        <a class="hover-view js-open-modal" title="Sửa"
+                           data-toggle="modal" data-target="#material-modal" data-form-type="edit"
+                           data-modal-content-url="/Material/Edit/@Model[index].Id">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <span class="normal-view">@Model[index].Id</span>
+                    </td>
+                    <td>@Model[index].Name</td>
+                    <td>@Model[index].Code</td>
                     <td>@Model[index].Description</td>
                     <td>@Model[index].Unit</td>
                     <td>@Model[index].UnitPrice</td>
-                    <td>@Html.CheckBoxFor(m=> Model[index].Active)</td>
+                    <td>@Html.CheckBoxFor(m => Model[index].Active, new { onclick = "return false" })</td>
 
                     <td>
-                        <a class="js-open-modal" 
-                           data-toggle="modal" data-target="#material-modal" data-form-type="delete" 
-                           data-modal-content-url="/Material/ConfirmDelete/@Model[index].Id">Xóa</a>
+                        <a class="hover-view js-open-modal" title="Xóa"
+                           data-toggle="modal" data-target="#material-modal" data-form-type="delete"
+                           data-modal-content-url="/Material/ConfirmDelete/@Model[index].Id">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
                     </td>
                 </tr>
             }

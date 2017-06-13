@@ -3,7 +3,10 @@ using Mica.Application.Services.Abstract;
 
 namespace Mica.Application.Services.Inventory
 {
-    public interface IMaterialService : ICrudWithSeachService<MaterialModel, long>, IModelCreatorService<MaterialModel>
+    public interface IMaterialService 
+          : ICrudService<MaterialModel, long>, 
+            IContentListingService<MaterialModel>,
+            IContentLookupListingService<MaterialModel>
     {
     }   
 }

@@ -77,6 +77,10 @@ namespace Mica.Domain.Data.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);

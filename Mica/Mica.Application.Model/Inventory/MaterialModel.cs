@@ -5,6 +5,10 @@ namespace Mica.Application.Models.Inventory
 {
     public class MaterialModel : ModelBase<long>
     {
+        [MaxLength(50, ErrorMessage = "Không được dài quá {1} ký tự")]
+        [DisplayName("Mã")]
+        public string Code { get; set; }
+
         [Required(ErrorMessage = "Trường bắt buộc phải điền")]
         [MaxLength(255, ErrorMessage = "Không được dài quá {1} ký tự")]
         [DisplayName("Tên")]

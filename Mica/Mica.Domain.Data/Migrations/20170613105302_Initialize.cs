@@ -15,6 +15,7 @@ namespace Mica.Domain.Data.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Active = table.Column<bool>(type: "bit", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Unit = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),

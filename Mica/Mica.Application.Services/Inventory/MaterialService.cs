@@ -5,7 +5,6 @@ using Mica.Domain.Abstract.Repositories;
 using Mica.Domain.Abstract.UoW;
 using Mica.Infrastructure.Caching.Abstract;
 using Mica.Infrastructure.Configuration.Options;
-using System;
 
 namespace Mica.Application.Services.Inventory
 {
@@ -21,7 +20,7 @@ namespace Mica.Application.Services.Inventory
         {
         }
 
-        public MaterialModel CreateDefaultObject()
+        public override MaterialModel CreateDefaultObject()
         {
             return new MaterialModel
             {

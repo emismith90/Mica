@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Mica.Domain.Abstract.UoW;
 using Mica.Infrastructure.Caching.Abstract;
 using Mica.Application.Services.Abstract;
@@ -7,11 +9,10 @@ using Mica.Infrastructure.Helpers;
 using Mica.Domain.Abstract.Repositories;
 using Mica.Infrastructure.Configuration.Options;
 using Mica.Infrastructure.Extensions;
-using System.Collections.Generic;
 
 namespace Mica.Application.Services
 {
-    public abstract class CrudServiceBase<TKey, TModel, TEntity> : DataServiceBase, ICrudService<TModel, TKey>
+    public abstract class CrudServiceBase<TKey, TModel, TEntity> : DataServiceBase, ICrudService<TModel, TKey>, IContentListingService<TModel>
         where TModel : ModelBase<TKey>
         where TEntity : class
     {
@@ -35,6 +36,17 @@ namespace Mica.Application.Services
                 () => {
                         return Mapper.Map<TModel>(this.Repository.GetById(id));
                     });
+        }
+
+        public virtual IList<TModel> GetAll()
+        {
+            var cacheKey = $"[{typeof(TEntity)}].GetAll";
+            return Cache.GetOrFetch(cacheKey,
+                () => {
+                    var queryableResult = Repository.GetAll().ToList();
+                    return Mapper
+                            .Map<IList<TModel>>(queryableResult);
+                });
         }
 
         public virtual IPagedList<TModel> GetAll(int pageNumber, int pageSize)
@@ -99,6 +111,8 @@ namespace Mica.Application.Services
                 return false;
             }
         }
+
+        public abstract TModel CreateDefaultObject();
 
         protected virtual void ClearEntityCache()
         {

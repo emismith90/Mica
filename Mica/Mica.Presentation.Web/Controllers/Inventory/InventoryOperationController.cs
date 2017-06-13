@@ -4,30 +4,30 @@ using Mica.Application.Models.Inventory;
 
 namespace Mica.Presentation.Web.Controllers.Inventory
 {
-    public class MaterialController : Controller
+    public class InventoryOperationController : Controller
     {
-        private readonly IMaterialService _materialService;
-        public MaterialController(IMaterialService materialService)
+        private readonly IInventoryOperationService _inventoryService;
+        public InventoryOperationController(IInventoryOperationService inventoryService)
         {
-            _materialService = materialService;
+            _inventoryService = inventoryService;
         }
 
         public IActionResult Index(string query, int pageNumber = 1, int pageSize = 10)
         {
-            var result = this._materialService.GetAll(query, pageNumber, pageSize);
+            var result = this._inventoryService.GetAll(query, pageNumber, pageSize);
             return View(result);
         }
 
         public IActionResult Edit(long id = 0)
         {
-            MaterialModel model;
+            InventoryOperationModel model;
             if (id == 0)
             {
-                model = this._materialService.CreateDefaultObject();
+                model = this._inventoryService.CreateDefaultObject();
             }
             else
             {
-                model = this._materialService.GetById(id);
+                model = this._inventoryService.GetById(id);
             }
 
             return PartialView(model);
@@ -35,37 +35,37 @@ namespace Mica.Presentation.Web.Controllers.Inventory
 
         public IActionResult ConfirmDelete(long id = 0)
         {
-            MaterialModel model;
+            InventoryOperationModel model;
             if (id == 0)
             {
-                model = this._materialService.CreateDefaultObject();
+                model = this._inventoryService.CreateDefaultObject();
             }
             else
             {
-                model = this._materialService.GetById(id);
+                model = this._inventoryService.GetById(id);
             }
 
             return PartialView(model);
         }
 
-        public void Save(MaterialModel model)
+        public void Save(InventoryOperationModel model)
         {
             if (ModelState.IsValid)
             {
                 if (model.Id == 0)
                 {
-                    this._materialService.Add(model);
+                    this._inventoryService.Add(model);
                 }
                 else
                 {
-                    this._materialService.Update(model);
+                    this._inventoryService.Update(model);
                 }
             }
         }
 
-        public void Delete(MaterialModel model)
+        public void Delete(InventoryOperationModel model)
         {
-            this._materialService.Remove(model.Id);
+            this._inventoryService.Remove(model.Id);
         }
     }
 }

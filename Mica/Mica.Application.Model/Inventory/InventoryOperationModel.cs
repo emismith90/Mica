@@ -2,7 +2,7 @@
 {
     public class InventoryOperationModel : AuditableModelBase<long>
     {
-        public long InventoryId { get; set; }
+        public long MaterialId { get; set; }
         public long? TicketId { get; set; }
         public long Quantity { get; set; }
         public string Description { get; set; }

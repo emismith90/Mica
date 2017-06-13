@@ -24,6 +24,13 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="Code" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Code" required maxlength="50" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
                 <label asp-for="Description" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <textarea asp-for="Description" maxlength="1000" class="form-control"></textarea>
@@ -63,8 +70,14 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary js-save--material">Lưu</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+        <button type="submit" class="btn btn-primary js-save--material">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            Lưu
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="glyphicon glyphicon-remove"></i>
+            Hủy
+        </button>
     </div>
 </div>
 
