@@ -8,7 +8,12 @@ namespace Mica.Application.Mapper.Profiles
     {
         public InventoryOperationMappingProfile()
         {
-            this.CreateMap<InventoryOperationEntity, InventoryOperationModel>().ReverseMap();
+            var map = this.CreateMap<InventoryOperationEntity, InventoryOperationModel>();
+
+            map.ForMember(m => m.MaterialName, opt => opt.MapFrom(e => e.Material.Name));
+            map.ForMember(m => m.MaterialName, opt => opt.MapFrom(e => e.Material.Code));
+
+            map.ReverseMap();
         }
     }
 }

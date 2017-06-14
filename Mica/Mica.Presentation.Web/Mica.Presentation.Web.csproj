@@ -28,16 +28,9 @@
     <Content Include="wwwroot\js\jquery.plugins.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\js\mica - Copy.utils.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="wwwroot\js\mica.common.js" />
     <Content Include="wwwroot\js\mica.utils.js" />
     <Content Include="wwwroot\js\onpageload.js" />
-    <Content Include="wwwroot\js\smart-pager - Copy.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\js\smart-pager.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
