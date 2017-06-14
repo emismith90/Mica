@@ -4,7 +4,7 @@
 @model IPagedList
 
 @{
-    var srTo = ViewData["sr-to"] != null ? ViewData["sr-to"]?.ToString() : "/Default";
+    var linkTo = ViewData["mc-sl-to"] != null ? ViewData["mc-sl-to"]?.ToString() : "/Default";
     var from = Model.PageSize * (Model.PageNumber - 1) + 1;
     var to = from + Model.Count - 1;
 }
@@ -34,15 +34,15 @@
 
         <li class="@prevPageClass">
             <a title="Trang đầu"
-               sr-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
-               sr-to="@srTo"
-               sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="1">«</a>
+               mc-sl-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
+               mc-sl-to="@linkTo"
+               mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="1">«</a>
         </li>
         <li class="@prevPageClass">
             <a title="Trang trước"
-               sr-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
-               sr-to="@srTo"
-               sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@(Model.PageNumber - 1)">‹</a>
+               mc-sl-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
+               mc-sl-to="@linkTo"
+               mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@(Model.PageNumber - 1)">‹</a>
         </li>
         
         @if (Model.TotalPageCount > 5) // in case of very long long list
@@ -53,8 +53,8 @@
             {
                 <li>
                     <a title="1"
-                       sr-to="@srTo"
-                       sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="1">1</a>
+                       mc-sl-to="@linkTo"
+                       mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="1">1</a>
                 </li>
                 <li><a href="javscript:void(0);">...</a></li>
             }
@@ -64,9 +64,9 @@
                 var isActive = Model.PageNumber == pgNumber;
                 <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
                     <a title="@pgNumber"
-                       sr-to="@srTo"
-                       sr-can-redirect="@(!isActive ? "True" : "False")"
-                       sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@pgNumber">@pgNumber</a>
+                       mc-sl-to="@linkTo"
+                       mc-sl-can-redirect="@(!isActive ? "True" : "False")"
+                       mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@pgNumber">@pgNumber</a>
                 </li>
             }
 
@@ -75,8 +75,8 @@
                 <li><a href="javscript:void(0);">...</a></li>
                 <li class="@nextPageClass">
                     <a title="@Model.TotalPageCount"
-                       sr-to="@srTo"
-                       sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@Model.TotalPageCount">@Model.TotalPageCount</a>
+                       mc-sl-to="@linkTo"
+                       mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@Model.TotalPageCount">@Model.TotalPageCount</a>
                 </li>
             }
         }
@@ -87,24 +87,24 @@
                 var isActive = Model.PageNumber == pgNumber;
                 <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
                     <a title="@pgNumber"
-                       sr-to="@srTo"
-                       sr-can-redirect="@(!isActive ? "True" : "False")"
-                       sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@pgNumber">@pgNumber</a>
+                       mc-sl-to="@linkTo"
+                       mc-sl-can-redirect="@(!isActive ? "True" : "False")"
+                       mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@pgNumber">@pgNumber</a>
                 </li>
             }
         }
 
         <li class="@nextPageClass">
             <a title="Trang tiếp"
-               sr-to="@srTo"
-               sr-can-redirect="@(Model.HasNextPage ? "True" : "False")"
-               sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@(Model.PageNumber + 1)">›</a>
+               mc-sl-to="@linkTo"
+               mc-sl-can-redirect="@(Model.HasNextPage ? "True" : "False")"
+               mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@(Model.PageNumber + 1)">›</a>
         </li>
         <li class="@nextPageClass">
             <a title="Trang cuối"
-               sr-to="@srTo"
-               sr-can-redirect="@(Model.HasNextPage ? "True" : "False")"
-               sr-route-pageSize="@Model.PageSize" sr-route-pageNumber="@Model.TotalPageCount">»</a>
+               mc-sl-to="@linkTo"
+               mc-sl-can-redirect="@(Model.HasNextPage ? "True" : "False")"
+               mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@Model.TotalPageCount">»</a>
         </li>
     </ul>
 }

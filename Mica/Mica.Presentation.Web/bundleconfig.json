@@ -16,11 +16,12 @@
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
-      "wwwroot/js/jquery.plugins.js",
+      "wwwroot/js/jquery.plugins/*.js",
       "wwwroot/js/site.js",
-      "wwwroot/js/mica.*.js",
-      "wwwroot/js/onpageload.js",
-      "wwwroot/js/inventory/*.js"
+      "wwwroot/js/utils/*.js",
+      "wwwroot/js/common/*.js",
+      "wwwroot/js/inventory/*.js",
+      "wwwroot/js/onpageload.js"
     ],
     // Optionally specify minification options
     "minify": {

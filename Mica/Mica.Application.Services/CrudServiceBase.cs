@@ -31,7 +31,7 @@ namespace Mica.Application.Services
 
         public virtual TModel GetById(TKey id)
         {
-            var cacheKey = $"{typeof(TEntity)}.GetById[id:{id}]";
+            var cacheKey = $"[{typeof(TEntity)}].GetById[id:{id}]";
             return Cache.GetOrFetch(cacheKey, 
                 () => {
                         return Mapper.Map<TModel>(this.Repository.GetById(id));
@@ -85,8 +85,6 @@ namespace Mica.Application.Services
                 Repository.Update(Mapper.Map<TEntity>(model));
                 this.UnitOfWork.Commit();
 
-                var cacheKey = $"{typeof(TEntity)}.GetById[id:{model.Id}]";
-                Cache.Flush(cacheKey);
                 ClearEntityCache();
                 return true;
             }
@@ -116,7 +114,7 @@ namespace Mica.Application.Services
 
         protected virtual void ClearEntityCache()
         {
-            var genericKey = $"[{typeof(TEntity)}].GetAll";
+            var genericKey = $"[{typeof(TEntity)}]";
             foreach (var cacheKey in Cache.GetAllKeys(genericKey))
             {
                 Cache.Flush(cacheKey);

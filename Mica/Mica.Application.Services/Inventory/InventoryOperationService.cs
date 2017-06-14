@@ -96,6 +96,7 @@ namespace Mica.Application.Services.Inventory
             if (inventoryItem == null)
             {
                 inventoryItem = this.InventoryService.CreateDefaultObject();
+                inventoryItem.Id = model.MaterialId;
                 needCreate = true;
             }
 

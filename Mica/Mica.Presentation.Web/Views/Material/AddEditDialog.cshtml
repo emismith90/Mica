@@ -13,8 +13,8 @@
     </div>
     <div class="modal-body">
         <div asp-validation-summary="All" class="text-danger"></div>
-      
-        <form id="edit-material" class="form-horizontal">
+
+        <form id="form" class="form-horizontal">
             <input asp-for="Id" hidden />
             <div class="form-group">
                 <label asp-for="Name" class="col-md-2 control-label"></label>
@@ -70,7 +70,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary js-save--material">
+        <button type="submit" class="btn btn-primary js-save-btn" 
+                mc-modal-post-url="/Material/Save/">
             <i class="glyphicon glyphicon-floppy-disk"></i>
             Lưu
         </button>
@@ -80,7 +81,3 @@
         </button>
     </div>
 </div>
-
-@section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-}

@@ -14,18 +14,13 @@ namespace Mica.Presentation.Web.Controllers.Abstract
             Service = service;
         }
 
-        public IActionResult Index(string query, int pageNumber = 1, int pageSize = 10, string orderBy = "", string orderDirection = "")
+        public virtual IActionResult Index(string query, int pageNumber = 1, int pageSize = 10, string orderBy = "", string orderDirection = "")
         {
             var result = this.Service.GetAll(query, pageNumber, pageSize, orderBy, orderDirection);
             return View(result);
         }
 
-        public bool Delete(TModel model)
-        {
-            return this.Service.Remove(model.Id);
-        }
-
-        public IActionResult AddEditDialog(TKey id)
+        public virtual IActionResult AddEditDialog(TKey id)
         {
             TModel model;
             if (id.Equals(default(TKey)))
@@ -39,23 +34,7 @@ namespace Mica.Presentation.Web.Controllers.Abstract
 
             return PartialView(model);
         }
-
-        public IActionResult DeleteDialog(TKey id)
-        {
-            TModel model;
-            if (id.Equals(default(TKey)))
-            {
-                model = this.Service.CreateDefaultObject();
-            }
-            else
-            {
-                model = this.Service.GetById(id);
-            }
-
-            return PartialView(model);
-        }
-
-        public bool Save(TModel model)
+        public virtual bool Save(TModel model)
         {
             if (ModelState.IsValid)
             {
@@ -70,6 +49,25 @@ namespace Mica.Presentation.Web.Controllers.Abstract
             }
 
             return false;
+        }
+
+        public virtual IActionResult DeleteDialog(TKey id)
+        {
+            TModel model;
+            if (id.Equals(default(TKey)))
+            {
+                model = this.Service.CreateDefaultObject();
+            }
+            else
+            {
+                model = this.Service.GetById(id);
+            }
+
+            return PartialView(model);
+        }
+        public virtual bool Delete(TModel model)
+        {
+            return this.Service.Remove(model.Id);
         }
     }
 }

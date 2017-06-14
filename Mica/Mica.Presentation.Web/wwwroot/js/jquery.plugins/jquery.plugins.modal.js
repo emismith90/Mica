@@ -1,13 +1,20 @@
 ﻿(function ($) {
-    $.fn.registerAsEditModal = function () {
+    var defaults = {
+        formSelector: '#form',
+        submitBtnSelector: '.js-save-btn'
+    };
+
+    $.fn.registerModal = function (options) {
+        var settings = $.extend({}, defaults, options);
+
         var $modal = $(this);
-        var $form = $('#edit-material', $modal);
+        var $form = $(settings.formSelector, $modal);
 
-        $('.js-save--material').click(function () {
+        $(settings.submitBtnSelector).click(function () {
+            var $button = $(this);
             if (!$form.valid()) return;
-
             $.ajax({
-                url: '/Material/Save/',
+                url: $button.attr('mc-modal-post-url'),
                 data: $form.getFormData(),
                 type: 'POST',
                 success: function (data) {
@@ -22,6 +29,6 @@
             } else {
                 $(this).attr('value', false);
             }
-        }); 
+        });
     }
 })(jQuery);

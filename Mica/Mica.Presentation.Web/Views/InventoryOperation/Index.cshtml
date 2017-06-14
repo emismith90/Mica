@@ -7,8 +7,8 @@
 <h2>@ViewData["Title"].</h2>
 <div>
     <button type="button" class="btn btn-default create-new--btn js-open-modal"
-            data-toggle="modal" data-target="#inventory-operation-modal" data-form-type="add"
-            data-modal-content-url="/InventoryOperation/AddEditDialog/0">
+            data-toggle="modal" data-target="#inventory-operation-modal"
+            mc-modal-content-url="/InventoryOperation/AddEditDialog/0">
         <i class="glyphicon glyphicon glyphicon-plus"></i>
         Tạo mới
     </button>
@@ -16,7 +16,7 @@
 
 @Html.Partial("SmartPager", Model, new ViewDataDictionary(ViewData)
 {
-    { "sr-to", linkTo }
+    { "mc-sl-to", linkTo }
 })
 
 @Html.Partial("TableSearchBox", new ViewDataDictionary(ViewData)
@@ -33,9 +33,9 @@
             <tr>
                 <th>@Html.RenderTableHeaderAnchor(linkTo, "Id", Html.DisplayNameFor(m => dummyDetail.Id))</th>
                 <th>@Html.RenderTableHeaderAnchor(linkTo, "MaterialId", Html.DisplayNameFor(m => dummyDetail.MaterialId))</th>
-                <th>Html.DisplayNameFor(m => dummyDetail.MaterialName)</th>
-                <th>Html.DisplayNameFor(m => dummyDetail.MaterialCode)</th>
-                <th>Html.DisplayNameFor(m => dummyDetail.Quantity)</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.MaterialName)</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.MaterialCode)</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.Quantity)</th>
                 <th>@Html.RenderTableHeaderAnchor(linkTo, "CreatedOn", Html.DisplayNameFor(m => dummyDetail.CreatedOn))</th>
                 <th></th>
             </tr>
@@ -45,8 +45,9 @@
                 <tr>
                     <td>
                         <a class="hover-view js-open-modal" title="Sửa"
-                           data-toggle="modal" data-target="#inventory-operation-modal" data-form-type="edit"
-                           data-modal-content-url="@linkTo/AddEditDialog/@Model[index].Id">
+                           href="javascript:void(0);"
+                           data-toggle="modal" data-target="#inventory-operation-modal"
+                           mc-modal-content-url="@linkTo/AddEditDialog/@Model[index].Id">
                             <i class="glyphicon glyphicon-pencil"></i>
                         </a>
                         <span class="normal-view">@Model[index].Id</span>
@@ -58,8 +59,9 @@
                     <td>@Model[index].CreatedOn</td>
                     <td>
                         <a class="hover-view js-open-modal" title="Xóa"
-                           data-toggle="modal" data-target="#inventory-operation-modal" data-form-type="delete"
-                           data-modal-content-url="@linkTo/DeleteDialog/@Model[index].Id">
+                           href="javascript:void(0);"
+                           data-toggle="modal" data-target="#inventory-operation-modal"
+                           mc-modal-content-url="@linkTo/DeleteDialog/@Model[index].Id">
                             <i class="glyphicon glyphicon-remove"></i>
                         </a>
                     </td>

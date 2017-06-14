@@ -28,8 +28,8 @@ namespace Mica.Infrastructure.Extensions.IHtmlHelperExtensions
                 : isDesc ? DIRECTION_ASC : DIRECTION_DESC;
 
             return new HtmlString(
-                $"<a title=\"{displayName}\" sr-to=\"{linkTo}\"" +
-                    $"sr-route-orderBy=\"{name}\" sr-route-orderDirection=\"{direction}\">" +
+                $"<a title=\"{displayName}\" mc-sl-to=\"{linkTo}\"" +
+                    $"mc-sl-route-orderBy=\"{name}\" mc-sl-route-orderDirection=\"{direction}\">" +
                     $"{displayName} {arrow}" +
                 "</a>");
         }

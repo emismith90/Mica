@@ -6,7 +6,7 @@
 <h2>@ViewData["Title"].</h2>
 <div>
     <form asp-controller="InventoryOperation" method="GET">
-        <button type="button" class="btn btn-default create-new--btn">
+        <button type="submit" class="btn btn-default create-new--btn">
             <i class="glyphicon glyphicon-sort"></i>
             Xuất/Nhập
         </button>
@@ -15,7 +15,7 @@
 
 @Html.Partial("SmartPager", Model, new ViewDataDictionary(ViewData)
 {
-    { "sr-to", "/Inventory" }
+    { "mc-sl-to", "/Inventory" }
 })
 
 <table class="table table-striped table-hover">

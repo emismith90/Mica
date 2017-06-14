@@ -1,5 +1,7 @@
 ﻿using Mica.Application.Models.Inventory;
 using Mica.Application.Services.Abstract;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace Mica.Application.Services.Inventory
 {
@@ -8,5 +10,6 @@ namespace Mica.Application.Services.Inventory
             IContentListingService<MaterialModel>,
             IContentLookupListingService<MaterialModel>
     {
+        IList<SelectListItem> GetMaterialsForPickup();
     }   
 }

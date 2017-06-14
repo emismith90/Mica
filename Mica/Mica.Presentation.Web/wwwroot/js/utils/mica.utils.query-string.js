@@ -1,5 +1,4 @@
-﻿Mica.Utils = {};
-Mica.Utils.QueryString = {
+﻿Mica.Utils.QueryString = {
     getObject: function () {
         var vars = {};
         if (window.location.href.indexOf('?') < 0) return {};

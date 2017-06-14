@@ -1,29 +1,34 @@
-﻿Mica.Common = {};
-Mica.Common.SmartLink = {
-    bindEvent: function ($scope) {
+﻿Mica.Common.SmartLink = {
+    bindEvent: function ($scope, options) {
+        var settings = {
+            hrefDefault: ''
+        };
+
+        $.extend(settings, options);
+
         if (!$scope)
             $scope = $(document);
 
-        var $links = $('a[sr-to]', $scope);
+        var $links = $('a[mc-sl-to]', $scope);
 
         // clickable look & feel
         $links.each(function (index, element) {
-            element.href = 'javascript:void(0);';
+            element.href = settings.hrefDefault;
         });
 
         $links.click(function () {
             var $link = $(this);
-            var canRedirect = $link.attr('sr-can-redirect');
+            var canRedirect = $link.attr('mc-sl-can-redirect');
             if (canRedirect && canRedirect !== "True") return;
 
-            var target = $link.attr('sr-to');
+            var target = $link.attr('mc-sl-to');
 
             var attrs = $link.attrs();
 
             var localQueryString = {};
             Object.keys(attrs).forEach(function (attr) {
-                if (attr.startsWith('sr-route')) {
-                    localQueryString[attr.substring(9)] = $link.attr(attr);
+                if (attr.startsWith('mc-sl-route')) {
+                    localQueryString[attr.substring(12)] = $link.attr(attr);
                 }
             });
 

@@ -7,8 +7,8 @@
 <h2>@ViewData["Title"].</h2>
 <div>
     <button type="button" class="btn btn-default create-new--btn js-open-modal"
-            data-toggle="modal" data-target="#material-modal" data-form-type="add"
-            data-modal-content-url="@linkTo/AddEditDialog/0">
+            data-toggle="modal" data-target="#material-modal"
+            mc-modal-content-url="@linkTo/AddEditDialog/0">
         <i class="glyphicon glyphicon glyphicon-plus"></i>
         Tạo mới
     </button>
@@ -16,7 +16,7 @@
 
 @Html.Partial("SmartPager", Model, new ViewDataDictionary(ViewData)
 {
-    { "sr-to", linkTo }
+    { "mc-sl-to", linkTo }
 })
 
 @Html.Partial("TableSearchBox", new ViewDataDictionary(ViewData)
@@ -46,8 +46,9 @@
                 <tr>
                     <td>
                         <a class="hover-view js-open-modal" title="Sửa"
-                           data-toggle="modal" data-target="#material-modal" data-form-type="edit"
-                           data-modal-content-url="@linkTo/AddEditDialog/@Model[index].Id">
+                           href=""
+                           data-toggle="modal" data-target="#material-modal"
+                           mc-modal-content-url="@linkTo/AddEditDialog/@Model[index].Id">
                             <i class="glyphicon glyphicon-pencil"></i>
                         </a>
                         <span class="normal-view">@Model[index].Id</span>
@@ -61,8 +62,9 @@
 
                     <td>
                         <a class="hover-view js-open-modal" title="Xóa"
-                           data-toggle="modal" data-target="#material-modal" data-form-type="delete"
-                           data-modal-content-url="@linkTo/DeleteDialog/@Model[index].Id">
+                           href=""
+                           data-toggle="modal" data-target="#material-modal"
+                           mc-modal-content-url="@linkTo/DeleteDialog/@Model[index].Id">
                             <i class="glyphicon glyphicon-remove"></i>
                         </a>
                     </td>

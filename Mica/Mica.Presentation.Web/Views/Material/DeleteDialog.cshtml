@@ -12,7 +12,7 @@
     <div class="modal-body">
         <div class="text-danger">Bạn có chắc muốn xóa vật tư '@Model.Name' (#@Model.Id) với nội dung: </div>
 
-        <form id="delete-material" class="form-horizontal form-readonly">
+        <form id="form" class="form-horizontal form-readonly">
             <input asp-for="Id" hidden />
             <div class="form-group">
                 <label asp-for="Name" class="col-md-2 control-label"></label>
@@ -53,7 +53,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-danger js-delete--material @(Model.Id == 0 ? "disabled" : string.Empty)">
+        <button type="submit" class="btn btn-danger js-save-btn @(Model.Id == 0 ? "disabled" : string.Empty)"
+                mc-modal-post-url="/Material/Delete/">
             <i class="glyphicon glyphicon-trash"></i>
             Xóa
         </button>
@@ -63,6 +64,3 @@
         </button>
     </div>
 </div>
-@section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-}
