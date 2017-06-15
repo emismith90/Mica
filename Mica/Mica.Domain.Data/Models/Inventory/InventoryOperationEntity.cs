@@ -6,7 +6,7 @@ namespace Mica.Domain.Data.Models.Inventory
     {
         public long MaterialId { get; set; }
         public long? TicketId { get; set; }
-        public long Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public string Description { get; set; }
 
         public virtual MaterialEntity Material { get; set; }

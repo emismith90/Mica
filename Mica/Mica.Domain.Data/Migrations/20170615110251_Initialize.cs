@@ -9,6 +9,22 @@ namespace Mica.Domain.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Efforts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(12, 2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Efforts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Materials",
                 columns: table => new
                 {
@@ -103,7 +119,7 @@ namespace Mica.Domain.Data.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    InStock = table.Column<long>(type: "bigint", nullable: false)
+                    InStock = table.Column<decimal>(type: "decimal(12, 2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,7 +144,7 @@ namespace Mica.Domain.Data.Migrations
                     MaterialId = table.Column<long>(nullable: false),
                     ModifiedBy = table.Column<Guid>(nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
-                    Quantity = table.Column<long>(type: "bigint", nullable: false),
+                    Quantity = table.Column<decimal>(type: "decimal(12, 2)", nullable: false),
                     TicketId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
@@ -284,6 +300,9 @@ namespace Mica.Domain.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Efforts");
+
             migrationBuilder.DropTable(
                 name: "Inventories");
 

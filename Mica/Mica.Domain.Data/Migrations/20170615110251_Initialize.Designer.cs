@@ -8,7 +8,7 @@ using Mica.Domain.Data.Contexts;
 namespace Mica.Domain.Data.Migrations
 {
     [DbContext(typeof(MicaContext))]
-    [Migration("20170613105302_Initialize")]
+    [Migration("20170615110251_Initialize")]
     partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -16,14 +16,40 @@ namespace Mica.Domain.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
 
+            modelBuilder.Entity("Mica.Domain.Data.Models.Effort.EffortEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(12, 2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Efforts");
+                });
+
             modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.InventoryEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("Id");
 
-                    b.Property<long>("InStock")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("InStock")
+                        .HasColumnType("decimal(12, 2)");
 
                     b.HasKey("Id");
 
@@ -55,8 +81,8 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnName("ModifiedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<long>("Quantity")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(12, 2)");
 
                     b.Property<long?>("TicketId");
 

@@ -2,7 +2,7 @@
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Application.Models.Inventory;
 
-namespace Mica.Application.Mapper.Profiles
+namespace Mica.Application.Mapper.Profiles.Inventory
 {
     public class InventoryOperationMappingProfile : Profile
     {

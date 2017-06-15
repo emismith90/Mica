@@ -6,6 +6,6 @@ namespace Mica.Presentation.Web.Controllers.Inventory
 {
     public class MaterialController : BaseCrudController<MaterialModel, long, IMaterialService>
     {
-        public MaterialController(IMaterialService miaterialService) : base(miaterialService) { }
+        public MaterialController(IMaterialService materialService) : base(materialService) { }
     }
 }

@@ -1,18 +1,18 @@
-﻿using Mica.Domain.Abstract.Repositories.Inventory;
+﻿using Mica.Domain.Abstract.Repositories.Effort;
 using Mica.Domain.Data.Contexts;
-using Mica.Domain.Data.Models.Inventory;
+using Mica.Domain.Data.Models.Effort;
 
-namespace Mica.Domain.EF.Repositories.Inventory
+namespace Mica.Domain.EF.Repositories.Effort
 {
-    public class MaterialRepository : GenericRepository<MaterialEntity, long>, IMaterialRepository
+    public class EffortRepository : GenericRepository<EffortEntity, long>, IEffortRepository
     {
-        public MaterialRepository(MicaContext context) : base(context)
+        public EffortRepository(MicaContext context) : base(context)
         {
         }
 
-        public override MaterialEntity CreateDefaultObject()
+        public override EffortEntity CreateDefaultObject()
         {
-            return new MaterialEntity
+            return new EffortEntity
             {
                 Active = true
             };

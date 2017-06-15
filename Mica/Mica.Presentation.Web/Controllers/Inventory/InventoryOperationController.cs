@@ -8,8 +8,8 @@ namespace Mica.Presentation.Web.Controllers.Inventory
     public class InventoryOperationController : BaseCrudController<InventoryOperationModel, long, IInventoryOperationService>
     {
         private readonly IMaterialService _materialService;
-        public InventoryOperationController(IInventoryOperationService inventoryService,
-            IMaterialService materialService) : base(inventoryService)
+        public InventoryOperationController(IInventoryOperationService inventoryOperationService,
+            IMaterialService materialService) : base(inventoryOperationService)
         {
             _materialService = materialService;
         }
