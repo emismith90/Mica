@@ -2,7 +2,7 @@
 using Mica.Domain.Data.Contexts;
 using Mica.Domain.Data.Models.Inventory;
 
-namespace Mica.Domain.EF.Repositories.Inventory
+namespace Mica.Domain.EF.Repositories.Effort
 {
     public class MaterialRepository : GenericRepository<MaterialEntity, long>, IMaterialRepository
     {

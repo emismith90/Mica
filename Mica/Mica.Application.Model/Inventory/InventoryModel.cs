@@ -7,7 +7,7 @@ namespace Mica.Application.Models.Inventory
     {
         [Range(0, 1000000000, ErrorMessage = "Phải nằm trong khoảng {1} tới {2}")]
         [DisplayName("Số lượng")]
-        public long InStock { get; set; }
+        public decimal InStock { get; set; }
 
         [DisplayName("Mã vật tư")]
         public string MaterialCode { get; set; }

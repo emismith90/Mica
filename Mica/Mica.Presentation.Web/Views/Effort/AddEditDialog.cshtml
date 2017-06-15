@@ -1,0 +1,69 @@
+﻿@model EffortModel
+
+@{
+    var createNew = Model.Id == 0;
+
+    ViewData["Title"] = createNew ? "Tạo mới loại công" : $"Sửa (#{Model.Id}) {Model.Name}";
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2>@ViewData["Title"].</h2>
+    </div>
+    <div class="modal-body">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <form id="form" class="form-horizontal">
+            <input asp-for="Id" hidden />
+            <div class="form-group">
+                <label asp-for="Name" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Name" required maxlength="255" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="Description" maxlength="1000" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input type="number" asp-for="UnitPrice" class="form-control" />
+                    <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Active" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    @if (Model.Active)
+                    {
+                        <input type="checkbox" name="Active" class="form-control" checked value="True" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="Active" class="form-control" value="True" />
+                    }
+
+                    <span asp-validation-for="Active" class="text-danger"></span>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary js-save-btn" 
+                mc-modal-post-url="/Effort/Save/">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            Lưu
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="glyphicon glyphicon-remove"></i>
+            Hủy
+        </button>
+    </div>
+</div>
