@@ -3,6 +3,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "3.3.7",
+    "bootstrap-table": "1.11.1",
+    "bootstrap-datepicker": "1.6.4",
     "jquery": "2.2.0",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6"

@@ -136,7 +136,7 @@ namespace Mica.Application.Services.Inventory
             }
         }
 
-        private void UpdateInventoryStock(long inventoryId, long quantity, bool reverse = false)
+        private void UpdateInventoryStock(long inventoryId, decimal quantity, bool reverse = false)
         {
             var needCreate = false;
 

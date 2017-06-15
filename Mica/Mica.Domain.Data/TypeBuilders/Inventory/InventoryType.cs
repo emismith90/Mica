@@ -16,8 +16,8 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
               .IsRequired();
 
             builder.Property(c => c.InStock)
-               .HasColumnType("bigint")
-               .IsRequired();
+                .HasColumnType("decimal(12, 2)")
+                .IsRequired();
         }
     }
 }

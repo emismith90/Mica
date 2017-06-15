@@ -1,0 +1,45 @@
+﻿<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <ul class="nav menu">
+        <li>
+            <a asp-controller="Home" asp-action="Index">
+                <svg class="glyph stroked line-graph">
+                    <use xlink:href="#stroked-line-graph"></use>
+                </svg>
+                Dashboard
+            </a>
+        </li>
+        <li class="parent">
+            <a asp-area="" asp-controller="Inventory" asp-action="Index">
+                <span data-toggle="collapse" href="#sub-item-inventory">
+                    <i class="glyph glyphicon glyphicon-barcode"></i>
+                </span>
+                Kho
+            </a>
+            <ul class="children collapse  in" id="sub-item-inventory">
+                <li>
+                    <a asp-area="" asp-controller="InventoryOperation" asp-action="Index">
+                        <i class="glyph glyphicon glyphicon-sort"></i>
+                        Lệnh xuất/nhập kho
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Material" asp-action="Index">
+                        <svg class="glyph stroked notepad">
+                            <use xlink:href="#stroked-notepad"></use>
+                        </svg>
+                        Vật tư
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Effort" asp-action="Index">
+                <i class="glyph glyphicon glyphicon-time"></i>
+                Công
+            </a>
+        </li>
+        <li role="presentation" class="divider"></li>
+        <li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>
+    </ul>
+    <div class="attribution"><p>&copy; 2017 - Mica</p></div>
+</div><!--/.sidebar-->

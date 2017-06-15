@@ -232,3 +232,4 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+Mica/Mica.Presentation.Web/wwwroot/lib/

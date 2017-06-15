@@ -18,8 +18,13 @@
 
   <ItemGroup>
     <Content Include="wwwroot\css\control.css" />
-    <Content Include="wwwroot\css\Inventory\inventory-operation-page.css" />
-    <Content Include="wwwroot\css\Inventory\inventory-page.css" />
+    <Content Include="wwwroot\css\effort\effort-page.css" />
+    <Content Include="wwwroot\css\effort\material-page.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\css\inventory\inventory-operation-page.css" />
+    <Content Include="wwwroot\css\inventory\inventory-page.css" />
+    <Content Include="wwwroot\css\styles.css" />
     <Content Include="wwwroot\css\table.css" />
     <Content Include="wwwroot\css\modal.css" />
     <Content Include="wwwroot\css\form.css" />
@@ -37,7 +42,10 @@
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.modal.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="wwwroot\js\lumino.glyphs.js" />
     <Content Include="wwwroot\js\onpageload.js" />
+    <Content Include="wwwroot\js\utils\mica - Copy.utils.query-string.js" />
+    <Content Include="wwwroot\js\utils\mica.utils.nav-item.js" />
     <Content Include="wwwroot\js\utils\mica.utils.query-string.js" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\js\effort\" />
   </ItemGroup>
 
 </Project>

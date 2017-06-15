@@ -15,7 +15,7 @@ namespace Mica.Application.Models.Inventory
         [Required(ErrorMessage = "Trường bắt buộc phải điền")]
         [Range(0, 1000000000, ErrorMessage = "Phải nằm trong khoảng {1} tới {2}")]
         [DisplayName("Số lượng")]
-        public long Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [MaxLength(1000, ErrorMessage = "Không được dài quá {1} ký tự")]
         [DisplayName("Mô tả")]

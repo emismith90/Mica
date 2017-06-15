@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Mica.Application.Mapper.Profiles;
+using Mica.Application.Mapper.Profiles.Effort;
+using Mica.Application.Mapper.Profiles.Inventory;
 
 namespace Mica.Application.Mapper
 {
@@ -12,6 +14,9 @@ namespace Mica.Application.Mapper
                 cfg.AddProfile(new InventoryMappingProfile());
                 cfg.AddProfile(new InventoryOperationMappingProfile());
                 cfg.AddProfile(new MaterialMappingProfile());
+
+                cfg.AddProfile(new EffortMappingProfile());
+
                 cfg.AddProfile(new TicketMappingProfile());
             });
         }
