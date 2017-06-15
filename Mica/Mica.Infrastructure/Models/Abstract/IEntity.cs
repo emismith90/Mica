@@ -2,7 +2,7 @@
 {
     public interface IEntity<T>
     {
-        T Id { get; }
+        T Id { get; set; }
 
         bool Equals(object obj);
         

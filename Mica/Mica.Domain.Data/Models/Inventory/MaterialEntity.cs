@@ -4,9 +4,6 @@ namespace Mica.Domain.Data.Models.Inventory
 {
     public class MaterialEntity : EntityBase<long>, ISearchableEntity
     {
-        // Empty constructor for EF
-        protected MaterialEntity() { }
-
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

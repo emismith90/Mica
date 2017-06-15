@@ -1,14 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using AutoMapper;
+using Mica.Application.Services.Abstract.Cache;
 using Mica.Application.Models.Inventory;
 using Mica.Domain.Data.Models.Inventory;
-using Mica.Domain.Abstract.Repositories;
 using Mica.Domain.Abstract.UoW;
-using Mica.Infrastructure.Caching.Abstract;
-using Mica.Infrastructure.Configuration.Options;
-using System.Collections;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Linq;
+using Mica.Domain.Abstract.Repositories.Inventory;
 
 namespace Mica.Application.Services.Inventory
 {
@@ -17,17 +15,15 @@ namespace Mica.Application.Services.Inventory
         public MaterialService(
             IMapper mapper, 
             IUnitOfWork unitOfWork, 
-            IMicaCache cache, 
-            ICachingOptions cachingOptions, 
-            IGenericRepository<MaterialEntity, long> repository) 
-            : base(mapper, unitOfWork, cache, cachingOptions, repository)
+            ITypedCacheService<MaterialModel, long> cache,
+            IMaterialRepository repository) 
+            : base(mapper, unitOfWork, cache, repository)
         {
         }
 
         public virtual IList<SelectListItem> GetMaterialsForPickup()
         {
-            var cacheKey = $"[{typeof(MaterialEntity)}].GetMaterialsForPickup";
-            return Cache.GetOrFetch(cacheKey,
+            return Cache.GetOrFetchDependKey("GetMaterialsForPickup",
                 () =>
                 {
                     var queryableResult = Repository
@@ -41,15 +37,6 @@ namespace Mica.Application.Services.Inventory
                     return Mapper
                             .Map<IList<SelectListItem>>(queryableResult.ToList());
                 });
-        }
-
-        public override MaterialModel CreateDefaultObject()
-        {
-            return new MaterialModel
-            {
-                Active = true,
-                UnitPrice = 0
-            };
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Mica.Presentation.Web.Controllers.Abstract
         public virtual IActionResult Index(string query, int pageNumber = 1, int pageSize = 10, string orderBy = "", string orderDirection = "")
         {
             var result = this.Service.GetAll(query, pageNumber, pageSize, orderBy, orderDirection);
-            return View(result);
+            return View("Index", result);
         }
 
         public virtual IActionResult AddEditDialog(TKey id)
@@ -32,7 +32,7 @@ namespace Mica.Presentation.Web.Controllers.Abstract
                 model = this.Service.GetById(id);
             }
 
-            return PartialView(model);
+            return PartialView("AddEditDialog", model);
         }
         public virtual bool Save(TModel model)
         {
@@ -63,7 +63,7 @@ namespace Mica.Presentation.Web.Controllers.Abstract
                 model = this.Service.GetById(id);
             }
 
-            return PartialView(model);
+            return PartialView("DeleteDialog", model);
         }
         public virtual bool Delete(TModel model)
         {

@@ -4,9 +4,6 @@ namespace Mica.Domain.Data.Models.Inventory
 {
     public class InventoryOperationEntity : AuditableEntityBase<long>, ISearchableEntity
     {
-        // Empty constructor for EF
-        protected InventoryOperationEntity() { }
-
         public long MaterialId { get; set; }
         public long? TicketId { get; set; }
         public long Quantity { get; set; }
@@ -17,7 +14,7 @@ namespace Mica.Domain.Data.Models.Inventory
 
         public string ToSearchableString()
         {
-            return $"{Material?.Name} {Description}";
+            return $"{Material?.Name} {Material?.Code} {Description}";
         }
     }
 }

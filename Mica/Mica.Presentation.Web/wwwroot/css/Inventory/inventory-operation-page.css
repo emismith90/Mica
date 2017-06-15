@@ -1,1 +1,26 @@
-﻿
+﻿.table.inventory-operation-detail th:first-child, .table.inventory-operation-detail td:first-child {
+    width: 5em;
+    text-align: center;
+}
+
+.table.inventory-operation-detail th:nth-child(2), .table.inventory-operation-detail td:nth-child(2) {
+    width: 5em;
+    text-align: center;
+}
+
+.table.inventory-operation-detail th:nth-child(3) {
+    width: 10em;
+}
+
+.table.inventory-operation-detail th:nth-child(5), .table.inventory-operation-detail td:nth-child(5) {
+    width: 10em;
+    text-align: right;
+}
+
+.table.inventory-operation-detail th:nth-child(6), .table.inventory-operation-detail td:nth-child(6) {
+    width: 15em;
+}
+
+.table.inventory-operation-detail td:nth-child(6) {
+    opacity: 0.5;
+}

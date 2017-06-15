@@ -10,18 +10,12 @@ namespace Mica.Application.Services
     {
         protected readonly IMapper Mapper;
         protected readonly IUnitOfWork UnitOfWork;
-        protected readonly IMicaCache Cache;
-        protected readonly ICachingOptions CachingOptions;
 
         public DataServiceBase(IMapper mapper, 
-                               IUnitOfWork unitOfWork, 
-                               IMicaCache cache, 
-                               ICachingOptions cachingOptions) : base()
+                               IUnitOfWork unitOfWork) : base()
         {
             this.Mapper = mapper;
             this.UnitOfWork = unitOfWork;
-            this.Cache = cache;
-            this.CachingOptions = cachingOptions;
         }
     }
 }

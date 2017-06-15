@@ -16,7 +16,7 @@
             element.href = settings.hrefDefault;
         });
 
-        $links.click(function () {
+        $links.click(function (event) {
             var $link = $(this);
             var canRedirect = $link.attr('mc-sl-can-redirect');
             if (canRedirect && canRedirect !== "True") return;
@@ -36,6 +36,7 @@
             $.extend(currentQueryString, localQueryString);
 
             window.location.href = target + Mica.Utils.QueryString.serialize(currentQueryString);
+            event.preventDefault();
         });
     }
 };

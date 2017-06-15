@@ -34,3 +34,7 @@
     .search-box .glyphicon-search {
         font-size: 1em;
     }
+
+.btn.btn-default > i {
+    padding-right: 0.5em;
+}

@@ -13,6 +13,17 @@ namespace Mica.Presentation.Web.Controllers.Inventory
         {
             _materialService = materialService;
         }
+        public IActionResult Filter(string materialId, string query, int pageNumber = 1, int pageSize = 10, string orderBy = "", string orderDirection = "")
+        {
+            long id;
+            if(long.TryParse(materialId, out id))
+            {
+                var result = this.Service.GetAll(id, query, pageNumber, pageSize, orderBy, orderDirection);
+                return View("Index", result);
+            }
+
+            return Index(query, pageNumber, pageSize, orderBy, orderDirection);
+        }
 
         public override IActionResult AddEditDialog(long id)
         {

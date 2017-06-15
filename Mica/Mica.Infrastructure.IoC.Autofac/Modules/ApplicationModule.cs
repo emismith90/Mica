@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Mica.Application.Mapper;
+using Mica.Application.Services.Abstract.Cache;
+using Mica.Application.Services.Cache;
 
 namespace Mica.Infrastructure.IoC.Autofac.Modules
 {
@@ -11,6 +13,10 @@ namespace Mica.Infrastructure.IoC.Autofac.Modules
                    .Where(t => t.Name.EndsWith("Service"))
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
+
+            builder.RegisterGeneric(typeof(TypedCacheService<,>))
+                       .As(typeof(ITypedCacheService<,>))
+                       .InstancePerDependency();
 
             //// Add application services.
             //services.AddTransient<IEmailSender, AuthMessageSender>();

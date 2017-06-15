@@ -3,8 +3,8 @@ using Mica.Application.Models.Inventory;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Abstract.Repositories;
 using Mica.Domain.Abstract.UoW;
-using Mica.Infrastructure.Caching.Abstract;
-using Mica.Infrastructure.Configuration.Options;
+using Mica.Application.Services.Abstract.Cache;
+using Mica.Domain.Abstract.Repositories.Inventory;
 
 namespace Mica.Application.Services.Inventory
 {
@@ -14,20 +14,11 @@ namespace Mica.Application.Services.Inventory
         public InventoryService(
             IMapper mapper, 
             IUnitOfWork unitOfWork, 
-            IMicaCache cache, 
-            ICachingOptions cachingOptions, 
-            IGenericRepository<InventoryEntity, long> repository) 
-            : base(mapper, unitOfWork, cache, cachingOptions, repository)
+            ITypedCacheService<InventoryModel, long> cache,
+            IInventoryRepository repository) 
+            : base(mapper, unitOfWork, cache, repository)
         {
             this._repository = repository;
-        }
-
-        public override InventoryModel CreateDefaultObject()
-        {
-            return new InventoryModel
-            {
-                InStock = 0
-            };
         }
     }
 }

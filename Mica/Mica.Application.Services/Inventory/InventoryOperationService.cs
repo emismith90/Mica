@@ -1,38 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Mica.Application.Models.Inventory;
 using Mica.Domain.Data.Models.Inventory;
-using Mica.Domain.Abstract.Repositories;
 using Mica.Domain.Abstract.UoW;
-using Mica.Infrastructure.Caching.Abstract;
-using Mica.Infrastructure.Configuration.Options;
 using Mica.Infrastructure.Helpers;
+using Mica.Application.Services.Abstract.Cache;
+using Mica.Domain.Abstract.Repositories.Inventory;
 using Mica.Infrastructure.Extensions;
+using System.Linq;
 
 namespace Mica.Application.Services.Inventory
 {
     public class InventoryOperationService
         : CrudWithSearchServiceBase<long, InventoryOperationModel, InventoryOperationEntity>, IInventoryOperationService
     {
-        private readonly IInventoryService InventoryService;
+        private readonly IInventoryRepository _inventoryrepository;
+        private readonly ITypedCacheService<InventoryModel, long> _inventoryCache;
+
         public InventoryOperationService(IMapper mapper,
             IUnitOfWork unitOfWork,
-            IMicaCache cache,
-            ICachingOptions cachingOptions,
-            IGenericRepository<InventoryOperationEntity, long> repository,
-            IInventoryService inventoryService)
-            : base(mapper, unitOfWork, cache, cachingOptions, repository)
+            ITypedCacheService<InventoryOperationModel, long> cache,
+            IInventoryOperationRepository repository,
+            IInventoryRepository inventoryrepository,
+            ITypedCacheService<InventoryModel, long> inventoryCache)
+            : base(mapper, unitOfWork, cache, repository)
         {
-            this.InventoryService = inventoryService;
+            this._inventoryrepository = inventoryrepository;
+            this._inventoryCache = inventoryCache;
         }
 
         #region Override Read
         public override IList<InventoryOperationModel> GetAll(string query, string orderBy, string orderDirection)
         {
             if (string.IsNullOrEmpty(orderBy))
+            {
                 orderBy = "CreatedOn";
+                orderDirection = "desc";
+            }
 
             return base.GetAll(query, orderBy, orderDirection);
         }
@@ -40,9 +45,36 @@ namespace Mica.Application.Services.Inventory
         public override IPagedList<InventoryOperationModel> GetAll(string query, int pageNumber, int pageSize, string orderBy, string orderDirection)
         {
             if (string.IsNullOrEmpty(orderBy))
+            {
                 orderBy = "CreatedOn";
+                orderDirection = "desc";
+            }
 
             return base.GetAll(query, pageNumber, pageSize, orderBy, orderDirection);
+        }
+
+        public IPagedList<InventoryOperationModel> GetAll(long materialId, string query, int pageNumber, int pageSize, string orderBy, string orderDirection)
+        {
+            if (string.IsNullOrEmpty(orderBy))
+            {
+                orderBy = "CreatedOn";
+                orderDirection = "desc";
+            }
+
+            var cacheKey = $"{Cache.GenericCollectionKey}[materialId:{materialId}&query:{query}&pageNumber:{pageNumber}&pageSize:{pageSize}&orderBy:{orderBy}&orderDirection:{orderDirection}]";
+            return Cache.GetOrFetchDependKey(cacheKey,
+                () =>
+                {
+                    var queryableResult = Repository
+                                       .GetAll()
+                                       .Where(io => io.MaterialId == materialId)
+                                       .OrderBy(orderBy, orderDirection)
+                                       .Find(query);
+
+                    return Mapper
+                            .Map<IEnumerable<InventoryOperationModel>>(queryableResult)
+                            .ToPagedList(pageNumber, pageSize);
+                });
         }
         #endregion
 
@@ -51,10 +83,22 @@ namespace Mica.Application.Services.Inventory
             this.UnitOfWork.BeginTransaction();
             try
             {
-                base.Add(model);
-                UpdateInventoryStock(model);
+                if (model.Quantity == 0) return true; // no need to track this shit transaction.
 
-                return this.UnitOfWork.EndTransaction();
+                Repository.Add(Mapper.Map<InventoryOperationEntity>(model));
+                this.UnitOfWork.Commit();
+
+                UpdateInventoryStock(model.MaterialId, model.Quantity);
+                this.UnitOfWork.Commit();
+
+                if (!this.UnitOfWork.EndTransaction())
+                {
+                    return false;
+                }
+               
+                Cache.FlushItem(model.Id);
+                _inventoryCache.FlushItem(model.MaterialId);
+                return true;
             }
             catch
             {
@@ -68,11 +112,22 @@ namespace Mica.Application.Services.Inventory
             this.UnitOfWork.BeginTransaction();
             try
             {
-                var model = this.GetById(id);
-                base.Remove(id);
-                UpdateInventoryStock(model, true);
+                var model = Repository.GetById(id);
 
-                return this.UnitOfWork.EndTransaction();
+                Repository.Remove(id);
+                this.UnitOfWork.Commit();
+
+                UpdateInventoryStock(model.MaterialId, model.Quantity, true);
+                this.UnitOfWork.Commit();
+
+                if (!this.UnitOfWork.EndTransaction())
+                {
+                    return false;
+                }
+
+                Cache.FlushItem(model.Id);
+                _inventoryCache.FlushItem(model.MaterialId);
+                return true;
             }
             catch
             {
@@ -81,47 +136,41 @@ namespace Mica.Application.Services.Inventory
             }
         }
 
-        public override InventoryOperationModel CreateDefaultObject()
-        {
-            return new InventoryOperationModel
-            {
-                Quantity = 0
-            };
-        }
-        private void UpdateInventoryStock(InventoryOperationModel model, bool reverse = false)
+        private void UpdateInventoryStock(long inventoryId, long quantity, bool reverse = false)
         {
             var needCreate = false;
 
-            var inventoryItem = this.InventoryService.GetById(model.MaterialId);
+            var inventoryItem = this._inventoryrepository.GetById(inventoryId);
             if (inventoryItem == null)
             {
-                inventoryItem = this.InventoryService.CreateDefaultObject();
-                inventoryItem.Id = model.MaterialId;
+                inventoryItem = this._inventoryrepository.CreateDefaultObject();
+                inventoryItem.Id = inventoryId;
                 needCreate = true;
             }
 
             if (reverse)
             {
-                inventoryItem.InStock -= model.Quantity;
+                inventoryItem.InStock -= quantity;
             }
             else
             {
-                inventoryItem.InStock += model.Quantity;
+                inventoryItem.InStock += quantity;
             }
 
             if (needCreate)
             {
-                this.InventoryService.Add(inventoryItem);
+                this._inventoryrepository.Add(inventoryItem);
             }
             else
             {
-                this.InventoryService.Update(inventoryItem);
+                this._inventoryrepository.Update(inventoryItem);
             }
         }
 
         #region forbid
         public override bool Update(InventoryOperationModel model)
         {
+            // note: too tired of giving this shit zzz...
             throw new NotSupportedException();
         }
         #endregion

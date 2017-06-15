@@ -2,47 +2,53 @@
 using System.Linq;
 using AutoMapper;
 using Mica.Domain.Abstract.UoW;
-using Mica.Infrastructure.Caching.Abstract;
 using Mica.Application.Services.Abstract;
 using Mica.Application.Models;
 using Mica.Infrastructure.Helpers;
 using Mica.Domain.Abstract.Repositories;
-using Mica.Infrastructure.Configuration.Options;
 using Mica.Infrastructure.Extensions;
+using Mica.Application.Services.Abstract.Cache;
+using System;
+using Mica.Infrastructure.Models.Abstract;
 
 namespace Mica.Application.Services
 {
     public abstract class CrudServiceBase<TKey, TModel, TEntity> : DataServiceBase, ICrudService<TModel, TKey>, IContentListingService<TModel>
         where TModel : ModelBase<TKey>
-        where TEntity : class
+        where TEntity : class, IEntity<TKey>
     {
         protected readonly IGenericRepository<TEntity, TKey> Repository;
+        protected readonly ITypedCacheService<TModel, TKey> Cache;
 
         public CrudServiceBase(
             IMapper mapper, 
-            IUnitOfWork unitOfWork, 
-            IMicaCache cache, 
-            ICachingOptions cachingOptions,
+            IUnitOfWork unitOfWork,
+            ITypedCacheService<TModel, TKey> cache, 
             IGenericRepository<TEntity, TKey> repository) 
-            : base(mapper, unitOfWork, cache, cachingOptions)
+            : base(mapper, unitOfWork)
         {
             this.Repository = repository;
+            this.Cache = cache;
+        }
+
+
+        public virtual TModel CreateDefaultObject()
+        {
+            return Mapper.Map<TModel>(this.Repository.CreateDefaultObject());
         }
 
         public virtual TModel GetById(TKey id)
         {
-            var cacheKey = $"[{typeof(TEntity)}].GetById[id:{id}]";
-            return Cache.GetOrFetch(cacheKey, 
-                () => {
+            return Cache.GetOrFetchItem(id, () => 
+                    {
                         return Mapper.Map<TModel>(this.Repository.GetById(id));
                     });
         }
 
         public virtual IList<TModel> GetAll()
         {
-            var cacheKey = $"[{typeof(TEntity)}].GetAll";
-            return Cache.GetOrFetch(cacheKey,
-                () => {
+            return Cache.GetOrFetchCollection(null, null, null, () => 
+                {
                     var queryableResult = Repository.GetAll().ToList();
                     return Mapper
                             .Map<IList<TModel>>(queryableResult);
@@ -51,9 +57,7 @@ namespace Mica.Application.Services
 
         public virtual IPagedList<TModel> GetAll(int pageNumber, int pageSize)
         {
-            var cacheKey = $"[{typeof(TEntity)}].GetAll[pageNumber:{pageNumber}&pageSize:{pageSize}]";
-            return Cache.GetOrFetch(cacheKey,
-                () => {
+            return Cache.GetOrFetchCollection(null, pageNumber, pageSize, null, null, () => {
                     var queryableResult = Repository.GetAll();
                     return Mapper
                             .Map<IEnumerable<TModel>>(queryableResult)
@@ -69,10 +73,10 @@ namespace Mica.Application.Services
                 Repository.Add(entity);
                 this.UnitOfWork.Commit();
 
-                ClearEntityCache();
+                Cache.FlushItem(model.Id);
                 return true;
             }
-            catch
+            catch (Exception)
             {
                 return false;
             }
@@ -85,10 +89,10 @@ namespace Mica.Application.Services
                 Repository.Update(Mapper.Map<TEntity>(model));
                 this.UnitOfWork.Commit();
 
-                ClearEntityCache();
+                Cache.FlushItem(model.Id);
                 return true;
             }
-            catch
+            catch (Exception)
             {
                 return false;
             }
@@ -101,23 +105,12 @@ namespace Mica.Application.Services
                 Repository.Remove(id);
                 this.UnitOfWork.Commit();
 
-                ClearEntityCache();
+                Cache.FlushItem(id);
                 return true;
             }
-            catch
+            catch (Exception)
             {
                 return false;
-            }
-        }
-
-        public abstract TModel CreateDefaultObject();
-
-        protected virtual void ClearEntityCache()
-        {
-            var genericKey = $"[{typeof(TEntity)}]";
-            foreach (var cacheKey in Cache.GetAllKeys(genericKey))
-            {
-                Cache.Flush(cacheKey);
             }
         }
     }

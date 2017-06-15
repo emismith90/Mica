@@ -1,7 +1,7 @@
-﻿@model MaterialModel
+﻿@model InventoryOperationModel
 
 @{
-    ViewData["Title"] = $"Xóa vật tư (#{Model.Id}) {Model.Name}";
+    ViewData["Title"] = $"Xóa lệnh xuất/nhập kho";
 }
 
 <div class="modal-content">
@@ -10,20 +10,26 @@
         <h2>@ViewData["Title"].</h2>
     </div>
     <div class="modal-body">
-        <div class="text-danger">Bạn có chắc muốn xóa vật tư '@Model.Name' (#@Model.Id) với nội dung: </div>
+        <div class="text-danger">Bạn có chắc muốn xóa lệnh xuất nhập #@Model.Id với nội dung: </div>
 
         <form id="form" class="form-horizontal form-readonly">
             <input asp-for="Id" hidden />
             <div class="form-group">
-                <label asp-for="Name" class="col-md-2 control-label"></label>
+                <label asp-for="MaterialName" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    @Model.Name
+                    @Model.MaterialName
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Code" class="col-md-2 control-label"></label>
+                <label asp-for="MaterialCode" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    @Model.Code
+                    @Model.MaterialCode
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    @Model.Quantity
                 </div>
             </div>
             <div class="form-group">
@@ -33,21 +39,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Unit" class="col-md-2 control-label"></label>
+                <label asp-for="CreatedOn" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    @Model.Unit
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="UnitPrice" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    @Model.UnitPrice
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Active" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    @(Model.Active ? "Đang hoạt động" : "Ngừng hoạt động")
+                    @TimeZoneInfo.ConvertTime(Model.CreatedOn.Value, TimeZoneInfo.Local)
                 </div>
             </div>
         </form>
