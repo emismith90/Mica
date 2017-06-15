@@ -5,22 +5,26 @@
     "outputFileName": "wwwroot/css/site.min.css",
     // An array of relative input file paths. Globbing patterns supported
     "inputFiles": [
+      "wwwroot/css/styles.css",
       "wwwroot/css/site.css",
       "wwwroot/css/control.css",
       "wwwroot/css/form.css",
       "wwwroot/css/modal.css",
       "wwwroot/css/table.css",
-      "wwwroot/css/inventory/*.css"
+      "wwwroot/css/inventory/*.css",
+      "wwwroot/css/effort/*.css"
     ]
   },
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
+      "wwwroot/js/lumino.glyphs.js",
       "wwwroot/js/jquery.plugins/*.js",
       "wwwroot/js/site.js",
       "wwwroot/js/utils/*.js",
       "wwwroot/js/common/*.js",
       "wwwroot/js/inventory/*.js",
+      "wwwroot/js/effort/*.js",
       "wwwroot/js/onpageload.js"
     ],
     // Optionally specify minification options
