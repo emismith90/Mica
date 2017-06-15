@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Mica.Application.Services.Inventory;
 
 namespace Mica.Presentation.Web.Controllers
 {

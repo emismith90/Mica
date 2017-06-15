@@ -1,1 +1,4 @@
-﻿// Write your Javascript code.
+﻿Mica = {};
+Mica.Utils = {};
+Mica.Common = {};
+Mica.Inventory = {};

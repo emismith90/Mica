@@ -9,7 +9,10 @@ namespace Mica.Application.Mapper
         {
             return new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new TodoMappingProfile());
+                cfg.AddProfile(new InventoryMappingProfile());
+                cfg.AddProfile(new InventoryOperationMappingProfile());
+                cfg.AddProfile(new MaterialMappingProfile());
+                cfg.AddProfile(new TicketMappingProfile());
             });
         }
     }

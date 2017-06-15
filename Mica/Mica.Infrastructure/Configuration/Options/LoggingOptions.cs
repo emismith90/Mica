@@ -4,7 +4,13 @@ using System;
 
 namespace Mica.Infrastructure.Configuration.Options
 {
-    public class LoggingOptions : OptionsBase
+    public interface ILoggingOptions 
+    {
+        string SeqUrl { get; }
+        LogEventLevel LogLevel { get; }
+    }
+
+    public class LoggingOptions : OptionsBase, ILoggingOptions
     {
         public LoggingOptions(IAppSettings appSettings) : base(appSettings)
         {

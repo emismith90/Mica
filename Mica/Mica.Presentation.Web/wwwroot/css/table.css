@@ -1,0 +1,25 @@
+﻿.table.table-hover tr td .hover-view, 
+.table.table-hover tr:hover td .normal-view {
+    display: none;
+}
+
+.table.table-hover tr td .normal-view, 
+.table.table-hover tr:hover td .hover-view {
+    display: inherit;
+}
+
+.table.allow-edit th:nth-child(1),
+.table.allow-edit td:nth-child(1),
+.table.allow-edit td:nth-child(1) .normal-view,
+.table.allow-edit td:nth-child(1) .hover-view {
+    width: 5em;
+    text-align: center;
+}
+
+.table.allow-delete th:last-child,
+.table.allow-delete td:last-child,
+.table.allow-delete td:last-child .normal-view,
+.table.allow-delete td:last-child .hover-view {
+    width: 5em;
+    text-align: center;
+}

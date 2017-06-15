@@ -4,6 +4,9 @@ namespace Mica.Domain.Abstract.UoW
 {
     public interface IUnitOfWork : IDisposable
     {
-        int Commit();
+        IUnitOfWork Commit();
+        IUnitOfWork BeginTransaction();
+        bool EndTransaction();
+        void RollBack();
     }
 }

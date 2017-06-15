@@ -1,0 +1,84 @@
+﻿@model IPagedList<InventoryOperationModel>
+@{
+    ViewData["Title"] = "Lệnh xuất/nhập kho";
+    var linkTo = "/InventoryOperation";
+
+    
+}
+
+<h2>@ViewData["Title"].</h2>
+<div>
+    <button type="button" class="btn btn-default create-new--btn js-open-modal"
+            data-toggle="modal" data-target="#inventory-operation-modal"
+            mc-modal-content-url="/InventoryOperation/AddEditDialog/0">
+        <i class="glyphicon glyphicon glyphicon-plus"></i>
+        Tạo mới
+    </button>
+</div>
+
+@Html.Partial("SmartPager", Model, new ViewDataDictionary(ViewData)
+{
+    { "mc-sl-to", linkTo }
+})
+
+@Html.Partial("TableSearchBox", new ViewDataDictionary(ViewData)
+{
+    { "asp-controller", "InventoryOperation" }
+})
+
+<table class="table table-striped table-hover allow-delete inventory-operation-detail">
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            var dummyDetail = Model.FirstOrDefault();
+
+            <tr>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "Id", Html.DisplayNameFor(m => dummyDetail.Id))</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "MaterialId", Html.DisplayNameFor(m => dummyDetail.MaterialId))</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.MaterialCode)</th>
+                <th>@Html.DisplayNameFor(m => dummyDetail.MaterialName)</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "Quantity", Html.DisplayNameFor(m => dummyDetail.Quantity))</th>
+                <th>@Html.RenderTableHeaderAnchor(linkTo, "CreatedOn", Html.DisplayNameFor(m => dummyDetail.CreatedOn))</th>
+                <th></th>
+            </tr>
+
+            @for (var index = 0; index < Model.Count; index++)
+            {
+                <tr>
+                    <td>@Model[index].Id</td>
+                    <td>@Model[index].MaterialId</td>
+                    <td>@Model[index].MaterialCode</td>
+                    <td>@Model[index].MaterialName</td>
+                    <td>@Model[index].Quantity</td>
+                    <td>@TimeZoneInfo.ConvertTime(Model[index].CreatedOn.Value, TimeZoneInfo.Local)</td>
+                    <td>
+                        <a class="hover-view js-open-modal" title="Xóa"
+                           href="javascript:void(0);"
+                           data-toggle="modal" data-target="#inventory-operation-modal"
+                           mc-modal-content-url="@linkTo/DeleteDialog/@Model[index].Id">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div class="clearfix">
+    <a asp-controller="Inventory" asp-action="Index" class="btn btn-default float-right">
+        <i class="glyphicon glyphicon-arrow-left"></i>
+        Trở về Kho
+    </a>
+</div>
+
+<div class="modal fade" id="inventory-operation-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
