@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Feature1\" />
-    <Folder Include="Feature2\" />
+    <Compile Remove="Feature1\**" />
+    <EmbeddedResource Remove="Feature1\**" />
+    <None Remove="Feature1\**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mica.Application.Model\Mica.Application.Models.csproj" />
+    <ProjectReference Include="..\Mica.Infrastructure\Mica.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

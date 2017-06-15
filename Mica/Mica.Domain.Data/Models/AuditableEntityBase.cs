@@ -1,15 +1,10 @@
 ﻿using System;
-using Mica.Domain.Data.Models.Abstract;
+using Mica.Infrastructure.Models.Abstract;
 
 namespace Mica.Domain.Data.Models
 {
     public abstract class AuditableEntityBase<T> : EntityBase<T>, IAuditableEntity
     {
-        public AuditableEntityBase()
-        {
-            CreatedOn = DateTime.Now.ToUniversalTime();
-        }
-
         public Guid? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
 

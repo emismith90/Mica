@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Mica.Domain.Data.Contexts;
 using Mica.Domain.Abstract.Repositories;
+using Mica.Infrastructure.Models.Abstract;
 
 namespace Mica.Domain.EF.Repositories
 {
-    public class GenericRepository<TEntity, TEntityKey> : IGenericRepository<TEntity, TEntityKey> where TEntity : class
+    public class GenericRepository<TEntity, TEntityKey> : IGenericRepository<TEntity, TEntityKey> 
+        where TEntity : class, IEntity<TEntityKey>
     {
         protected MicaContext Db;
         protected DbSet<TEntity> DbSet;
@@ -29,9 +30,9 @@ namespace Mica.Domain.EF.Repositories
             return DbSet.Find(id);
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
-            return DbSet.ToList();
+            return DbSet.AsNoTracking();
         }
 
         public virtual void Update(TEntity obj)
@@ -44,14 +45,19 @@ namespace Mica.Domain.EF.Repositories
             DbSet.Remove(DbSet.Find(id));
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public virtual IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return DbSet.AsNoTracking().Where(predicate);
+            return GetAll().Where(predicate);
         }
 
-        public int SaveChanges()
+        public virtual int SaveChanges()
         {
             return Db.SaveChanges();
+        }
+
+        public virtual TEntity CreateDefaultObject()
+        {
+            return (TEntity) Activator.CreateInstance(typeof(TEntity));
         }
 
         public void Dispose()

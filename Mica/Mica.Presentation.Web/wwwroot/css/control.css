@@ -1,0 +1,40 @@
+﻿.search-box {
+    margin: 3px 0;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+    .search-box.search-box--float-right {
+        width: 30%;
+        float: right;
+    }
+
+    .search-box input {
+        border: 0;
+        box-shadow: none;
+    }
+
+    .search-box button {
+        margin: 2px 0 0 0;
+        background: none;
+        box-shadow: none;
+        border: 0;
+        color: #666666;
+        padding: 0 8px 0 10px;
+        border-left: solid 1px #ccc;
+    }
+
+        .search-box button:hover {
+            border: 0;
+            box-shadow: none;
+            border-left: solid 1px #ccc;
+        }
+
+    .search-box .glyphicon-search {
+        font-size: 1em;
+    }
+
+.btn.btn-default > i {
+    padding-right: 0.5em;
+}

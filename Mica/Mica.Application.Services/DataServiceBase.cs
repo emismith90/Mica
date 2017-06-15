@@ -2,6 +2,7 @@
 using AutoMapper;
 using Mica.Domain.Abstract.UoW;
 using Mica.Infrastructure.Caching.Abstract;
+using Mica.Infrastructure.Configuration.Options;
 
 namespace Mica.Application.Services
 {
@@ -9,13 +10,12 @@ namespace Mica.Application.Services
     {
         protected readonly IMapper Mapper;
         protected readonly IUnitOfWork UnitOfWork;
-        protected readonly IMicaCache Cache;
 
-        public DataServiceBase(IMapper mapper, IUnitOfWork unitOfWork, IMicaCache cache) : base()
+        public DataServiceBase(IMapper mapper, 
+                               IUnitOfWork unitOfWork) : base()
         {
             this.Mapper = mapper;
             this.UnitOfWork = unitOfWork;
-            this.Cache = cache;
         }
     }
 }

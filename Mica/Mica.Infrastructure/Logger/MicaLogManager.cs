@@ -5,8 +5,8 @@ namespace Mica.Infrastructure.Logger
 {
     public class MicaLogManager : IMicaLogManager
     {
-        private readonly LoggingOptions _loggingOptions;
-        public MicaLogManager(LoggingOptions loggingOptions)
+        private readonly ILoggingOptions _loggingOptions;
+        public MicaLogManager(ILoggingOptions loggingOptions)
         {
             this._loggingOptions = loggingOptions;
         }

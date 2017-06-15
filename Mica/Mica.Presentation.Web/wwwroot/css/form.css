@@ -1,0 +1,13 @@
+﻿.form-horizontal.form-readonly {
+    padding-top: 1em;
+}
+
+.form-horizontal.form-readonly .control-label {
+    padding-top: 0;
+}
+
+input[type=checkbox].form-control {
+    width: 1em;
+    height: 1em;
+    margin-top: 0.8em;
+}

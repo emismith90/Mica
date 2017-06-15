@@ -48,3 +48,24 @@ textarea {
         display: none;
     }
 }
+
+.active a, .disabled a {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+}
+
+.inline {
+    display: inline;
+}
+.inline-block {
+    display: inline-block;
+}
+
+float-right {
+    float: right;
+}
+
+float-left {
+    float: left;
+}

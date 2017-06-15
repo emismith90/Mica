@@ -1,0 +1,26 @@
+﻿@using Mica.Infrastructure.Extensions
+
+@{
+    var aspController = ViewData["asp-controller"] != null ? ViewData["asp-controller"]?.ToString() : "Default";
+    var aspAction = ViewData["asp-action"] != null ? ViewData["asp-action"]?.ToString() : "Index";
+    var method = ViewData["method"] != null ? ViewData["method"]?.ToString() : "GET";
+
+    var name = ViewData["searchQueryName"] != null ? ViewData["searchQueryName"]?.ToString() : "query";
+    var placeholder = ViewData["searchPlaceholderName"] != null ? ViewData["searchPlaceholderName"]?.ToString() : "Tìm theo tên hoặc mô tả.";
+}
+
+<form class="clearfix" asp-controller="@aspController" method="GET">
+    <div class="search-box search-box--float-right">
+        <div class="input-group col-md-12">
+            <input type="text" class="form-control"
+                   name="@name"
+                   value="@Context.Request.Query[name]"
+                   placeholder="@placeholder" />
+            <span class="input-group-btn">
+                <button class="btn btn-info" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+</form>

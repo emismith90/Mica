@@ -20,6 +20,10 @@ namespace Mica.Infrastructure.IoC.Autofac.Modules
                         .As(typeof(IGenericRepository<,>))
                         .InstancePerDependency();
 
+            builder.RegisterGeneric(typeof(AuditableRepository<,>))
+                      .As(typeof(IAuditableRepository<,>))
+                      .InstancePerDependency();
+
             builder.RegisterType<UnitOfWork>()
                 .As<IUnitOfWork>();
             builder.RegisterType(typeof(MicaContext))

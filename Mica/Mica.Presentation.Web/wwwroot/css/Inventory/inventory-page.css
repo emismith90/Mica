@@ -1,0 +1,8 @@
+﻿.table.inventory-detail th:nth-child(2) {
+    width: 10em;
+}
+
+.table.inventory-detail th:last-child, .table.inventory-detail td:last-child {
+    width: 10em;
+    text-align: right;
+}
