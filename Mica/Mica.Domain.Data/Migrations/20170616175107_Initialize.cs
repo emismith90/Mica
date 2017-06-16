@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Mica.Domain.Data.Migrations
 {
@@ -13,7 +14,7 @@ namespace Mica.Domain.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
@@ -29,7 +30,7 @@ namespace Mica.Domain.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
@@ -47,7 +48,7 @@ namespace Mica.Domain.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedBy = table.Column<Guid>(nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     ModifiedBy = table.Column<Guid>(nullable: true),
@@ -62,8 +63,7 @@ namespace Mica.Domain.Data.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    Id = table.Column<string>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
@@ -77,8 +77,7 @@ namespace Mica.Domain.Data.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -118,15 +117,16 @@ namespace Mica.Domain.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    InStock = table.Column<decimal>(type: "decimal(12, 2)", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    InStock = table.Column<decimal>(type: "decimal(12, 2)", nullable: false),
+                    MaterialId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Inventories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Inventories_Materials_Id",
-                        column: x => x.Id,
+                        name: "FK_Inventories_Materials_MaterialId",
+                        column: x => x.MaterialId,
                         principalTable: "Materials",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -137,7 +137,7 @@ namespace Mica.Domain.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedBy = table.Column<Guid>(nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
@@ -169,7 +169,7 @@ namespace Mica.Domain.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
                     RoleId = table.Column<string>(nullable: false)
@@ -190,7 +190,7 @@ namespace Mica.Domain.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
@@ -251,14 +251,27 @@ namespace Mica.Domain.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Inventories_MaterialId",
+                table: "Inventories",
+                column: "MaterialId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InventoryOperations_MaterialId",
                 table: "InventoryOperations",
-                column: "MaterialId");
+                column: "MaterialId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_InventoryOperations_TicketId",
                 table: "InventoryOperations",
                 column: "TicketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Materials_Code",
+                table: "Materials",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",

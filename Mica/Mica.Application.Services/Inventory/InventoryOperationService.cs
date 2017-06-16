@@ -140,11 +140,13 @@ namespace Mica.Application.Services.Inventory
         {
             var needCreate = false;
 
-            var inventoryItem = this._inventoryrepository.GetById(inventoryId);
+            var inventoryItem = this._inventoryrepository
+                .Find(i => i.MaterialId == inventoryId)
+                .SingleOrDefault();
             if (inventoryItem == null)
             {
                 inventoryItem = this._inventoryrepository.CreateDefaultObject();
-                inventoryItem.Id = inventoryId;
+                inventoryItem.MaterialId = inventoryId;
                 needCreate = true;
             }
 

@@ -2,6 +2,7 @@
 {
     public class InventoryEntity : EntityBase<long>
     {
+        public long MaterialId { get; set; }
         public decimal InStock { get; set; }
 
         public virtual MaterialEntity Material { get; set; }

@@ -15,14 +15,16 @@ namespace Mica.Domain.Data.TypeBuilders
 
             builder.Property(c => c.CreatedOn)
                .HasColumnName("CreatedOn")
-               .HasColumnType("datetime");
+               .HasColumnType("datetime")
+               .ValueGeneratedOnAdd();
 
             builder.Property(c => c.ModifiedBy)
                 .HasColumnName("ModifiedBy");
 
             builder.Property(c => c.ModifiedOn)
                .HasColumnName("ModifiedOn")
-               .HasColumnType("datetime");
+               .HasColumnType("datetime")
+               .ValueGeneratedOnAddOrUpdate();
         }
     }
 }

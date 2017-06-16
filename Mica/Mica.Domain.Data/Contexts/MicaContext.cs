@@ -42,7 +42,7 @@ namespace Mica.Domain.Data.Contexts
                .AddJsonFile("appsettings.json")
                .Build();
 
-            optionsBuilder.UseMySql(config.GetConnectionString("MicaConnection"));
+            optionsBuilder.UseSqlServer(config.GetConnectionString("MicaConnection"));
         }
     }
 }

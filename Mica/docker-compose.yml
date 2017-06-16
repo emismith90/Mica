@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  mica.presentation.web:
+    image: mica.presentation.web
+    build:
+      context: ./Mica.Presentation.Web
+      dockerfile: Dockerfile

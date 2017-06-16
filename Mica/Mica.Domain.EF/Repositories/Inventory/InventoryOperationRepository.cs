@@ -6,7 +6,7 @@ using Mica.Domain.Abstract.Repositories.Inventory;
 
 namespace Mica.Domain.EF.Repositories.Inventory
 {
-    public class InventoryOperationRepository : AuditableRepository<InventoryOperationEntity, long>, IInventoryOperationRepository
+    public class InventoryOperationRepository : GenericRepository<InventoryOperationEntity, long>, IInventoryOperationRepository
     {
         public InventoryOperationRepository(MicaContext context) : base(context) { }
 

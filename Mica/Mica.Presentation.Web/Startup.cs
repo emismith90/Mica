@@ -1,16 +1,17 @@
 ﻿using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mica.Infrastructure.IoC;
 using Serilog;
+using Mica.Infrastructure.IoC;
 using Mica.Infrastructure.IoC.Autofac;
 using Mica.Infrastructure.Logger;
-using System.IO;
 using Mica.Domain.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mica.Presentation.Web
 {
@@ -60,7 +61,6 @@ namespace Mica.Presentation.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IMicaLogManager micaLogManager)
         {
             loggerFactory.AddSerilog(micaLogManager.CreateLogger());
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -74,9 +74,11 @@ namespace Mica.Presentation.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            var context = app.ApplicationServices.GetService<MicaContext>();
+            if (!context.Database.EnsureCreated())
+                context.Database.Migrate();
 
-            // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseIdentity();
 
             app.UseMvc(routes =>
             {

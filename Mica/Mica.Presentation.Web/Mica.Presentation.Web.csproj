@@ -10,6 +10,7 @@
 
   <PropertyGroup>
     <UserSecretsId>aspnet-Mica.Presentation.Web-72d1535d-146e-42bd-8842-8577277b7a9d</UserSecretsId>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -44,7 +45,6 @@
     </Content>
     <Content Include="wwwroot\js\lumino.glyphs.js" />
     <Content Include="wwwroot\js\onpageload.js" />
-    <Content Include="wwwroot\js\utils\mica - Copy.utils.query-string.js" />
     <Content Include="wwwroot\js\utils\mica.utils.nav-item.js" />
     <Content Include="wwwroot\js\utils\mica.utils.query-string.js" />
   </ItemGroup>

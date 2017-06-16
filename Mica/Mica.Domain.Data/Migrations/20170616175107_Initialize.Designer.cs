@@ -8,13 +8,14 @@ using Mica.Domain.Data.Contexts;
 namespace Mica.Domain.Data.Migrations
 {
     [DbContext(typeof(MicaContext))]
-    [Migration("20170615110251_Initialize")]
+    [Migration("20170616175107_Initialize")]
     partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.2");
+                .HasAnnotation("ProductVersion", "1.1.2")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Mica.Domain.Data.Models.Effort.EffortEntity", b =>
                 {
@@ -51,7 +52,12 @@ namespace Mica.Domain.Data.Migrations
                     b.Property<decimal>("InStock")
                         .HasColumnType("decimal(12, 2)");
 
+                    b.Property<long>("MaterialId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("MaterialId")
+                        .IsUnique();
 
                     b.ToTable("Inventories");
                 });
@@ -65,6 +71,7 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnName("CreatedBy");
 
                     b.Property<DateTime?>("CreatedOn")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("CreatedOn")
                         .HasColumnType("datetime");
 
@@ -78,6 +85,7 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnName("ModifiedBy");
 
                     b.Property<DateTime?>("ModifiedOn")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnName("ModifiedOn")
                         .HasColumnType("datetime");
 
@@ -88,7 +96,8 @@ namespace Mica.Domain.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MaterialId");
+                    b.HasIndex("MaterialId")
+                        .IsUnique();
 
                     b.HasIndex("TicketId");
 
@@ -127,6 +136,9 @@ namespace Mica.Domain.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.ToTable("Materials");
                 });
 
@@ -139,6 +151,7 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnName("CreatedBy");
 
                     b.Property<DateTime?>("CreatedOn")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("CreatedOn")
                         .HasColumnType("datetime");
 
@@ -146,6 +159,7 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnName("ModifiedBy");
 
                     b.Property<DateTime?>("ModifiedOn")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnName("ModifiedOn")
                         .HasColumnType("datetime");
 
@@ -315,7 +329,7 @@ namespace Mica.Domain.Data.Migrations
                 {
                     b.HasOne("Mica.Domain.Data.Models.Inventory.MaterialEntity", "Material")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
