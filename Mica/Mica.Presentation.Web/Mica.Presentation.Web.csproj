@@ -14,6 +14,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\bootstrap-datepicker\**" />
+    <Compile Remove="wwwroot\lib\bootstrap-table\**" />
+    <Compile Remove="wwwroot\lib\bootstrap\**" />
+    <Compile Remove="wwwroot\lib\jquery-validation-unobtrusive\**" />
+    <Compile Remove="wwwroot\lib\jquery-validation\**" />
+    <Compile Remove="wwwroot\lib\jquery\**" />
+    <Content Remove="wwwroot\lib\bootstrap-datepicker\**" />
+    <Content Remove="wwwroot\lib\bootstrap-table\**" />
+    <Content Remove="wwwroot\lib\bootstrap\**" />
+    <Content Remove="wwwroot\lib\jquery-validation-unobtrusive\**" />
+    <Content Remove="wwwroot\lib\jquery-validation\**" />
+    <Content Remove="wwwroot\lib\jquery\**" />
+    <EmbeddedResource Remove="wwwroot\lib\bootstrap-datepicker\**" />
+    <EmbeddedResource Remove="wwwroot\lib\bootstrap-table\**" />
+    <EmbeddedResource Remove="wwwroot\lib\bootstrap\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery-validation-unobtrusive\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery-validation\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery\**" />
+    <None Remove="wwwroot\lib\bootstrap-datepicker\**" />
+    <None Remove="wwwroot\lib\bootstrap-table\**" />
+    <None Remove="wwwroot\lib\bootstrap\**" />
+    <None Remove="wwwroot\lib\jquery-validation-unobtrusive\**" />
+    <None Remove="wwwroot\lib\jquery-validation\**" />
+    <None Remove="wwwroot\lib\jquery\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot/js\common\mica.common.modal.js" />
   </ItemGroup>
 
@@ -92,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\js\effort\" />
+    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
 using Mica.Application.Models.Inventory;
@@ -8,7 +9,6 @@ using Mica.Infrastructure.Helpers;
 using Mica.Application.Services.Abstract.Cache;
 using Mica.Domain.Abstract.Repositories.Inventory;
 using Mica.Infrastructure.Extensions;
-using System.Linq;
 
 namespace Mica.Application.Services.Inventory
 {

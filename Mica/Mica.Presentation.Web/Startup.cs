@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -11,7 +13,6 @@ using Mica.Infrastructure.IoC;
 using Mica.Infrastructure.IoC.Autofac;
 using Mica.Infrastructure.Logger;
 using Mica.Domain.Data.Contexts;
-using Microsoft.EntityFrameworkCore;
 
 namespace Mica.Presentation.Web
 {
@@ -75,8 +76,14 @@ namespace Mica.Presentation.Web
             app.UseStaticFiles();
 
             var context = app.ApplicationServices.GetService<MicaContext>();
-            if (!context.Database.EnsureCreated())
-                context.Database.Migrate();
+            try
+            {
+                if(context.Database.GetPendingMigrations().Any())
+                    context.Database.Migrate();
+            }
+            catch(Exception ex)
+            {
+            }
 
             app.UseIdentity();
 

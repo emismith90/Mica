@@ -6,3 +6,23 @@ services:
     build:
       context: ./Mica.Presentation.Web
       dockerfile: Dockerfile
+    depends_on:
+      - data.mssql
+
+  data.mssql:
+    image: microsoft/mssql-server-linux
+
+  data.mysql:
+    image: mysql
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./dbcreation.sql:/tmp/dbcreation.sql
+      - ./import.sh:/tmp/import.sh
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "test"
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "test"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"

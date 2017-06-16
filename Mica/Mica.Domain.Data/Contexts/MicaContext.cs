@@ -37,12 +37,15 @@ namespace Mica.Domain.Data.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var config = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json")
-               .Build();
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-            optionsBuilder.UseSqlServer(config.GetConnectionString("MicaConnection"));
+            builder.AddEnvironmentVariables();
+
+            var config = builder.Build();
+
+            optionsBuilder.UseSqlServer(config["ConnectionString"]);
         }
     }
 }
