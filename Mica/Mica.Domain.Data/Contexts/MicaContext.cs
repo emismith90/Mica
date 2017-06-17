@@ -45,7 +45,7 @@ namespace Mica.Domain.Data.Contexts
 
             var config = builder.Build();
 
-            optionsBuilder.UseSqlServer(config["ConnectionString"]);
+            optionsBuilder.UseMySql(config["ConnectionString"]);
         }
     }
 }

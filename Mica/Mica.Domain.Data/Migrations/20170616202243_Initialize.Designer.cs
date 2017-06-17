@@ -8,14 +8,13 @@ using Mica.Domain.Data.Contexts;
 namespace Mica.Domain.Data.Migrations
 {
     [DbContext(typeof(MicaContext))]
-    [Migration("20170616175107_Initialize")]
+    [Migration("20170616202243_Initialize")]
     partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.2")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "1.1.2");
 
             modelBuilder.Entity("Mica.Domain.Data.Models.Effort.EffortEntity", b =>
                 {
