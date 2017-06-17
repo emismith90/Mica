@@ -7,7 +7,7 @@ services:
       context: ./Mica.Presentation.Web
       dockerfile: Dockerfile
     depends_on:
-      - data.mysql
+      - mica.data.mysql
 
-  data.mysql:
+  mica.data.mysql:
     image: mysql

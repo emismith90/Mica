@@ -24,7 +24,6 @@
       "wwwroot/js/utils/*.js",
       "wwwroot/js/common/*.js",
       "wwwroot/js/inventory/*.js",
-      "wwwroot/js/effort/*.js",
       "wwwroot/js/onpageload.js"
     ],
     // Optionally specify minification options
