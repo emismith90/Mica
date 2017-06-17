@@ -1,0 +1,25 @@
+dotnet restore ./Mica.sln
+
+dotnet publish ./Mica.sln -c Release -o ./obj/Docker/publish
+
+docker build -t mica.web Mica.Presentation.Web\
+docker run -dit -p 5555 --restart always mica.web
+
+heroku plugins:install heroku-container-registry
+heroku container:login
+
+docker tag mica.web registry.heroku.com/mica-web/web
+docker push registry.heroku.com/mica-web/web
+
+
+
+docker run -dit --restart always --name mica.web.data -e MYSQL_ROOT_PASSWORD=Test@1234 -d mysql:5.7
+
+
+#db
+
+docker build -t mica-web-data .
+docker run -dit --restart always mica-web-data
+
+docker tag mica-web-data registry.heroku.com/mica-web-data/web
+docker push registry.heroku.com/mica-web-data/web

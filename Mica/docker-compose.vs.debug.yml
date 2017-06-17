@@ -15,3 +15,7 @@ services:
     entrypoint: tail -f /dev/null
     labels:
       - "com.microsoft.visualstudio.targetoperatingsystem=linux"
+
+  mica.data.mysql:
+    volumes:
+      - ./database:/var/lib/mysql
