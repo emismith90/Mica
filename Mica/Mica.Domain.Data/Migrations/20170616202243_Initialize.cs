@@ -49,9 +49,11 @@ namespace Mica.Domain.Data.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     CreatedBy = table.Column<Guid>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ModifiedBy = table.Column<Guid>(nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAddOrUpdate", true)
                 },
                 constraints: table =>
                 {
@@ -119,14 +121,15 @@ namespace Mica.Domain.Data.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    InStock = table.Column<decimal>(type: "decimal(12, 2)", nullable: false)
+                    InStock = table.Column<decimal>(type: "decimal(12, 2)", nullable: false),
+                    MaterialId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Inventories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Inventories_Materials_Id",
-                        column: x => x.Id,
+                        name: "FK_Inventories_Materials_MaterialId",
+                        column: x => x.MaterialId,
                         principalTable: "Materials",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -139,11 +142,13 @@ namespace Mica.Domain.Data.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     CreatedBy = table.Column<Guid>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     MaterialId = table.Column<long>(nullable: false),
                     ModifiedBy = table.Column<Guid>(nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAddOrUpdate", true),
                     Quantity = table.Column<decimal>(type: "decimal(12, 2)", nullable: false),
                     TicketId = table.Column<long>(nullable: true)
                 },
@@ -251,14 +256,27 @@ namespace Mica.Domain.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Inventories_MaterialId",
+                table: "Inventories",
+                column: "MaterialId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InventoryOperations_MaterialId",
                 table: "InventoryOperations",
-                column: "MaterialId");
+                column: "MaterialId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_InventoryOperations_TicketId",
                 table: "InventoryOperations",
                 column: "TicketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Materials_Code",
+                table: "Materials",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",

@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  mica.presentation.web:
+    image: mica.presentation.web
+    build:
+      context: ./Mica.Presentation.Web
+      dockerfile: Dockerfile
+    depends_on:
+      - data.mysql
+
+  data.mysql:
+    image: mysql

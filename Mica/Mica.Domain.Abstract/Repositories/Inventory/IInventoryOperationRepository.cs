@@ -2,7 +2,7 @@
 
 namespace Mica.Domain.Abstract.Repositories.Inventory
 {
-    public interface IInventoryOperationRepository : IAuditableRepository<InventoryOperationEntity, long> 
+    public interface IInventoryOperationRepository : IGenericRepository<InventoryOperationEntity, long> 
     {
     }
 }

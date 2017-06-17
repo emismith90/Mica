@@ -14,6 +14,9 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
                 .WithMany()
                 .HasForeignKey(m => m.MaterialId)
                 .IsRequired();
+            builder
+                .HasIndex(b => b.MaterialId)
+                .IsUnique();
 
             builder.HasOne(m => m.Ticket)
                 .WithMany()

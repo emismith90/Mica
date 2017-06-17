@@ -10,8 +10,11 @@ namespace Mica.Domain.Data.TypeBuilders
     {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
+            builder.HasKey(i => i.Id);
+
             builder.Property(c => c.Id)
-                .HasColumnName("Id");
+                .HasColumnName("Id")
+                .ValueGeneratedOnAdd();
         }
     }
 }

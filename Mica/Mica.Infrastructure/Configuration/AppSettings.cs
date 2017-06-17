@@ -12,6 +12,8 @@ namespace Mica.Infrastructure.Configuration
                .SetBasePath(Directory.GetCurrentDirectory())
                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
+            builder.AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
