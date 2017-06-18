@@ -5,10 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Mica.Domain.Data.Models;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Data.Models.Effort;
-using Mica.Domain.Data.TypeBuilders;
+using Mica.Domain.Data.Models.Client;
 using Mica.Domain.Data.TypeBuilders.Extensions;
+using Mica.Domain.Data.TypeBuilders;
 using Mica.Domain.Data.TypeBuilders.Inventory;
 using Mica.Domain.Data.TypeBuilders.Effort;
+using Mica.Domain.Data.TypeBuilders.Client;
 
 namespace Mica.Domain.Data.Contexts
 {
@@ -20,6 +22,8 @@ namespace Mica.Domain.Data.Contexts
 
         public DbSet<EffortEntity> Efforts { get; set; }
 
+        public DbSet<ClientEntity> Clients { get; set; }
+
         public DbSet<TicketEntity> Tickets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,6 +33,8 @@ namespace Mica.Domain.Data.Contexts
             modelBuilder.AddConfiguration(new InventoryOperationType());
 
             modelBuilder.AddConfiguration(new EffortType());
+
+            modelBuilder.AddConfiguration(new ClientType());
 
             modelBuilder.AddConfiguration(new TicketType());
 

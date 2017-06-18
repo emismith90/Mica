@@ -17,6 +17,8 @@ namespace Mica.Application.Mapper
 
                 cfg.AddProfile(new EffortMappingProfile());
 
+                cfg.AddProfile(new ClientMappingProfile());
+
                 cfg.AddProfile(new TicketMappingProfile());
             });
         }

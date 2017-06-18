@@ -1,0 +1,119 @@
+﻿@model ClientModel
+
+@{
+    var createNew = Model.Id == 0;
+
+    ViewData["Title"] = createNew ? "Tạo mới khách hàng" : $"Sửa (#{Model.Id}) {Model.Name}";
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2>@ViewData["Title"].</h2>
+    </div>
+    <div class="modal-body">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <form id="form" class="form-horizontal">
+            <input asp-for="Id" hidden />
+            <div class="form-group">
+                <label asp-for="Name" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Name" required maxlength="255" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthday" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Birthday" data-provide="datepicker" maxlength="255" class="form-control datepicker" />
+                    <span asp-validation-for="Birthday" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="PhoneNumber" maxlength="255" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Email" type="email" maxlength="255" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="SkypeId" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="SkypeId" maxlength="255" class="form-control" />
+                    <span asp-validation-for="SkypeId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="YahooId" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="YahooId" maxlength="255" class="form-control" />
+                    <span asp-validation-for="YahooId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="Address" maxlength="1000" class="form-control"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Company" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Company" maxlength="255" class="form-control" />
+                    <span asp-validation-for="Company" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Position" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Position" maxlength="255" class="form-control" />
+                    <span asp-validation-for="Position" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyPhone" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="CompanyPhone" maxlength="255" class="form-control" />
+                    <span asp-validation-for="CompanyPhone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyAddress" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="CompanyAddress" maxlength="1000" class="form-control"></textarea>
+                    <span asp-validation-for="CompanyAddress" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr />
+            <div class="form-group">
+                <label asp-for="Note" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="Note" maxlength="1000" class="form-control"></textarea>
+                    <span asp-validation-for="Note" class="text-danger"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary js-save-btn" 
+                mc-modal-post-url="/Client/Save/">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            Lưu
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="glyphicon glyphicon-remove"></i>
+            Hủy
+        </button>
+    </div>
+</div>

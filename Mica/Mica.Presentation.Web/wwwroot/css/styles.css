@@ -674,7 +674,7 @@ a.bg-danger:hover {
 
 .sidebar ul.nav li.divider {
     border-bottom: 1px solid #eee;
-    margin: 20px 0;
+    /*margin: 20px 0;*/
 }
 
 .sidebar .attribution {
