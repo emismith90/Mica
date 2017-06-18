@@ -8,9 +8,10 @@ using Mica.Domain.Data.Contexts;
 namespace Mica.Domain.Data.Migrations
 {
     [DbContext(typeof(MicaContext))]
-    partial class MicaContextModelSnapshot : ModelSnapshot
+    [Migration("20170618190119_ClientUpdate1")]
+    partial class ClientUpdate1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");

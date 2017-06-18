@@ -1,0 +1,18 @@
+﻿.table.client-detail th:nth-child(2), /*name*/
+.table.client-detail th:nth-child(3) { /*companyname*/
+    width: 15em;
+}
+
+
+.table.client-detail th:nth-child(4), /*email*/
+.table.client-detail th:nth-child(5), /*skype*/
+.table.client-detail th:nth-child(6), /*yahoo*/
+.table.client-detail th:nth-child(7), /*phone*/
+.table.client-detail th:nth-child(8) { /*companyphone*/
+    width: 8em;
+}
+
+.table.client-detail th:nth-child(7), .table.client-detail td:nth-child(7),
+.table.client-detail th:nth-child(8), .table.client-detail td:nth-child(8) {
+    text-align: right;
+}
