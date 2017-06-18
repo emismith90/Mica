@@ -8,9 +8,10 @@ using Mica.Domain.Data.Contexts;
 namespace Mica.Domain.Data.Migrations
 {
     [DbContext(typeof(MicaContext))]
-    partial class MicaContextModelSnapshot : ModelSnapshot
+    [Migration("20170618182706_Client")]
+    partial class Client
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
@@ -58,14 +59,6 @@ namespace Mica.Domain.Data.Migrations
                         .HasMaxLength(255);
 
                     b.Property<string>("Position")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("SkypeId")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("YahooId")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 

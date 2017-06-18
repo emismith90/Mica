@@ -76,9 +76,16 @@ namespace Mica.Presentation.Web
             app.UseStaticFiles();
 
             var context = app.ApplicationServices.GetService<MicaContext>();
-            if (context.Database.GetPendingMigrations().Any())
-                context.Database.Migrate();
 
+            try
+            {
+                if (context.Database.GetPendingMigrations().Any())
+                    context.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+
+            }
             app.UseIdentity();
 
             app.UseMvc(routes =>

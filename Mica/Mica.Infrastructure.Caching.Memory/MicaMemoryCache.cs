@@ -78,7 +78,7 @@ namespace Mica.Infrastructure.Caching.Memory
                 this.Set(key, result);
                 return result;
             }
-            catch
+            catch(Exception ex)
             {
                 this.Set(key, default(T), TimeSpan.FromSeconds(CachingOptions.RetryInSecond));
                 return default(T);

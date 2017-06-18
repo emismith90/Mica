@@ -8,6 +8,8 @@
                 Dashboard
             </a>
         </li>
+        <li role="presentation" class="divider"></li>
+
         <li class="parent">
             <a asp-area="" asp-controller="Inventory" asp-action="Index">
                 <span data-toggle="collapse" href="#sub-item-inventory">
@@ -32,6 +34,8 @@
                 </li>
             </ul>
         </li>
+        <li role="presentation" class="divider"></li>
+
         <li>
             <a asp-area="" asp-controller="Effort" asp-action="Index">
                 <i class="glyph glyphicon glyphicon-time"></i>
@@ -39,7 +43,16 @@
             </a>
         </li>
         <li role="presentation" class="divider"></li>
-        <li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>
+
+        <li>
+            <a asp-area="" asp-controller="Client" asp-action="Index">
+                <svg class="glyph stroked male user "><use xlink:href="#stroked-male-user" /></svg>
+                Khách hàng
+            </a>
+        </li>
+        
+        @*<li role="presentation" class="divider"></li>
+        <li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>*@
     </ul>
     <div class="attribution"><p>&copy; 2017 - Mica</p></div>
 </div><!--/.sidebar-->

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\client\client-page.css" />
     <Content Include="wwwroot\css\control.css" />
     <Content Include="wwwroot\css\effort\effort-page.css" />
     <Content Include="wwwroot\css\inventory\inventory-operation-page.css" />

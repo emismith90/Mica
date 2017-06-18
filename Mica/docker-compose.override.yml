@@ -12,4 +12,4 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "Test@1234"
     ports:
-      - "3306:3306"
+      - "3307:3306"
