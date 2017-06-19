@@ -8,7 +8,11 @@ namespace Mica.Application.Mapper.Profiles.Effort
     {
         public EffortOperationMappingProfile()
         {
-            this.CreateMap<EffortOperationEntity, EffortOperationModel>().ReverseMap();
+            var map = this.CreateMap<EffortOperationEntity, EffortOperationModel>();
+
+            map.ForMember(m => m.TicketName, opt => opt.MapFrom(e => e.Ticket.Name));
+
+            map.ReverseMap();
         }
     }
 }

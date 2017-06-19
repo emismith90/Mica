@@ -5,7 +5,6 @@ using Mica.Application.Services.Abstract.Effort;
 using Mica.Application.Services.Abstract.Cache;
 using Mica.Application.Models.Effort;
 using Mica.Domain.Data.Models.Effort;
-using Mica.Domain.Abstract.Repositories.Effort;
 
 namespace Mica.Application.Services.Effort
 {
@@ -16,10 +15,18 @@ namespace Mica.Application.Services.Effort
             IMapper mapper, 
             IUnitOfWork unitOfWork, 
             ITypedCacheService<EffortModel, long> cache,
-            IEffortRepository repository) 
+            IGenericRepository<EffortEntity, long> repository) 
             : base(mapper, unitOfWork, cache, repository)
         {
             this._repository = repository;
+        }
+
+        public override EffortModel CreateDefaultObject()
+        {
+            return new EffortModel
+            {
+                Active = true
+            };
         }
     }
 }

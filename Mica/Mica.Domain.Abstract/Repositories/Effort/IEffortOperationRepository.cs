@@ -2,7 +2,7 @@
 
 namespace Mica.Domain.Abstract.Repositories.Effort
 {
-    public interface IEffortRepository : IGenericRepository<EffortEntity, long> 
+    public interface IEffortOperationRepository : IGenericRepository<EffortOperationEntity, long> 
     {
     }
 }

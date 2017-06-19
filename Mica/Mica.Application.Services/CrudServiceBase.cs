@@ -31,10 +31,9 @@ namespace Mica.Application.Services
             this.Cache = cache;
         }
 
-
         public virtual TModel CreateDefaultObject()
         {
-            return Mapper.Map<TModel>(this.Repository.CreateDefaultObject());
+            return (TModel)Activator.CreateInstance(typeof(TModel));
         }
 
         public virtual TModel GetById(TKey id)

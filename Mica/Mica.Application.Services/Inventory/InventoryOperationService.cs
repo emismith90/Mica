@@ -15,18 +15,18 @@ namespace Mica.Application.Services.Inventory
     public class InventoryOperationService
         : CrudWithSearchServiceBase<long, InventoryOperationModel, InventoryOperationEntity>, IInventoryOperationService
     {
-        private readonly IInventoryRepository _inventoryrepository;
+        private readonly IInventoryService _inventoryService;
         private readonly ITypedCacheService<InventoryModel, long> _inventoryCache;
 
         public InventoryOperationService(IMapper mapper,
             IUnitOfWork unitOfWork,
             ITypedCacheService<InventoryOperationModel, long> cache,
             IInventoryOperationRepository repository,
-            IInventoryRepository inventoryrepository,
+            IInventoryService inventoryService,
             ITypedCacheService<InventoryModel, long> inventoryCache)
             : base(mapper, unitOfWork, cache, repository)
         {
-            this._inventoryrepository = inventoryrepository;
+            this._inventoryService = inventoryService;
             this._inventoryCache = inventoryCache;
         }
 
@@ -35,7 +35,7 @@ namespace Mica.Application.Services.Inventory
         {
             if (string.IsNullOrEmpty(orderBy))
             {
-                orderBy = "CreatedOn";
+                orderBy = "OperationDate";
                 orderDirection = "desc";
             }
 
@@ -46,7 +46,7 @@ namespace Mica.Application.Services.Inventory
         {
             if (string.IsNullOrEmpty(orderBy))
             {
-                orderBy = "CreatedOn";
+                orderBy = "OperationDate";
                 orderDirection = "desc";
             }
 
@@ -57,7 +57,7 @@ namespace Mica.Application.Services.Inventory
         {
             if (string.IsNullOrEmpty(orderBy))
             {
-                orderBy = "CreatedOn";
+                orderBy = "OperationDate";
                 orderDirection = "desc";
             }
 
@@ -88,7 +88,7 @@ namespace Mica.Application.Services.Inventory
                 Repository.Add(Mapper.Map<InventoryOperationEntity>(model));
                 this.UnitOfWork.Commit();
 
-                UpdateInventoryStock(model.MaterialId, model.Quantity);
+                _inventoryService.UpdateInventoryStock(model.MaterialId, model.Quantity);
                 this.UnitOfWork.Commit();
 
                 if (!this.UnitOfWork.EndTransaction())
@@ -117,7 +117,7 @@ namespace Mica.Application.Services.Inventory
                 Repository.Remove(id);
                 this.UnitOfWork.Commit();
 
-                UpdateInventoryStock(model.MaterialId, model.Quantity, true);
+                _inventoryService.UpdateInventoryStock(model.MaterialId, model.Quantity, true);
                 this.UnitOfWork.Commit();
 
                 if (!this.UnitOfWork.EndTransaction())
@@ -133,39 +133,6 @@ namespace Mica.Application.Services.Inventory
             {
                 this.UnitOfWork.RollBack();
                 return false;
-            }
-        }
-
-        private void UpdateInventoryStock(long inventoryId, decimal quantity, bool reverse = false)
-        {
-            var needCreate = false;
-
-            var inventoryItem = this._inventoryrepository
-                .Find(i => i.MaterialId == inventoryId)
-                .SingleOrDefault();
-            if (inventoryItem == null)
-            {
-                inventoryItem = this._inventoryrepository.CreateDefaultObject();
-                inventoryItem.MaterialId = inventoryId;
-                needCreate = true;
-            }
-
-            if (reverse)
-            {
-                inventoryItem.InStock -= quantity;
-            }
-            else
-            {
-                inventoryItem.InStock += quantity;
-            }
-
-            if (needCreate)
-            {
-                this._inventoryrepository.Add(inventoryItem);
-            }
-            else
-            {
-                this._inventoryrepository.Update(inventoryItem);
             }
         }
 

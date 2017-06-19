@@ -6,19 +6,27 @@ using Mica.Application.Services.Abstract.Cache;
 using Mica.Application.Models.Inventory;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Abstract.UoW;
-using Mica.Domain.Abstract.Repositories.Inventory;
+using Mica.Domain.Abstract.Repositories;
 
 namespace Mica.Application.Services.Inventory
 {
     public class MaterialService : CrudWithSearchServiceBase<long, MaterialModel, MaterialEntity>, IMaterialService
     {
         public MaterialService(
-            IMapper mapper, 
-            IUnitOfWork unitOfWork, 
+            IMapper mapper,
+            IUnitOfWork unitOfWork,
             ITypedCacheService<MaterialModel, long> cache,
-            IMaterialRepository repository) 
+            IGenericRepository<MaterialEntity, long> repository)
             : base(mapper, unitOfWork, cache, repository)
         {
+        }
+
+        public override MaterialModel CreateDefaultObject()
+        {
+            return new MaterialModel
+            {
+                Active = true
+            };
         }
 
         public virtual IList<SelectListItem> GetMaterialsForPickup()
@@ -29,7 +37,8 @@ namespace Mica.Application.Services.Inventory
                     var queryableResult = Repository
                                             .GetAll()
                                             .Where(m => m.Active)
-                                            .Select(m => new SelectListItem {
+                                            .Select(m => new SelectListItem
+                                            {
                                                 Text = string.Format("{0} ({1})", m.Name, m.Code),
                                                 Value = m.Id.ToString()
                                             });
