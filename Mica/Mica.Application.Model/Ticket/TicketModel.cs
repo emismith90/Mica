@@ -26,6 +26,9 @@ namespace Mica.Application.Models.Ticket
         [Required]
         public long StatusId { get; set; }
 
+        [DisplayName("Người thực hiện")]
+        public string PersonInChargeId { get; set; }
+
         [DisplayName("Thời hạn hoàn thành")]
         [Required]
         public DateTime Deadline { get; set; }
@@ -49,5 +52,8 @@ namespace Mica.Application.Models.Ticket
 
         [DisplayName("Kinh doanh")]
         public string SaleByName { get; set; }
+
+        [DisplayName("Người thực hiện")]
+        public string PersonInChargeName { get; set; }
     }
 }

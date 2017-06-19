@@ -1,7 +1,7 @@
-﻿@model MaterialModel
+﻿@model TicketStatusModel
 
 @{
-    ViewData["Title"] = $"Xóa vật tư (#{Model.Id}) {Model.Name}";
+    ViewData["Title"] = $"Xóa trạng thái lệnh (#{Model.Id}) {Model.Name}";
 }
 
 <div class="modal-content">
@@ -10,7 +10,7 @@
         <h2>@ViewData["Title"].</h2>
     </div>
     <div class="modal-body">
-        <div class="text-danger">Bạn có chắc muốn xóa vật tư '@Model.Name' (#@Model.Id) với nội dung: </div>
+        <div class="text-danger">Bạn có chắc muốn xóa trạng thái '@Model.Name' (#@Model.Id) với nội dung: </div>
 
         <form id="form" class="form-horizontal form-readonly">
             <input asp-for="Id" hidden />
@@ -21,40 +21,22 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Code" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    @Model.Code
-                </div>
-            </div>
-            <div class="form-group">
                 <label asp-for="Description" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     @Model.Description
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Unit" class="col-md-2 control-label"></label>
+                <label asp-for="Order" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    @Model.Unit
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="UnitPrice" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    @Model.UnitPrice.ToString("N1")
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Active" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    @(Model.Active ? "Đang hoạt động" : "Ngừng hoạt động")
+                    @Model.Order
                 </div>
             </div>
         </form>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-danger js-save-btn @(Model.Id == 0 ? "disabled" : string.Empty)"
-                mc-modal-post-url="/Material/Delete/">
+                mc-modal-post-url="/TicketStatus/Delete/">
             <i class="glyphicon glyphicon-trash"></i>
             Xóa
         </button>

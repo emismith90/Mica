@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Mica.Application.Services.Inventory;
+using Mica.Application.Services.Abstract.Inventory;
 
 namespace Mica.Presentation.Web.Controllers.Inventory
 {

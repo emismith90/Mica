@@ -2,7 +2,7 @@
 using Mica.Application.Services.Abstract;
 using Mica.Infrastructure.Helpers;
 
-namespace Mica.Application.Services.Inventory
+namespace Mica.Application.Services.Abstract.Inventory
 {
     public interface IInventoryOperationService 
           : ICrudService<InventoryOperationModel, long>,

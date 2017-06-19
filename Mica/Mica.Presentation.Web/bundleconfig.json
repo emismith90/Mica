@@ -13,7 +13,8 @@
       "wwwroot/css/table.css",
       "wwwroot/css/inventory/*.css",
       "wwwroot/css/effort/*.css",
-      "wwwroot/css/client/*.css"
+      "wwwroot/css/client/*.css",
+      "wwwroot/css/ticket/*.css"
     ]
   },
   {

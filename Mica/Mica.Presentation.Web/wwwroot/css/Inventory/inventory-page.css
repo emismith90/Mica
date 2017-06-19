@@ -2,7 +2,17 @@
     width: 10em;
 }
 
-.table.inventory-detail th:last-child, .table.inventory-detail td:last-child {
+.table.inventory-detail td:nth-child(5),
+.table.inventory-detail td:nth-child(6),
+.table.inventory-detail td:nth-child(7) {
+    opacity: 0.5;
+}
+
+.table.inventory-detail th:nth-child(4), .table.inventory-detail td:nth-child(4),
+.table.inventory-detail th:nth-child(5), .table.inventory-detail td:nth-child(5),
+.table.inventory-detail th:nth-child(6), .table.inventory-detail td:nth-child(6),
+.table.inventory-detail th:nth-child(7), .table.inventory-detail td:nth-child(7) {
     width: 10em;
     text-align: right;
 }
+

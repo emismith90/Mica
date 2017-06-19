@@ -22,6 +22,9 @@ namespace Mica.Domain.Data.TypeBuilders.Effort
               .HasColumnType("datetime")
               .IsRequired();
 
+            builder.HasOne(m => m.Effort)
+                .WithMany()
+                .HasForeignKey(m => m.EffortId);
             builder.HasOne(m => m.Ticket)
                 .WithMany()
                 .HasForeignKey(m => m.TicketId);

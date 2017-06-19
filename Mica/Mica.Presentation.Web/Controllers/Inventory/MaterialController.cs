@@ -1,4 +1,4 @@
-﻿using Mica.Application.Services.Inventory;
+﻿using Mica.Application.Services.Abstract.Inventory;
 using Mica.Application.Models.Inventory;
 using Mica.Presentation.Web.Controllers.Abstract;
 

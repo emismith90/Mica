@@ -2,13 +2,15 @@
 using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
-using Mica.Application.Models.Inventory;
+using Mica.Domain.Abstract.Repositories.Inventory;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Abstract.UoW;
 using Mica.Infrastructure.Helpers;
-using Mica.Application.Services.Abstract.Cache;
-using Mica.Domain.Abstract.Repositories.Inventory;
 using Mica.Infrastructure.Extensions;
+using Mica.Application.Services.Abstract.Cache;
+using Mica.Application.Services.Abstract.Inventory;
+using Mica.Application.Models.Inventory;
+
 
 namespace Mica.Application.Services.Inventory
 {
@@ -78,14 +80,22 @@ namespace Mica.Application.Services.Inventory
         }
         #endregion
 
+        public override InventoryOperationModel CreateDefaultObject()
+        {
+            return new InventoryOperationModel
+            {
+                OperationDate = DateTime.Now
+            };
+        }
+
         public override bool Add(InventoryOperationModel model)
         {
             this.UnitOfWork.BeginTransaction();
             try
             {
                 if (model.Quantity == 0) return true; // no need to track this shit transaction.
-
-                Repository.Add(Mapper.Map<InventoryOperationEntity>(model));
+                var entity = Mapper.Map<InventoryOperationEntity>(model);
+                Repository.Add(entity);
                 this.UnitOfWork.Commit();
 
                 _inventoryService.UpdateInventoryStock(model.MaterialId, model.Quantity);
@@ -100,7 +110,7 @@ namespace Mica.Application.Services.Inventory
                 _inventoryCache.FlushItem(model.MaterialId);
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
                 this.UnitOfWork.RollBack();
                 return false;

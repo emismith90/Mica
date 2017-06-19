@@ -16,6 +16,7 @@ namespace Mica.Domain.EF.Repositories.Ticket
                 .Include(i => i.Client)
                 .Include(i => i.SaleBy)
                 .Include(i => i.Status)
+                .Include(i => i.PersonInCharge)
                 .SingleOrDefault();
         }
 
@@ -24,7 +25,8 @@ namespace Mica.Domain.EF.Repositories.Ticket
             return base.GetAll()
                 .Include(i => i.Client)
                 .Include(i => i.SaleBy)
-                .Include(i => i.Status);
+                .Include(i => i.Status)
+                .Include(i => i.PersonInCharge);
         }
     }
 }

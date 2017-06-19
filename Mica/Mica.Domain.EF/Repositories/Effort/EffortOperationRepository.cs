@@ -13,13 +13,16 @@ namespace Mica.Domain.EF.Repositories.Effort
         public override EffortOperationEntity GetById(long id)
         {
             return DbSet.Where(i => i.Id == id)
+                .Include(i => i.Effort)
                 .Include(i => i.Ticket)
                 .SingleOrDefault();
         }
 
         public override IQueryable<EffortOperationEntity> GetAll()
         {
-            return base.GetAll().Include(i => i.Ticket);
+            return base.GetAll()
+                .Include(i => i.Effort)
+                .Include(i => i.Ticket);
         }
     }
 }

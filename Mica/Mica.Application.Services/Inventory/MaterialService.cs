@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoMapper;
 using Mica.Application.Services.Abstract.Cache;
+using Mica.Application.Services.Abstract.Inventory;
 using Mica.Application.Models.Inventory;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Abstract.UoW;
@@ -10,7 +11,8 @@ using Mica.Domain.Abstract.Repositories;
 
 namespace Mica.Application.Services.Inventory
 {
-    public class MaterialService : CrudWithSearchServiceBase<long, MaterialModel, MaterialEntity>, IMaterialService
+    public class MaterialService 
+        : CrudWithSearchServiceBase<long, MaterialModel, MaterialEntity>, IMaterialService
     {
         public MaterialService(
             IMapper mapper,
@@ -39,7 +41,7 @@ namespace Mica.Application.Services.Inventory
                                             .Where(m => m.Active)
                                             .Select(m => new SelectListItem
                                             {
-                                                Text = string.Format("{0} ({1})", m.Name, m.Code),
+                                                Text = string.Format("{0} ({1}) ({2})", m.Name, m.Code, m.Unit),
                                                 Value = m.Id.ToString()
                                             });
 

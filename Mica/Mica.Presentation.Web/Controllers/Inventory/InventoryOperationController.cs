@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Mica.Application.Services.Inventory;
 using Mica.Application.Models.Inventory;
 using Mica.Presentation.Web.Controllers.Abstract;
+using Mica.Application.Services.Abstract.Inventory;
 
 namespace Mica.Presentation.Web.Controllers.Inventory
 {
@@ -10,7 +10,7 @@ namespace Mica.Presentation.Web.Controllers.Inventory
         private readonly IMaterialService _materialService;
         public InventoryOperationController(IInventoryOperationService inventoryOperationService,
             IMaterialService materialService) : base(inventoryOperationService)
-        {
+        { 
             _materialService = materialService;
         }
         public IActionResult Filter(string materialId, string query, int pageNumber = 1, int pageSize = 10, string orderBy = "", string orderDirection = "")

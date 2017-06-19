@@ -7,6 +7,9 @@ namespace Mica.Application.Models.Effort
     public class EffortOperationModel : ModelBase<long>
     {
         [DisplayName("Mã lệnh")]
+        public long EffortId { get; set; }
+
+        [DisplayName("Mã lệnh")]
         public long? TicketId { get; set; }
 
         [Required(ErrorMessage = "Trường bắt buộc phải điền")]
@@ -20,6 +23,9 @@ namespace Mica.Application.Models.Effort
         [MaxLength(1000, ErrorMessage = "Không được dài quá {1} ký tự")]
         [DisplayName("Ghi chú")]
         public string Note { get; set; }
+
+        [DisplayName("Công")]
+        public string EffortName { get; set; }
 
         [DisplayName("Tên lệnh")]
         public string TicketName { get; set; }

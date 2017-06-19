@@ -1,6 +1,6 @@
 ﻿@model IPagedList<InventoryModel>
 @{
-    ViewData["Title"] = "Danh sách kho";
+    ViewData["Title"] = "Quản lý kho";
     var linkTo = "/Inventory";
 }
 
@@ -47,6 +47,9 @@
                         <th>@Html.DisplayNameFor(m => dummyDetail.MaterialCode)</th>
                         <th>@Html.DisplayNameFor(m => dummyDetail.MaterialName)</th>
                         <th>@Html.RenderTableHeaderAnchor(linkTo, "InStock", Html.DisplayNameFor(m => dummyDetail.InStock))</th>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.MaterialUnit)</th>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.MaterialUnitPrice)</th>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.MaterialPrice)</th>
                     </tr>
 
                     @for (var index = 0; index < Model.Count; index++)
@@ -62,6 +65,9 @@
                             <td>@Model[index].MaterialCode</td>
                             <td>@Model[index].MaterialName</td>
                             <td>@Model[index].InStock</td>
+                            <td>@Model[index].MaterialUnit</td>
+                            <td>@Model[index].MaterialUnitPrice.ToString("N1")</td>
+                            <td>@Model[index].MaterialPrice.ToString("N1")</td>
                         </tr>
                     }
                 }

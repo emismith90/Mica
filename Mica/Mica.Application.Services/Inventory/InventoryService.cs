@@ -1,14 +1,16 @@
 ﻿using System.Linq;
 using AutoMapper;
-using Mica.Application.Models.Inventory;
 using Mica.Domain.Data.Models.Inventory;
-using Mica.Domain.Abstract.UoW;
-using Mica.Application.Services.Abstract.Cache;
 using Mica.Domain.Abstract.Repositories.Inventory;
+using Mica.Domain.Abstract.UoW;
+using Mica.Application.Models.Inventory;
+using Mica.Application.Services.Abstract.Cache;
+using Mica.Application.Services.Abstract.Inventory;
 
 namespace Mica.Application.Services.Inventory
 {
-    public class InventoryService : CrudServiceBase<long, InventoryModel, InventoryEntity>, IInventoryService
+    public class InventoryService 
+        : CrudServiceBase<long, InventoryModel, InventoryEntity>, IInventoryService
     {
         public InventoryService(
             IMapper mapper, 

@@ -6,6 +6,6 @@ namespace Mica.Presentation.Web.Controllers.Client
 {
     public class ClientController : BaseCrudController<ClientModel, long, IClientService>
     {
-        public ClientController(IClientService miaterialService) : base(miaterialService) { }
+        public ClientController(IClientService clientService) : base(clientService) { }
     }
 }

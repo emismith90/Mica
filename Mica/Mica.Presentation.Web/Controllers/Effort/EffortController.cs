@@ -6,6 +6,6 @@ namespace Mica.Presentation.Web.Controllers.Inventory
 {
     public class EffortController : BaseCrudController<EffortModel, long, IEffortService>
     {
-        public EffortController(IEffortService miaterialService) : base(miaterialService) { }
+        public EffortController(IEffortService effortService) : base(effortService) { }
     }
 }

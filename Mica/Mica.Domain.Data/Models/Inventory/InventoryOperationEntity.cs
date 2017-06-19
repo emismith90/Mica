@@ -17,7 +17,7 @@ namespace Mica.Domain.Data.Models.Inventory
 
         public string ToSearchableString()
         {
-            return $"{Material?.Name} {Material?.Code} {Note}";
+            return $"{Material.Name} {Material.Code} {Ticket?.Name} {Note}";
         }
     }
 }

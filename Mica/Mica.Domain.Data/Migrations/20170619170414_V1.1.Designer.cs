@@ -8,9 +8,10 @@ using Mica.Domain.Data.Contexts;
 namespace Mica.Domain.Data.Migrations
 {
     [DbContext(typeof(MicaContext))]
-    partial class MicaContextModelSnapshot : ModelSnapshot
+    [Migration("20170619170414_V1.1")]
+    partial class V11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
@@ -287,8 +288,6 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
-                    b.Property<string>("PersonInChargeId");
-
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(12, 2)");
 
@@ -304,8 +303,6 @@ namespace Mica.Domain.Data.Migrations
                     b.HasIndex("CreatedById");
 
                     b.HasIndex("ModifiedById");
-
-                    b.HasIndex("PersonInChargeId");
 
                     b.HasIndex("SaleById");
 
@@ -556,10 +553,6 @@ namespace Mica.Domain.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "ModifiedBy")
                         .WithMany()
                         .HasForeignKey("ModifiedById");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "PersonInCharge")
-                        .WithMany()
-                        .HasForeignKey("PersonInChargeId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "SaleBy")
                         .WithMany()

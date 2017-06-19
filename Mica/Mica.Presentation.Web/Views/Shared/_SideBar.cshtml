@@ -11,25 +11,55 @@
         <li role="presentation" class="divider"></li>
 
         <li class="parent">
+            <a asp-area="" asp-controller="Ticket" asp-action="Index">
+                <svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad" /></svg>
+                Quản lý lệnh sản xuất
+            </a>
+            <ul class="children collapse  in" id="sub-item-ticket">
+                <li>
+                    <a asp-area="" asp-controller="TicketStatus" asp-action="Index">
+                        <i class="glyph glyphicon glyphicon-chevron-down"></i>
+                        Quản lý trạng thái lệnh
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li role="presentation" class="divider"></li>
+
+        <li class="parent">
             <a asp-area="" asp-controller="Inventory" asp-action="Index">
                 <span data-toggle="collapse" href="#sub-item-inventory">
                     <i class="glyph glyphicon glyphicon-barcode"></i>
                 </span>
-                Kho
+                Quản lý kho
             </a>
             <ul class="children collapse  in" id="sub-item-inventory">
                 <li>
                     <a asp-area="" asp-controller="InventoryOperation" asp-action="Index">
-                        <i class="glyph glyphicon glyphicon-sort"></i>
+                        <i class="glyph glyphicon glyphicon-chevron-down"></i>
                         Lệnh xuất/nhập kho
                     </a>
                 </li>
                 <li>
                     <a asp-area="" asp-controller="Material" asp-action="Index">
-                        <svg class="glyph stroked notepad">
-                            <use xlink:href="#stroked-notepad"></use>
-                        </svg>
-                        Vật tư
+                        <i class="glyph glyphicon glyphicon-chevron-down"></i>
+                        Quản lý vật tư
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li role="presentation" class="divider"></li>
+
+        <li class="parent">
+            <a asp-area="" asp-controller="Effort" asp-action="Index">
+                <i class="glyph glyphicon glyphicon-time"></i>
+                Quản lý công
+            </a>
+            <ul class="children collapse  in" id="sub-item-inventory">
+                <li>
+                    <a asp-area="" asp-controller="EffortOperation" asp-action="Index">
+                        <i class="glyph glyphicon glyphicon-chevron-down"></i>
+                        Danh sách công
                     </a>
                 </li>
             </ul>
@@ -37,17 +67,9 @@
         <li role="presentation" class="divider"></li>
 
         <li>
-            <a asp-area="" asp-controller="Effort" asp-action="Index">
-                <i class="glyph glyphicon glyphicon-time"></i>
-                Công
-            </a>
-        </li>
-        <li role="presentation" class="divider"></li>
-
-        <li>
             <a asp-area="" asp-controller="Client" asp-action="Index">
                 <svg class="glyph stroked male user "><use xlink:href="#stroked-male-user" /></svg>
-                Khách hàng
+                Quản lý khách hàng
             </a>
         </li>
         

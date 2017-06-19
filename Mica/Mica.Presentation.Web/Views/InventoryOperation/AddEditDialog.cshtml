@@ -30,7 +30,10 @@
             <div class="form-group">
                 <label asp-for="Model.OperationDate" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="Model.OperationDate" data-provide="datepicker" maxlength="255" class="form-control datepicker" />
+                    <input data-provide="datepicker" maxlength="255" class="form-control datepicker" type="datetime" 
+                           data-val="true" data-val-required="The Ngày thực hiện field is required." 
+                           id="Model_OperationDate" name="Model.OperationDate" 
+                           value="@string.Format("{0:d}", TimeZoneInfo.ConvertTime(Model.Model.OperationDate, TimeZoneInfo.Local))">
                     <span asp-validation-for="Model.OperationDate" class="text-danger"></span>
                 </div>
             </div>

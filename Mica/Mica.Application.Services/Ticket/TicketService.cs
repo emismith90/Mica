@@ -11,10 +11,10 @@ using Mica.Application.Models.Effort;
 using Mica.Application.Models.Inventory;
 using Mica.Application.Services.Abstract.Ticket;
 using Mica.Application.Services.Abstract.Cache;
+using Mica.Application.Services.Abstract.Inventory;
 using Mica.Domain.Abstract.Repositories.Ticket;
 using Mica.Domain.Abstract.Repositories.Effort;
 using Mica.Domain.Abstract.Repositories.Inventory;
-using Mica.Application.Services.Inventory;
 
 namespace Mica.Application.Services.Ticket
 {
