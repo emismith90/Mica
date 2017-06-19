@@ -58,7 +58,7 @@
                         <th>@Html.DisplayNameFor(m => dummyDetail.MaterialCode)</th>
                         <th>@Html.DisplayNameFor(m => dummyDetail.MaterialName)</th>
                         <th>@Html.RenderTableHeaderAnchor(linkTo, "Quantity", Html.DisplayNameFor(m => dummyDetail.Quantity))</th>
-                        <th>@Html.RenderTableHeaderAnchor(linkTo, "CreatedOn", Html.DisplayNameFor(m => dummyDetail.CreatedOn))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkTo, "OperationDate", Html.DisplayNameFor(m => dummyDetail.OperationDate))</th>
                         <th></th>
                     </tr>
 
@@ -70,7 +70,7 @@
                             <td>@Model[index].MaterialCode</td>
                             <td>@Model[index].MaterialName</td>
                             <td>@Model[index].Quantity</td>
-                            <td>@TimeZoneInfo.ConvertTime(Model[index].CreatedOn.Value, TimeZoneInfo.Local)</td>
+                            <td>@TimeZoneInfo.ConvertTime(Model[index].OperationDate, TimeZoneInfo.Local)</td>
                             <td>
                                 <a class="hover-view js-open-modal" title="Xóa"
                                    href="javascript:void(0);"

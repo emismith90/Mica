@@ -4,10 +4,34 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Mica.Domain.Data.Migrations
 {
-    public partial class Initialize : Migration
+    public partial class V10 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    Address = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Birthday = table.Column<DateTime>(type: "datetime", nullable: true),
+                    Company = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    CompanyAddress = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    CompanyPhone = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Position = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    SkypeId = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    YahooId = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Efforts",
                 columns: table => new
@@ -43,21 +67,18 @@ namespace Mica.Domain.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tickets",
+                name: "TicketStatuses",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    CreatedBy = table.Column<Guid>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    ModifiedBy = table.Column<Guid>(nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true)
-                        .Annotation("MySql:ValueGeneratedOnAddOrUpdate", true)
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.PrimaryKey("PK_TicketStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -136,40 +157,6 @@ namespace Mica.Domain.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InventoryOperations",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    CreatedBy = table.Column<Guid>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
-                        .Annotation("MySql:ValueGeneratedOnAdd", true),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    MaterialId = table.Column<long>(nullable: false),
-                    ModifiedBy = table.Column<Guid>(nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true)
-                        .Annotation("MySql:ValueGeneratedOnAddOrUpdate", true),
-                    Quantity = table.Column<decimal>(type: "decimal(12, 2)", nullable: false),
-                    TicketId = table.Column<long>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InventoryOperations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_InventoryOperations_Materials_MaterialId",
-                        column: x => x.MaterialId,
-                        principalTable: "Materials",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_InventoryOperations_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -186,6 +173,61 @@ namespace Mica.Domain.Data.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    ClientId = table.Column<long>(nullable: false),
+                    CreatedById = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    Deadline = table.Column<DateTime>(type: "datetime", nullable: false),
+                    ModifiedById = table.Column<string>(nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAddOrUpdate", true),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Note = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    Quantity = table.Column<decimal>(type: "decimal(12, 2)", nullable: false),
+                    SaleById = table.Column<string>(nullable: true),
+                    StatusId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tickets_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_AspNetUsers_SaleById",
+                        column: x => x.SaleById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_TicketStatuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "TicketStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -255,6 +297,108 @@ namespace Mica.Domain.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "EffortOperations",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    CreatedById = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    ModifiedById = table.Column<string>(nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAddOrUpdate", true),
+                    Note = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    OperationDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Quantity = table.Column<decimal>(type: "decimal(12, 2)", nullable: false),
+                    TicketId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EffortOperations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EffortOperations_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EffortOperations_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EffortOperations_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InventoryOperations",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    CreatedById = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    MaterialId = table.Column<long>(nullable: false),
+                    ModifiedById = table.Column<string>(nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true)
+                        .Annotation("MySql:ValueGeneratedOnAddOrUpdate", true),
+                    Note = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    OperationDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Quantity = table.Column<decimal>(type: "decimal(12, 2)", nullable: false),
+                    TicketId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventoryOperations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InventoryOperations_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_InventoryOperations_Materials_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "Materials",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InventoryOperations_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_InventoryOperations_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EffortOperations_CreatedById",
+                table: "EffortOperations",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EffortOperations_ModifiedById",
+                table: "EffortOperations",
+                column: "ModifiedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EffortOperations_TicketId",
+                table: "EffortOperations",
+                column: "TicketId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Inventories_MaterialId",
                 table: "Inventories",
@@ -262,10 +406,19 @@ namespace Mica.Domain.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_InventoryOperations_CreatedById",
+                table: "InventoryOperations",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InventoryOperations_MaterialId",
                 table: "InventoryOperations",
-                column: "MaterialId",
-                unique: true);
+                column: "MaterialId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryOperations_ModifiedById",
+                table: "InventoryOperations",
+                column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InventoryOperations_TicketId",
@@ -277,6 +430,31 @@ namespace Mica.Domain.Data.Migrations
                 table: "Materials",
                 column: "Code",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_ClientId",
+                table: "Tickets",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_CreatedById",
+                table: "Tickets",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_ModifiedById",
+                table: "Tickets",
+                column: "ModifiedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_SaleById",
+                table: "Tickets",
+                column: "SaleById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_StatusId",
+                table: "Tickets",
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -322,6 +500,9 @@ namespace Mica.Domain.Data.Migrations
                 name: "Efforts");
 
             migrationBuilder.DropTable(
+                name: "EffortOperations");
+
+            migrationBuilder.DropTable(
                 name: "Inventories");
 
             migrationBuilder.DropTable(
@@ -352,7 +533,13 @@ namespace Mica.Domain.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Clients");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "TicketStatuses");
         }
     }
 }

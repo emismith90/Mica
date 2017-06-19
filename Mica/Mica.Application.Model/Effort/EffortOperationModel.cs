@@ -2,14 +2,10 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mica.Application.Models.Inventory
+namespace Mica.Application.Models.Effort
 {
-    public class InventoryOperationModel : AuditableModelBase<long>
+    public class EffortOperationModel : ModelBase<long>
     {
-        [Required(ErrorMessage = "Trường bắt buộc phải điền")]
-        [DisplayName("Vật tư #")]
-        public long MaterialId { get; set; }
-
         [DisplayName("Mã lệnh")]
         public long? TicketId { get; set; }
 
@@ -25,9 +21,7 @@ namespace Mica.Application.Models.Inventory
         [DisplayName("Ghi chú")]
         public string Note { get; set; }
 
-        [DisplayName("Mã vật tư")]
-        public string MaterialCode { get; set; }
-        [DisplayName("Tên vật tư")]
-        public string MaterialName { get; set; }
+        [DisplayName("Tên lệnh")]
+        public string TicketName { get; set; }
     }
 }

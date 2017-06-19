@@ -8,13 +8,72 @@ using Mica.Domain.Data.Contexts;
 namespace Mica.Domain.Data.Migrations
 {
     [DbContext(typeof(MicaContext))]
-    [Migration("20170616202243_Initialize")]
-    partial class Initialize
+    [Migration("20170619070548_V1.0")]
+    partial class V10
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
+
+            modelBuilder.Entity("Mica.Domain.Data.Models.Client.ClientEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<DateTime?>("Birthday")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Company")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("CompanyAddress")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("CompanyPhone")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SkypeId")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("YahooId")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
 
             modelBuilder.Entity("Mica.Domain.Data.Models.Effort.EffortEntity", b =>
                 {
@@ -42,6 +101,50 @@ namespace Mica.Domain.Data.Migrations
                     b.ToTable("Efforts");
                 });
 
+            modelBuilder.Entity("Mica.Domain.Data.Models.Effort.EffortOperationEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnName("CreatedById");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("CreatedOn")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnName("ModifiedById");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnName("ModifiedOn")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<DateTime>("OperationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(12, 2)");
+
+                    b.Property<long?>("TicketId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("EffortOperations");
+                });
+
             modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.InventoryEntity", b =>
                 {
                     b.Property<long>("Id")
@@ -66,26 +169,29 @@ namespace Mica.Domain.Data.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnName("CreatedBy");
+                    b.Property<string>("CreatedById")
+                        .HasColumnName("CreatedById");
 
                     b.Property<DateTime?>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000);
-
                     b.Property<long>("MaterialId");
 
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnName("ModifiedBy");
+                    b.Property<string>("ModifiedById")
+                        .HasColumnName("ModifiedById");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnName("ModifiedOn")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<DateTime>("OperationDate")
                         .HasColumnType("datetime");
 
                     b.Property<decimal>("Quantity")
@@ -95,8 +201,11 @@ namespace Mica.Domain.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MaterialId")
-                        .IsUnique();
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("MaterialId");
+
+                    b.HasIndex("ModifiedById");
 
                     b.HasIndex("TicketId");
 
@@ -141,30 +250,84 @@ namespace Mica.Domain.Data.Migrations
                     b.ToTable("Materials");
                 });
 
-            modelBuilder.Entity("Mica.Domain.Data.Models.TicketEntity", b =>
+            modelBuilder.Entity("Mica.Domain.Data.Models.Ticket.TicketEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnName("CreatedBy");
+                    b.Property<long>("ClientId");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnName("CreatedById");
 
                     b.Property<DateTime?>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("CreatedOn")
                         .HasColumnType("datetime");
 
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnName("ModifiedBy");
+                    b.Property<DateTime>("Deadline")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnName("ModifiedById");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnName("ModifiedOn")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(12, 2)");
+
+                    b.Property<string>("SaleById")
+                        .HasColumnName("SaleById");
+
+                    b.Property<long>("StatusId");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.HasIndex("SaleById");
+
+                    b.HasIndex("StatusId");
+
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("Mica.Domain.Data.Models.Ticket.TicketStatusEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketStatuses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -324,6 +487,21 @@ namespace Mica.Domain.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Mica.Domain.Data.Models.Effort.EffortOperationEntity", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
+
+                    b.HasOne("Mica.Domain.Data.Models.Ticket.TicketEntity", "Ticket")
+                        .WithMany()
+                        .HasForeignKey("TicketId");
+                });
+
             modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.InventoryEntity", b =>
                 {
                     b.HasOne("Mica.Domain.Data.Models.Inventory.MaterialEntity", "Material")
@@ -334,14 +512,47 @@ namespace Mica.Domain.Data.Migrations
 
             modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.InventoryOperationEntity", b =>
                 {
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
                     b.HasOne("Mica.Domain.Data.Models.Inventory.MaterialEntity", "Material")
                         .WithMany()
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Mica.Domain.Data.Models.TicketEntity", "Ticket")
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
+
+                    b.HasOne("Mica.Domain.Data.Models.Ticket.TicketEntity", "Ticket")
                         .WithMany()
                         .HasForeignKey("TicketId");
+                });
+
+            modelBuilder.Entity("Mica.Domain.Data.Models.Ticket.TicketEntity", b =>
+                {
+                    b.HasOne("Mica.Domain.Data.Models.Client.ClientEntity", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "SaleBy")
+                        .WithMany()
+                        .HasForeignKey("SaleById");
+
+                    b.HasOne("Mica.Domain.Data.Models.Ticket.TicketStatusEntity", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Mica.Domain.Data.Models.Inventory;
+using Mica.Domain.Data.Models.Effort;
 
-namespace Mica.Domain.Data.TypeBuilders.Inventory
+namespace Mica.Domain.Data.TypeBuilders.Effort
 {
-    public class InventoryOperationType : AuditableTypeConfiguration<InventoryOperationEntity, long>
+    public class EffortOperationType : AuditableTypeConfiguration<EffortOperationEntity, long>
     {
-        public override void Configure(EntityTypeBuilder<InventoryOperationEntity> builder)
+        public override void Configure(EntityTypeBuilder<EffortOperationEntity> builder)
         {
             base.Configure(builder);
 
@@ -22,10 +22,6 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
               .HasColumnType("datetime")
               .IsRequired();
 
-            builder.HasOne(m => m.Material)
-                .WithMany()
-                .HasForeignKey(m => m.MaterialId)
-                .IsRequired();
             builder.HasOne(m => m.Ticket)
                 .WithMany()
                 .HasForeignKey(m => m.TicketId);

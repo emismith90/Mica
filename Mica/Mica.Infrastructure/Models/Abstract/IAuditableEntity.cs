@@ -4,10 +4,10 @@ namespace Mica.Infrastructure.Models.Abstract
 {
     public interface IAuditableEntity
     {
-        Guid? CreatedBy { get; set; }
+        string CreatedById { get; set; }
         DateTime? CreatedOn { get; set; }
 
-        Guid? ModifiedBy { get; set; }
+        string ModifiedById { get; set; }
         DateTime? ModifiedOn { get; set; }
     }
 }
