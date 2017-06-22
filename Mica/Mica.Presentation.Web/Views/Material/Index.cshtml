@@ -21,7 +21,7 @@
     <div class="col-lg-12">
         <button type="button" class="btn btn-default create-new--btn js-open-modal"
                 data-toggle="modal" data-target="#material-modal"
-                mc-modal-content-url="@linkToThisController/AddEditDialog/0">
+                mc-modal-content-url="@linkToThisController/AddEditView/0">
             <i class="glyphicon glyphicon glyphicon-plus"></i>
             Tạo mới
         </button>
@@ -68,7 +68,7 @@
                                 <a class="hover-view js-open-modal" title="Sửa"
                                    href="javascript:void(0);"
                                    data-toggle="modal" data-target="#material-modal"
-                                   mc-modal-content-url="@linkToThisController/AddEditDialog/@Model[index].Id">
+                                   mc-modal-content-url="@linkToThisController/AddEditView/@Model[index].Id">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </a>
                                 <span class="normal-view">@Model[index].Id</span>
@@ -84,7 +84,7 @@
                                 <a class="hover-view js-open-modal" title="Xóa"
                                    href="javascript:void(0);"
                                    data-toggle="modal" data-target="#material-modal"
-                                   mc-modal-content-url="@linkToThisController/DeleteDialog/@Model[index].Id">
+                                   mc-modal-content-url="@linkToThisController/DeleteView/@Model[index].Id">
                                     <i class="glyphicon glyphicon-remove"></i>
                                 </a>
                             </td>

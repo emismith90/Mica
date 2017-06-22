@@ -4,7 +4,7 @@ using Mica.Application.Services.Abstract.Client;
 
 namespace Mica.Presentation.Web.Controllers.Client
 {
-    public class ClientController : BaseCrudController<ClientModel, long, IClientService>
+    public class ClientController : BaseDialogCrudController<ClientModel, long, IClientService>
     {
         public ClientController(IClientService clientService) : base(clientService) { }
     }

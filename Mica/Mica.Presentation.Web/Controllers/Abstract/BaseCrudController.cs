@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Mica.Application.Models;
+﻿using Mica.Application.Models;
 using Mica.Application.Services.Abstract;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Mica.Presentation.Web.Controllers.Abstract
 {
-    public abstract class BaseCrudController<TModel, TKey, TService> : Controller, ICrudController<TModel, TKey>
+     public abstract class BaseCrudController<TModel, TKey, TService> : Controller, ICrudController<TModel, TKey>
         where TModel : ModelBase<TKey>
         where TService : IContentLookupListingService<TModel>, ICrudService<TModel, TKey>
     {
@@ -19,20 +19,10 @@ namespace Mica.Presentation.Web.Controllers.Abstract
             var result = this.Service.GetAll(query, pageNumber, pageSize, orderBy, orderDirection);
             return View("Index", result);
         }
-
-        public virtual IActionResult AddEditDialog(TKey id)
+        
+        public virtual IActionResult AddEditView(TKey id)
         {
-            TModel model;
-            if (id.Equals(default(TKey)))
-            {
-                model = this.Service.CreateDefaultObject();
-            }
-            else
-            {
-                model = this.Service.GetById(id);
-            }
-
-            return PartialView("AddEditDialog", model);
+            return View("AddEdit", GetAddEditViewModel(id));
         }
         public virtual bool Save(TModel model)
         {
@@ -51,23 +41,30 @@ namespace Mica.Presentation.Web.Controllers.Abstract
             return false;
         }
 
-        public virtual IActionResult DeleteDialog(TKey id)
+        public virtual IActionResult DeleteView(TKey id)
         {
-            TModel model;
-            if (id.Equals(default(TKey)))
-            {
-                model = this.Service.CreateDefaultObject();
-            }
-            else
-            {
-                model = this.Service.GetById(id);
-            }
-
-            return PartialView("DeleteDialog", model);
+            return View("Delete", GetDeleteViewModel(id));
         }
         public virtual bool Delete(TModel model)
         {
             return this.Service.Remove(model.Id);
+        }
+
+        protected virtual object GetAddEditViewModel(TKey id)
+        {
+            if (id.Equals(default(TKey)))
+            {
+                return this.Service.CreateDefaultObject();
+            }
+            else
+            {
+                return this.Service.GetById(id);
+            }
+        }
+
+        protected virtual object GetDeleteViewModel(TKey id)
+        {
+            return GetAddEditViewModel(id);
         }
     }
 }

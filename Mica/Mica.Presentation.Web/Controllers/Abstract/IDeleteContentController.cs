@@ -7,6 +7,6 @@ namespace Mica.Presentation.Web.Controllers.Abstract
         where TModel : ModelBase<TKey>
     {
         bool Delete(TModel model);
-        IActionResult DeleteDialog(TKey id);
+        IActionResult DeleteView(TKey id);
     }
 }

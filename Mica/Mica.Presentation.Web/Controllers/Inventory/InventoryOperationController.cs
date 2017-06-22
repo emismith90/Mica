@@ -5,7 +5,7 @@ using Mica.Application.Services.Abstract.Inventory;
 
 namespace Mica.Presentation.Web.Controllers.Inventory
 {
-    public class InventoryOperationController : BaseCrudController<InventoryOperationModel, long, IInventoryOperationService>
+    public class InventoryOperationController : BaseDialogCrudController<InventoryOperationModel, long, IInventoryOperationService>
     {
         private readonly IMaterialService _materialService;
         public InventoryOperationController(IInventoryOperationService inventoryOperationService,
@@ -25,7 +25,7 @@ namespace Mica.Presentation.Web.Controllers.Inventory
             return Index(query, pageNumber, pageSize, orderBy, orderDirection);
         }
 
-        public override IActionResult AddEditDialog(long id)
+        public override IActionResult AddEditView(long id)
         {
             if (id != 0) // not allow edit
             {
