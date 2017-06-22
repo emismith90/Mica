@@ -1,0 +1,51 @@
+﻿@model TicketModel
+
+@{
+    ViewData["Title"] = "Tạo lệnh sản xuất";
+}
+
+@Html.Partial("Breadcrumb")
+@Html.Partial("PageHeader")
+
+<form id="form" action="/Ticket/SaveAndRedirect" class="form-horizontal">
+    <div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Id" hidden />
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" required maxlength="255" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        @*<div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Description" maxlength="1000" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Order" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input type="number" asp-for="Order" class="form-control" />
+                <span asp-validation-for="Order" class="text-danger"></span>
+            </div>
+        </div>*@
+    </div>
+    <br />
+    <div>
+        <button type="submit" class="btn btn-primary">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            Lưu
+        </button>
+        <a class="btn btn-default" href="/Ticket/">
+            <i class="glyphicon glyphicon-remove"></i>
+            Hủy
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

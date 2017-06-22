@@ -4,18 +4,8 @@
     var linkTo = "/Inventory";
 }
 
-<div class="row">
-    <ol class="breadcrumb">
-        <li><a asp-controller="Home" asp-action="Index"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-        <li class="active">@ViewData["Title"]</li>
-    </ol>
-</div><!--/.row-->
-
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">@ViewData["Title"].</h1>
-    </div>
-</div><!--/.row-->
+@Html.Partial("Breadcrumb")
+@Html.Partial("PageHeader")
 
 <div class="row">
     <div class="col-lg-12">
@@ -26,14 +16,10 @@
     </div>
 </div><!--/.row-->
 
-<div class="row">
-    <div class="col-lg-12">
-        @Html.Partial("SmartPager", Model, new ViewDataDictionary(ViewData)
-        {
-            { "mc-sl-to", "/Inventory" }
-        })
-    </div>
-</div><!--/.row-->
+@Html.Partial("SmartPager", Model, new ViewDataDictionary(ViewData)
+{
+    { "mc-sl-to", "/Inventory" }
+})
 
 <div class="row">
     <div class="col-lg-12">
