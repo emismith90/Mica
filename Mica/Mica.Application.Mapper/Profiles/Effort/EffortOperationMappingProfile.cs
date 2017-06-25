@@ -12,6 +12,7 @@ namespace Mica.Application.Mapper.Profiles.Effort
 
             map.ForMember(m => m.TicketName, opt => opt.MapFrom(e => e.Ticket.Name));
             map.ForMember(m => m.EffortName, opt => opt.MapFrom(e => e.Effort.Name));
+            map.ForMember(m => m.EffortUnitPrice, opt => opt.MapFrom(e => e.Effort.UnitPrice));
 
             this.CreateMap<EffortOperationModel, EffortOperationEntity>();
         }

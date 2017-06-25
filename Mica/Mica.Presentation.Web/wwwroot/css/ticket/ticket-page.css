@@ -1,1 +1,14 @@
-﻿
+﻿table input, table select, table textarea{
+    max-width: none;
+}
+
+table td input, table td select {
+    width: 100%;
+}
+
+.table.ticket-effort-op-detail th:nth-child(2), .table.ticket-effort-op-detail td:nth-child(2) input,
+.table.ticket-effort-op-detail th:nth-child(3), .table.ticket-effort-op-detail td:nth-child(3) input,
+.table.ticket-effort-op-detail th:nth-child(4), .table.ticket-effort-op-detail td:nth-child(4), .table.ticket-effort-op-detail td:nth-child(4) input {
+    width: 10em;
+    text-align: right;
+}

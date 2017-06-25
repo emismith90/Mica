@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using AutoMapper;
 using Mica.Domain.Abstract.Repositories;
 using Mica.Domain.Abstract.UoW;
 using Mica.Application.Services.Abstract.Effort;
@@ -27,6 +30,25 @@ namespace Mica.Application.Services.Effort
             {
                 Active = true
             };
+        }
+
+        public virtual IList<SelectListItem> GetForPickup()
+        {
+            return Cache.GetOrFetchDependKey("GetForPickup",
+                () =>
+                {
+                    var queryableResult = Repository
+                                            .GetAll()
+                                            .Where(m => m.Active)
+                                            .OrderBy(m => m.Name)
+                                            .Select(m => new SelectListItem
+                                            {
+                                                Text = m.Name,
+                                                Value = m.Id.ToString()
+                                            });
+
+                    return queryableResult.ToList();
+                });
         }
     }
 }

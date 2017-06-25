@@ -35,10 +35,10 @@ namespace Mica.Presentation.Web.Controllers.Inventory
             var vm = new InventoryOperationAddEditViewModel
             {
                 Model = this.Service.CreateDefaultObject(),
-                Materials = this._materialService.GetMaterialsForPickup()
+                Materials = this._materialService.GetForPickup()
             };
 
-            return PartialView(vm);
+            return PartialView("AddEditDialog", vm);
         }
     }
 }

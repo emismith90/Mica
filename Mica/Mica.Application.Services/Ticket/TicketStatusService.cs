@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoMapper;
 using Mica.Domain.Abstract.Repositories;
 using Mica.Domain.Abstract.UoW;
@@ -39,6 +41,24 @@ namespace Mica.Application.Services.Ticket
             }
 
             return base.GetAll(query, pageNumber, pageSize, orderBy, orderDirection);
+        }
+
+        public virtual IList<SelectListItem> GetForPickup()
+        {
+            return Cache.GetOrFetchDependKey("GetForPickup",
+                () =>
+                {
+                    var queryableResult = Repository
+                                            .GetAll()
+                                            .OrderBy(m => m.Order)
+                                            .Select(m => new SelectListItem
+                                            {
+                                                Text = string.Format("{0} ({1})", m.Name, m.Order),
+                                                Value = m.Id.ToString()
+                                            });
+
+                    return queryableResult.ToList();
+                });
         }
     }
 }

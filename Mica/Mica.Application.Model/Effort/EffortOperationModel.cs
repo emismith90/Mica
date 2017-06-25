@@ -26,6 +26,14 @@ namespace Mica.Application.Models.Effort
 
         [DisplayName("Công")]
         public string EffortName { get; set; }
+        [DisplayName("Đơn giá")]
+        public decimal EffortUnitPrice { get; set; }
+
+        [DisplayName("Tổng")]
+        public decimal EffortPrice
+        {
+            get { return EffortUnitPrice * Quantity; }
+        }
 
         [DisplayName("Tên lệnh")]
         public string TicketName { get; set; }

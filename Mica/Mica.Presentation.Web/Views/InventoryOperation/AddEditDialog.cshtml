@@ -23,7 +23,7 @@
             <div class="form-group">
                 <label asp-for="Model.Quantity" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="Model.Quantity" required class="form-control" />
+                    <input type="number" asp-for="Model.Quantity" required min="-999999" max="999999" class="form-control" />
                     <span asp-validation-for="Model.Quantity" class="text-danger"></span>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <label asp-for="Model.OperationDate" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <input data-provide="datepicker" maxlength="255" class="form-control datepicker" type="datetime" 
-                           data-val="true" data-val-required="The Ngày thực hiện field is required." 
+                           data-val="true"
                            id="Model_OperationDate" name="Model.OperationDate" 
                            value="@string.Format("{0:d}", TimeZoneInfo.ConvertTime(Model.Model.OperationDate, TimeZoneInfo.Local))">
                     <span asp-validation-for="Model.OperationDate" class="text-danger"></span>

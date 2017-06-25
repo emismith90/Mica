@@ -31,22 +31,22 @@ namespace Mica.Application.Services.Inventory
             };
         }
 
-        public virtual IList<SelectListItem> GetMaterialsForPickup()
+        public virtual IList<SelectListItem> GetForPickup()
         {
-            return Cache.GetOrFetchDependKey("GetMaterialsForPickup",
+            return Cache.GetOrFetchDependKey("GetForPickup",
                 () =>
                 {
                     var queryableResult = Repository
                                             .GetAll()
                                             .Where(m => m.Active)
+                                            .OrderBy(m => m.Name)
                                             .Select(m => new SelectListItem
                                             {
                                                 Text = string.Format("{0} ({1}) ({2})", m.Name, m.Code, m.Unit),
                                                 Value = m.Id.ToString()
                                             });
 
-                    return Mapper
-                            .Map<IList<SelectListItem>>(queryableResult.ToList());
+                    return queryableResult.ToList();
                 });
         }
     }

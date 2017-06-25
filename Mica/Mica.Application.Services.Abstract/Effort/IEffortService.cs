@@ -5,7 +5,8 @@ namespace Mica.Application.Services.Abstract.Effort
     public interface IEffortService : 
         ICrudService<EffortModel, long>, 
         IContentListingService<EffortModel>, 
-        IContentLookupListingService<EffortModel>
+        IContentLookupListingService<EffortModel>,
+        IContentPickupService
     {
     }
 }

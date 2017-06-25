@@ -51,6 +51,15 @@ namespace Mica.Application.Services.Ticket
             this._inventoryModelCache = inventoryModelCache;
         }
 
+        public override TicketModel CreateDefaultObject()
+        {
+            return new TicketModel
+            {
+                Quantity = 1,
+                Deadline = DateTime.Now
+            };
+        }
+
         public override TicketModel GetById(long id)
         {
             return Cache.GetOrFetchItem(id, () =>

@@ -14,7 +14,7 @@
         <button type="button" class="btn btn-default create-new--btn js-open-modal"
                 data-toggle="modal" data-target="#inventory-operation-modal"
                 mc-modal-content-url="/InventoryOperation/AddEditView/0">
-            <i class="glyphicon glyphicon glyphicon-plus"></i>
+            <i class="glyphicon glyphicon-plus"></i>
             Tạo mới
         </button>
     </div>
@@ -34,11 +34,10 @@
         })
 
         <table class="table table-striped table-hover allow-delete inventory-operation-detail">
-            <tbody>
-                @if (Model != null && Model.Any())
+            @if (Model != null && Model.Any())
             {
                 var dummyDetail = Model.FirstOrDefault();
-
+                <thead>
                     <tr>
                         <th>@Html.RenderTableHeaderAnchor(linkTo, "Id", Html.DisplayNameFor(m => dummyDetail.Id))</th>
                         <th>@Html.RenderTableHeaderAnchor(linkTo, "MaterialId", Html.DisplayNameFor(m => dummyDetail.MaterialId))</th>
@@ -48,9 +47,10 @@
                         <th>@Html.RenderTableHeaderAnchor(linkTo, "OperationDate", Html.DisplayNameFor(m => dummyDetail.OperationDate))</th>
                         <th></th>
                     </tr>
-
+                </thead>
+                <tbody>
                     @for (var index = 0; index < Model.Count; index++)
-                {
+                    {
                         <tr>
                             <td>@Model[index].Id</td>
                             <td>@Model[index].MaterialId</td>
@@ -68,8 +68,8 @@
                             </td>
                         </tr>
                     }
-                }
-            </tbody>
+                </tbody>
+            }
         </table>
     </div>
 </div><!--/.row-->

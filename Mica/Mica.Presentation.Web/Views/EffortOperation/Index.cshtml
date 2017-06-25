@@ -21,11 +21,10 @@
         })
 
         <table class="table table-striped table-hover effort-operation-detail">
-            <tbody>
-                @if (Model != null && Model.Any())
-                {
-                    var dummyDetail = Model.FirstOrDefault();
-
+            @if (Model != null && Model.Any())
+            {
+                var dummyDetail = Model.FirstOrDefault();
+                <thead>
                     <tr>
                         <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Id", Html.DisplayNameFor(m => dummyDetail.Id))</th>
                         <th>@Html.DisplayNameFor(m => dummyDetail.EffortName)</th>
@@ -35,7 +34,8 @@
                         <th>@Html.RenderTableHeaderAnchor(linkToThisController, "OperationDate", Html.DisplayNameFor(m => dummyDetail.OperationDate))</th>
                         <th></th>
                     </tr>
-
+                </thead>
+                <tbody>
                     @for (var index = 0; index < Model.Count; index++)
                     {
                         <tr>
@@ -47,8 +47,8 @@
                             <td>@Model[index].OperationDate</td>
                         </tr>
                     }
-                }
-            </tbody>
+                </tbody>
+            }
         </table>
     </div>
 </div><!--/.row-->

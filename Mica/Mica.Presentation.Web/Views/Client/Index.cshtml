@@ -12,7 +12,7 @@
         <button type="button" class="btn btn-default create-new--btn js-open-modal"
                 data-toggle="modal" data-target="#client-modal"
                 mc-modal-content-url="@linkToThisController/AddEditView/0">
-            <i class="glyphicon glyphicon glyphicon-plus"></i>
+            <i class="glyphicon glyphicon-plus"></i>
             Tạo mới
         </button>
     </div>
@@ -32,11 +32,10 @@
         })
 
         <table class="table table-striped table-hover allow-edit allow-delete client-detail">
-            <tbody>
-                @if (Model != null && Model.Any())
-                {
-                    var dummyDetail = Model.FirstOrDefault();
-
+            @if (Model != null && Model.Any())
+            {
+                var dummyDetail = Model.FirstOrDefault();
+                <thead>
                     <tr>
                         <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Id", Html.DisplayNameFor(m => dummyDetail.Id))</th>
                         <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Name", Html.DisplayNameFor(m => dummyDetail.Name))</th>
@@ -49,15 +48,16 @@
                         <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Note", Html.DisplayNameFor(m => dummyDetail.Note))</th>
                         <th></th>
                     </tr>
-
+                </thead>
+                <tbody>
                     @for (var index = 0; index < Model.Count; index++)
                     {
                         <tr>
                             <td>
                                 <a class="hover-view js-open-modal" title="Sửa"
-                                   href="javascript:void(0);"
-                                   data-toggle="modal" data-target="#client-modal"
-                                   mc-modal-content-url="@linkToThisController/AddEditView/@Model[index].Id">
+                                    href="javascript:void(0);"
+                                    data-toggle="modal" data-target="#client-modal"
+                                    mc-modal-content-url="@linkToThisController/AddEditView/@Model[index].Id">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </a>
                                 <span class="normal-view">@Model[index].Id</span>
@@ -72,16 +72,16 @@
                             <td>@Model[index].Note</td>
                             <td>
                                 <a class="hover-view js-open-modal" title="Xóa"
-                                   href="javascript:void(0);"
-                                   data-toggle="modal" data-target="#client-modal"
-                                   mc-modal-content-url="@linkToThisController/DeleteView/@Model[index].Id">
+                                    href="javascript:void(0);"
+                                    data-toggle="modal" data-target="#client-modal"
+                                    mc-modal-content-url="@linkToThisController/DeleteView/@Model[index].Id">
                                     <i class="glyphicon glyphicon-remove"></i>
                                 </a>
                             </td>
                         </tr>
                     }
-                }
-            </tbody>
+                </tbody>
+            }
         </table>
     </div>
 </div><!--/.row-->
