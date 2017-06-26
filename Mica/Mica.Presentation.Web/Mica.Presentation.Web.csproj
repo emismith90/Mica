@@ -35,17 +35,18 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\js\common\mica.common.smart-link.js" />
-    <Content Include="wwwroot\js\inventory\mica.inventory.inventory-operation-page.js" />
-    <Content Include="wwwroot\js\inventory\mica.inventory.material-page.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <Content Include="wwwroot\js\common\mica.common.table.client-editor.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.element.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.form.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.modal.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\js\lumino.glyphs.js" />
+    <Content Include="wwwroot\js\mica.common.table.client-editor.js" />
+    <Content Include="wwwroot\js\mica.commontable.client-editor.js" />
     <Content Include="wwwroot\js\onpageload.js" />
+    <Content Include="wwwroot\js\table.client-editor.js" />
+    <Content Include="wwwroot\js\ticket\mica.ticket-addedit.js" />
     <Content Include="wwwroot\js\utils\mica.utils.nav-item.js" />
     <Content Include="wwwroot\js\utils\mica.utils.query-string.js" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.bower.json" />
@@ -1025,9 +1026,6 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\js\effort\" />
   </ItemGroup>
 
 </Project>

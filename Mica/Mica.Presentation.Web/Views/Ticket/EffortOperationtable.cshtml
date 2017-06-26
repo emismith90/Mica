@@ -3,10 +3,11 @@
     var effortOperations = Model.EffortOperations;
 }
 <div class="create-new--btn">
-    <a title="Xóa" class="js-add-cli" href="javascript:void(0);"><i class="glyphicon glyphicon-plus"></i> Công</a>
+    <a title="Xóa" class="js-add-cli" href="javascript:void(0);"
+       tce-target-tbl="#effort-tbl"><i class="glyphicon glyphicon-plus"></i> Công</a>
 </div>
 <div>
-    <table class="table table-striped table-hover allow-delete ticket-effort-op-detail">
+    <table id="effort-tbl" class="table table-striped table-hover allow-delete ticket-effort-op-detail">
         @if (effortOperations != null && effortOperations.Any())
         {
             var dummyDetail = effortOperations.FirstOrDefault();
@@ -24,30 +25,37 @@
                 {
                     <tr>
                         <td>
-                            <select class="form-control" name="EffortId" required>
-                                <option>Chọn loại công...</option>
+                            <select class="form-control" name="EffortId" required >
+                                <option value="">Chọn loại công...</option>
                                 @if (Model.Efforts != null && Model.Efforts.Any())
                                 {
                                     foreach (var effort in Model.Efforts)
                                     {
-                                        <option value="@effort.Value">@effort.Text</option>
+                                        if (effort.Value == effortOperations[index].EffortId.ToString())
+                                        {
+                                            <option selected value="@effort.Value">@effort.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@effort.Value">@effort.Text</option>
+                                        }
                                     }
                                 }
                             </select>
                         </td>
                         <td>
                             <input class="form-control" type="number" name="Quantity" required min="0" max="999999" 
-                                   default-value="@effortOperations[index].Quantity"
+                                   tce-default-value="@effortOperations[index].Quantity"
                                    value="@effortOperations[index].Quantity"/>
                         </td>
                         <td>
                             <input class="form-control" readonly
-                                   default-value="@effortOperations[index].EffortUnitPrice"
+                                   tce-default-value="@effortOperations[index].EffortUnitPrice"
                                    value="@effortOperations[index].EffortUnitPrice.ToString("N1")"/>
                         </td>
                         <td>
                             <input class="form-control" readonly
-                                   default-value="@effortOperations[index].EffortPrice"
+                                   tce-default-value="@effortOperations[index].EffortPrice"
                                    value="@effortOperations[index].EffortPrice.ToString("N1")" />
                         </td>
                         <td>

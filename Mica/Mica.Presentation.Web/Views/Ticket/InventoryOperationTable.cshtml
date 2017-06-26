@@ -3,10 +3,11 @@
     var inventoryOperations = Model.InventoryOperations;
 }
 <div class="create-new--btn">
-    <a title="Xóa" class="js-add-cli" href="javascript:void(0);"><i class="glyphicon glyphicon-plus"></i> Vật tư</a>
+    <a title="Xóa" class="js-add-cli" href="javascript:void(0);"
+       tce-target-tbl="#inventory-tbl"><i class="glyphicon glyphicon-plus"></i> Vật tư</a>
 </div>
 <div>
-    <table class="table table-striped table-hover allow-delete ticket-effort-op-detail">
+    <table id="inventory-tbl" class="table table-striped table-hover allow-delete ticket-effort-op-detail">
         @if (inventoryOperations != null && inventoryOperations.Any())
         {
             var dummyDetail = inventoryOperations.FirstOrDefault();
@@ -24,8 +25,8 @@
                 {
                     <tr>
                         <td>
-                            <select class="form-control" name="EffortId" required>
-                                <option>Chọn loại công...</option>
+                            <select class="form-control" name="MaterialId" required>
+                                <option value="">Chọn vật tư...</option>
                                 @if (Model.Materials != null && Model.Materials.Any())
                                 {
                                     foreach (var material in Model.Materials)
@@ -37,17 +38,17 @@
                         </td>
                         <td>
                             <input class="form-control" type="number" name="Quantity" required min="0" max="999999"
-                                   default-value="@inventoryOperations[index].Quantity"
+                                   tce-default-value="@inventoryOperations[index].Quantity"
                                    value="@inventoryOperations[index].Quantity" />
                         </td>
                         <td>
                             <input class="form-control" readonly
-                                   default-value="@inventoryOperations[index].MaterialUnitPrice"
+                                   tce-default-value="@inventoryOperations[index].MaterialUnitPrice.ToString("N1")"
                                    value="@inventoryOperations[index].MaterialUnitPrice.ToString("N1")" />
                         </td>
                         <td>
                             <input class="form-control" readonly
-                                   default-value="@inventoryOperations[index].MaterialPrice"
+                                   tce-default-value="@inventoryOperations[index].MaterialPrice.ToString("N1")"
                                    value="@inventoryOperations[index].MaterialPrice.ToString("N1")" />
                         </td>
                         <td>
