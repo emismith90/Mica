@@ -3,8 +3,8 @@
     var effortOperations = Model.EffortOperations;
 }
 <div class="create-new--btn">
-    <a title="Xóa" class="js-add-cli" href="javascript:void(0);"
-       tce-target-tbl="#effort-tbl"><i class="glyphicon glyphicon-plus"></i> Công</a>
+    <a title="Xóa" class="js-imt-add-effort" href="javascript:void(0);"
+       imt-target-tbl="#effort-tbl"><i class="glyphicon glyphicon-plus"></i> Công</a>
 </div>
 <div>
     <table id="effort-tbl" class="table table-striped table-hover allow-delete ticket-effort-op-detail">
@@ -23,21 +23,22 @@
             <tbody>
                 @for (var index = 0; index < effortOperations.Count; index++)
                 {
-                    <tr>
+                    <tr imt-data>
                         <td>
-                            <select class="form-control" name="EffortId" required >
-                                <option value="">Chọn loại công...</option>
+                            <select class="form-control" name="EffortId" required 
+                                    imt-default-value="@effortOperations[index].EffortId">
+                                <option value="0">Chọn loại công...</option>
                                 @if (Model.Efforts != null && Model.Efforts.Any())
                                 {
                                     foreach (var effort in Model.Efforts)
                                     {
-                                        if (effort.Value == effortOperations[index].EffortId.ToString())
+                                        if (effort.Id == effortOperations[index].EffortId)
                                         {
-                                            <option selected value="@effort.Value">@effort.Text</option>
+                                            <option selected value="@effort.Id" data-rate="@effort.UnitPrice">@effort.Name</option>
                                         }
                                         else
                                         {
-                                            <option value="@effort.Value">@effort.Text</option>
+                                            <option value="@effort.Id" data-rate="@effort.UnitPrice">@effort.Name</option>
                                         }
                                     }
                                 }
@@ -45,21 +46,21 @@
                         </td>
                         <td>
                             <input class="form-control" type="number" name="Quantity" required min="0" max="999999" 
-                                   tce-default-value="@effortOperations[index].Quantity"
+                                   imt-default-value="@effortOperations[index].Quantity"
                                    value="@effortOperations[index].Quantity"/>
                         </td>
                         <td>
-                            <input class="form-control" readonly
-                                   tce-default-value="@effortOperations[index].EffortUnitPrice"
+                            <input class="form-control" readonly name="UnitPrice"
+                                   imt-default-value="@effortOperations[index].EffortUnitPrice"
                                    value="@effortOperations[index].EffortUnitPrice.ToString("N1")"/>
                         </td>
                         <td>
-                            <input class="form-control" readonly
-                                   tce-default-value="@effortOperations[index].EffortPrice"
+                            <input class="form-control" readonly name="Total"
+                                   imt-default-value="@effortOperations[index].EffortPrice"
                                    value="@effortOperations[index].EffortPrice.ToString("N1")" />
                         </td>
                         <td>
-                            <a title="Xóa" class="js-delete-cli"
+                            <a title="Xóa" class="js-imt-delete"
                                href="javascript:void(0);">
                                <i class="glyphicon glyphicon-remove"></i>
                             </a>
@@ -71,7 +72,7 @@
                     <td></td>
                     <td></td>
                     <td>Tổng cộng</td>
-                    <td>0.0</td>
+                    <td id="imt-summary">0.0</td>
                     <td></td>
                 </tr>
 

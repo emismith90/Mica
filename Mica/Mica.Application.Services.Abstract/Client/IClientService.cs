@@ -1,4 +1,5 @@
-﻿using Mica.Application.Models.Client;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Mica.Application.Models.Client;
 
 namespace Mica.Application.Services.Abstract.Client
 {
@@ -6,7 +7,7 @@ namespace Mica.Application.Services.Abstract.Client
         ICrudService<ClientModel, long>, 
         IContentListingService<ClientModel>, 
         IContentLookupListingService<ClientModel>,
-        IContentPickupService
+        IContentPickupService<SelectListItem>
     {
     }
 }

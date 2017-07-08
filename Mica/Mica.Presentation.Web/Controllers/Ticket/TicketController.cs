@@ -54,13 +54,13 @@ namespace Mica.Presentation.Web.Controllers.Ticket
                 Sales = this._userService.GetForPickup(),
                 PersonInCharges = this._userService.GetForPickup(),
 
-                Materials = this._materialService.GetForPickup(),
+                Materials = this._materialService.GetAll(),
                 InventoryOperations = new List<InventoryOperationModel>
                 {
                     this._inventoryOperationService.CreateDefaultObject()
                 },
 
-                Efforts = this._effortService.GetForPickup(),
+                Efforts = this._effortService.GetAll(),
                 EffortOperations = new List<EffortOperationModel>
                 {
                     this._effortOperationService.CreateDefaultObject()

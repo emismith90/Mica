@@ -16,12 +16,12 @@ namespace Mica.Application.Models.Ticket
 
         #region for inventory
         public IList<InventoryOperationModel> InventoryOperations { get; set; }
-        public IList<SelectListItem> Materials { get; set; }
+        public IList<MaterialModel> Materials { get; set; }
         #endregion
 
         #region for efforts
         public IList<EffortOperationModel> EffortOperations { get; set; }
-        public IList<SelectListItem> Efforts { get; set; }
+        public IList<EffortModel> Efforts { get; set; }
         #endregion
     }
 }

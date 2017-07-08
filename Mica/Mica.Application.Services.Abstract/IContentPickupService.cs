@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Mica.Application.Services.Abstract
 {
-    public interface IContentPickupService
+    public interface IContentPickupService<T>
     {
-        IList<SelectListItem> GetForPickup();
+        IList<T> GetForPickup();
     }
 }

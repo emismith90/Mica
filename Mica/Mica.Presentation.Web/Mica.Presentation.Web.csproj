@@ -41,11 +41,9 @@
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.modal.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.select.js" />
     <Content Include="wwwroot\js\lumino.glyphs.js" />
-    <Content Include="wwwroot\js\mica.common.table.client-editor.js" />
-    <Content Include="wwwroot\js\mica.commontable.client-editor.js" />
     <Content Include="wwwroot\js\onpageload.js" />
-    <Content Include="wwwroot\js\table.client-editor.js" />
     <Content Include="wwwroot\js\ticket\mica.ticket-addedit.js" />
     <Content Include="wwwroot\js\utils\mica.utils.nav-item.js" />
     <Content Include="wwwroot\js\utils\mica.utils.query-string.js" />

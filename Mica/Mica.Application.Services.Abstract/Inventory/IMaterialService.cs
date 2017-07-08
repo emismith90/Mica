@@ -1,4 +1,5 @@
 ﻿using Mica.Application.Models.Inventory;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Mica.Application.Services.Abstract.Inventory
 {
@@ -6,7 +7,7 @@ namespace Mica.Application.Services.Abstract.Inventory
           : ICrudService<MaterialModel, long>, 
             IContentListingService<MaterialModel>,
             IContentLookupListingService<MaterialModel>,
-            IContentPickupService
+            IContentPickupService<SelectListItem>
     {
     }   
 }
