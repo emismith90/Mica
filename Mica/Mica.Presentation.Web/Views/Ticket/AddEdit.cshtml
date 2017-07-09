@@ -7,7 +7,7 @@
 @Html.Partial("Breadcrumb")
 @Html.Partial("PageHeader")
 
-<form id="form" action="/Ticket/SaveAndRedirect" class="form-horizontal">
+<form id="create-ticket-form" action="/Ticket/SaveAndRedirect" class="form-horizontal">
     <div>
         <div asp-validation-summary="All" class="text-danger"></div>
         <input asp-for="Model.Id" hidden />
@@ -83,7 +83,7 @@
     </div>
     <br />
     <div>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary js-ticket-create">
             <i class="glyphicon glyphicon-floppy-disk"></i>
             Lưu
         </button>

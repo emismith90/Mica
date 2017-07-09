@@ -1,6 +1,7 @@
 ﻿(function ($) {
     Mica.Common.InMemoryTable = function (options) {
         var defaults = {
+            $scope: $(document),
             tableSelector: '#imt-table',
             addButtonSelector: '.js-imt-add',
             deleteButtonSelector: '.js-imt-delete',
@@ -9,10 +10,10 @@
         };
 
         var settings = $.extend({}, defaults, options);
-        var $table = $(settings.tableSelector);
+        var $table = settings.$scope.find(settings.tableSelector);
 
         function initialize() {
-            $(settings.addButtonSelector).click(addClick);
+            settings.$scope.find(settings.addButtonSelector).click(addClick);
 
             var $blueprint = $table.find('tbody tr[imt-data]:first');
             registerEvents($blueprint);

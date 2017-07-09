@@ -36,9 +36,7 @@
     <Content Include="wwwroot\js\common\mica.common.modal.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\js\common\mica.common.nav-item.js" />
     <Content Include="wwwroot\js\common\mica.common.smart-link.js" />
-    <Content Include="wwwroot\js\common\mica.utils.nav-item.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.element.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.form.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.math.js" />
@@ -48,8 +46,13 @@
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.select.js" />
     <Content Include="wwwroot\js\lumino.glyphs.js" />
     <Content Include="wwwroot\js\onpageload.js" />
-    <Content Include="wwwroot\js\ticket\mica.ticket-addedit.js" />
-    <Content Include="wwwroot\js\utils\mica.utils.nav-item.js" />
+    <Content Include="wwwroot\js\ticket\mica.ticket.addedit.js" />
+    <Content Include="wwwroot\js\ticket\mica.ticket.create-ticket.effort-op.js" />
+    <Content Include="wwwroot\js\ticket\mica.ticket.create-ticket.form.js" />
+    <Content Include="wwwroot\js\ticket\mica.ticket.create-ticket.inventory-op.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\js\ticket\mica.ticket._init.js" />
     <Content Include="wwwroot\js\utils\mica.utils.query-string.js" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.bower.json" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.editorconfig" />

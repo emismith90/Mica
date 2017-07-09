@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    Mica.Common.Modal = function M($scope, options) {
+    Mica.Common.Modal = function ($scope, options) {
         var settings = {
             openModalBtn: '.js-open-modal',
             modalContentSelector: '.modal-content'
