@@ -1,5 +1,5 @@
-﻿Mica.Common.Modal = {
-    bindEvent: function ($scope, options) {
+﻿(function ($) {
+    Mica.Common.Modal = function M($scope, options) {
         var settings = {
             openModalBtn: '.js-open-modal',
             modalContentSelector: '.modal-content'
@@ -26,5 +26,5 @@
                 }
             });
         });
-    }
-};
+    };
+})(jQuery);

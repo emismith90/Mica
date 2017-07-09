@@ -1,6 +1,11 @@
-﻿$(document).ready(function () {
-    Mica.Common.SmartLink.bindEvent();
-    Mica.Common.Modal.bindEvent();
+﻿(function ($, SmartLink, Modal, Menu) {
+    $(document).ready(function () {
+        new SmartLink();
+        new Modal();
 
-    Mica.Utils.NavItem.setActive();
-});
+        Menu.setActive();
+    });
+})(jQuery,
+   Mica.Common.SmartLink,
+   Mica.Common.Modal,
+   Mica.Common.Menu);

@@ -31,13 +31,17 @@
     <Content Include="wwwroot\css\inventory\material-page.css" />
     <Content Include="wwwroot\css\ticket\ticket-page.css" />
     <Content Include="wwwroot\css\ticket\ticket-status-page.css" />
+    <Content Include="wwwroot\js\common\mica.common.imt.js" />
+    <Content Include="wwwroot\js\common\mica.common.menu.js" />
     <Content Include="wwwroot\js\common\mica.common.modal.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="wwwroot\js\common\mica.common.nav-item.js" />
     <Content Include="wwwroot\js\common\mica.common.smart-link.js" />
-    <Content Include="wwwroot\js\common\mica.common.table.client-editor.js" />
+    <Content Include="wwwroot\js\common\mica.utils.nav-item.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.element.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.form.js" />
+    <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.math.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.modal.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

@@ -34,6 +34,6 @@
       "renameLocals": false
     },
     // Optionally generate .map file
-    "sourceMap": false
+    "sourceMap": true
   }
 ]
