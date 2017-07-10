@@ -42,8 +42,8 @@ namespace Mica.Application.Models.Ticket
         [DisplayName("Ghi chú")]
         public string Note { get; set; }
 
-        public IList<EffortOperationModel> EffortOperations { get; set; }
-        public IList<InventoryOperationModel> InventoryOperations { get; set; }
+        public EffortOperationModel[] EffortOperations { get; set; }
+        public InventoryOperationModel[] InventoryOperations { get; set; }
 
         public ClientModel Client { get; set; }
 

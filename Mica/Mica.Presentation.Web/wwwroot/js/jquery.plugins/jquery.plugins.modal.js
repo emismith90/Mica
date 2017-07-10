@@ -12,7 +12,7 @@
 
         $(settings.submitBtnSelector).click(function () {
             var $button = $(this);
-            if (!$form.valid()) return;
+            if (!$form[0].checkValidity()) return;
             $.ajax({
                 url: $button.attr('mc-modal-post-url'),
                 data: $form.getFormData(),

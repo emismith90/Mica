@@ -2,81 +2,86 @@
 @{
     var inventoryOperations = Model.InventoryOperations;
 }
-<div class="create-new--btn">
-    <a title="Xóa" class="js-imt-add-inventory" href="javascript:void(0);"
-       imt-target-tbl="#inventory-tbl"><i class="glyphicon glyphicon-plus"></i> Vật tư</a>
-</div>
-<div>
-    <table id="inventory-tbl" class="table table-striped table-hover allow-delete ticket-effort-op-detail">
-        @if (inventoryOperations != null && inventoryOperations.Any())
-        {
-            var dummyDetail = inventoryOperations.FirstOrDefault();
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(m => dummyDetail.MaterialName)</th>
-                    <th>@Html.DisplayNameFor(m => dummyDetail.Quantity)</th>
-                    <th>@Html.DisplayNameFor(m => dummyDetail.MaterialUnitPrice)</th>
-                    <th>@Html.DisplayNameFor(m => dummyDetail.MaterialPrice)</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var index = 0; index < inventoryOperations.Count; index++)
+<div id="inventory-area">
+    <div class="create-new--btn">
+        <a title="Xóa" class="js-imt-add" href="javascript:void(0);"
+           imt-target-tbl="#inventory-tbl"><i class="glyphicon glyphicon-plus"></i>Vật tư</a>
+    </div>
+    <div>
+        <table id="imt-table" class="table table-striped table-hover allow-delete ticket-effort-op-detail">
+            @if (inventoryOperations != null && inventoryOperations.Any())
+            {
+                var dummyDetail = inventoryOperations.FirstOrDefault();
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.MaterialName)</th>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.Quantity)</th>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.MaterialUnitPrice)</th>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.MaterialPrice)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var index = 0; index < inventoryOperations.Count; index++)
                 {
-                    <tr imt-data>
-                        <td>
-                            <select class="form-control" name="MaterialId" required
-                                    imt-default-value="@inventoryOperations[index].MaterialId">
-                                <option value="0">Chọn vật tư...</option>
-                                @if (Model.Materials != null && Model.Materials.Any())
-                                {
-                                    foreach (var material in Model.Materials)
+                        <tr imt-data>
+                            <td>
+                                <select class="form-control" name="MaterialId" required
+                                        imt-default-value="@inventoryOperations[index].MaterialId">
+                                    <option value="0">Chọn vật tư...</option>
+                                    @if (Model.Materials != null && Model.Materials.Any())
                                     {
-                                        if (material.Id == inventoryOperations[index].MaterialId)
+                                        foreach (var material in Model.Materials)
                                         {
-                                            <option selected value="@material.Id" data-rate="@material.UnitPrice">@material.Name</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@material.Id" data-rate="@material.UnitPrice">@material.Name</option>
+                                            if (material.Id == inventoryOperations[index].MaterialId)
+                                            {
+                                                <option selected value="@material.Id" data-rate="@material.UnitPrice">@material.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@material.Id" data-rate="@material.UnitPrice">@material.Name</option>
+                                            }
                                         }
                                     }
-                                }
-                            </select>
-                        </td>
-                        <td>
-                            <input class="form-control" type="number" name="Quantity" required min="0" max="999999"
-                                   imt-default-value="@inventoryOperations[index].Quantity"
-                                   value="@inventoryOperations[index].Quantity" />
-                        </td>
-                        <td>
-                            <input class="form-control" readonly name="UnitPrice"
-                                   imt-default-value="@inventoryOperations[index].MaterialUnitPrice.ToString("N1")"
-                                   value="@inventoryOperations[index].MaterialUnitPrice.ToString("N1")" />
-                        </td>
-                        <td>
-                            <input class="form-control" readonly name="Total"
-                                   imt-default-value="@inventoryOperations[index].MaterialPrice.ToString("N1")"
-                                   value="@inventoryOperations[index].MaterialPrice.ToString("N1")" />
-                        </td>
-                        <td>
-                            <a title="Xóa" class="js-imt-delete"
-                               href="javascript:void(0);">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </a>
-                        </td>
+                                </select>
+                            </td>
+                            <td>
+                                <input class="form-control" type="number" name="Quantity" required min="0" max="999999"
+                                       imt-default-value="@inventoryOperations[index].Quantity"
+                                       value="@inventoryOperations[index].Quantity" />
+                            </td>
+                            <td>
+                                <input class="form-control" readonly name="UnitPrice"
+                                       imt-default-value="@inventoryOperations[index].MaterialUnitPrice.ToString("N1")"
+                                       value="@inventoryOperations[index].MaterialUnitPrice.ToString("N1")" />
+                            </td>
+                            <td>
+                                <input class="form-control" readonly name="Total"
+                                       imt-default-value="@inventoryOperations[index].MaterialPrice.ToString("N1")"
+                                       value="@inventoryOperations[index].MaterialPrice.ToString("N1")" />
+                            </td>
+                            <td>
+                                <a title="Xóa" class="js-imt-delete"
+                                   href="javascript:void(0);">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Tổng cộng</td>
+                        <td id="inventory-summary">0.0</td>
+                        <td></td>
                     </tr>
-                }
 
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>Tổng cộng</td>
-                    <td id="imt-summary">0.0</td>
-                    <td></td>
-                </tr>
-
-            </tbody>
-        }
-    </table>
+                </tbody>
+            }
+        </table>
+        <div>
+            <div id="imt-validation-summary" class="text-danger"></div>
+        </div>
+    </div>
 </div>

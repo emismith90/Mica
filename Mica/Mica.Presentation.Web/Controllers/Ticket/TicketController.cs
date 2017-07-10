@@ -73,7 +73,7 @@ namespace Mica.Presentation.Web.Controllers.Ticket
             return PartialView("DeleteDialog", GetDeleteViewModel(id));
         }
 
-        public virtual IActionResult SaveAndRedirect(TicketModel model)
+        public override bool Save(TicketModel model)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace Mica.Presentation.Web.Controllers.Ticket
                 }
             }
 
-            return Index(null);
+            return true;
         }
     }
 }

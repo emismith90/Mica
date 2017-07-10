@@ -2,8 +2,6 @@
     Mica.Ticket.CreateTicket.EffortOperation = function ($scope) {
         var effortOpTbl = new Table({
             $scope: $scope,
-            tableSelector: '#effort-tbl',
-            addButtonSelector: '.js-imt-add-effort',
             onRowAdded: function ($row) {
                 var $effort = $('select[name=EffortId]', $row);
                 var $quantity = $('input[name=Quantity]', $row);
@@ -23,11 +21,24 @@
             },
             onRowDeleted: function ($row) {
                 updateEffortGrandTotal();
+            },
+            rowData: function ($row) {
+                var effortId = parseInt($('select[name=EffortId]', $row).val());
+                var quantity = parseFloat($('input[name=Quantity]', $row).val());
+
+                if (effortId == 0 && quantity == 0) return null;
+                return {
+                    EffortId: effortId,
+                    Quantity: quantity
+                };
+            },
+            validateRow: function (dataRow) {
+                return dataRow.EffortId > 0 && dataRow.Quantity > 0 ? null : "Xin nhập đầy đủ công và số lượng.";
             }
         });
 
         function updateEffortGrandTotal() {
-            $('#imt-summary', effortOpTbl.$el).html(
+            $('#effort-summary', effortOpTbl.$el).html(
                 effortOpTbl
                     .getData()
                     .find('input[name=Total]')

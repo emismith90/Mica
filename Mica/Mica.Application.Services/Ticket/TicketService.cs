@@ -70,11 +70,11 @@ namespace Mica.Application.Services.Ticket
 
                 var effortOperations = _effortOperationRepository.GetAll()
                                     .Where(eo => eo.TicketId.HasValue && eo.TicketId == id);
-                ticketModel.EffortOperations = Mapper.Map<IList<EffortOperationModel>>(effortOperations.ToList());
+                ticketModel.EffortOperations = Mapper.Map<EffortOperationModel[]>(effortOperations.ToArray());
 
                 var inventoryOperations = _inventoryOperationRepository.GetAll()
                                         .Where(eo => eo.TicketId.HasValue && eo.TicketId == id);
-                ticketModel.InventoryOperations = Mapper.Map<IList<InventoryOperationModel>>(inventoryOperations.ToList());
+                ticketModel.InventoryOperations = Mapper.Map<InventoryOperationModel[]>(inventoryOperations.ToArray());
 
                 return ticketModel;
             });

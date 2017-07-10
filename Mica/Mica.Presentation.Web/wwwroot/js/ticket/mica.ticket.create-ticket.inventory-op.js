@@ -2,8 +2,6 @@
     Mica.Ticket.CreateTicket.InventoryOperation = function ($scope) {
         var inventoryOpTbl = new Table({
             $scope: $scope,
-            tableSelector: '#inventory-tbl',
-            addButtonSelector: '.js-imt-add-inventory',
             onRowAdded: function ($row) {
                 var $material = $('select[name=MaterialId]', $row);
                 var $quantity = $('input[name=Quantity]', $row);
@@ -23,11 +21,24 @@
             },
             onRowDeleted: function ($row) {
                 updateInventoryGrandTotal();
+            },
+            rowData: function ($row) {
+                var materialId = parseInt($('select[name=MaterialId]', $row).val());
+                var quantity = parseFloat($('input[name=Quantity]', $row).val());
+
+                if (materialId == 0 && quantity == 0) return null;
+                return {
+                    MaterialId: materialId,
+                    Quantity: quantity
+                };
+            },
+            validateRow: function (dataRow) {
+                return dataRow.MaterialId > 0 && dataRow.Quantity > 0 ? null : "Xin nhập đầy đủ vật liệu và số lượng.";
             }
         });
 
         function updateInventoryGrandTotal() {
-            $('#imt-summary', inventoryOpTbl.$el).html(
+            $('#inventory-summary', inventoryOpTbl.$el).html(
                 inventoryOpTbl
                     .getData()
                     .find('input[name=Total]')

@@ -5,12 +5,16 @@
             tableSelector: '#imt-table',
             addButtonSelector: '.js-imt-add',
             deleteButtonSelector: '.js-imt-delete',
+            validationSummarySelector: '#imt-validation-summary',
             onRowAdded: function ($row) { },
             onRowDeleted: function ($row) { },
+            rowData: function ($row) { return {}; },
+            validateRow: function (dataRow) { return true; }
         };
 
         var settings = $.extend({}, defaults, options);
         var $table = settings.$scope.find(settings.tableSelector);
+        var $validationSummary = settings.$scope.find(settings.validationSummarySelector);
 
         function initialize() {
             settings.$scope.find(settings.addButtonSelector).click(addClick);
@@ -54,6 +58,34 @@
             return $table.find('tbody tr[imt-data]');
         }
 
+        function checkValidity() {
+            var data = getFormData();
+
+            var validateMessage = '';
+            var isValid = true;
+            data.forEach(function(dataRow, index) {
+                var msg = settings.validateRow(dataRow);
+                if (msg) {
+                    isValid = false;
+                    validateMessage += (index + 1) + '. ' + msg + '<br/>';
+                }
+            });
+
+            $validationSummary.html(validateMessage);
+            return isValid;
+        }
+
+        function getFormData() {
+            var data = [];
+            var $rows = getData();
+            $rows.each(function(index, row) {
+                var rowData = settings.rowData($(row));
+                if (rowData) data.push(rowData);
+            });
+
+            return data;
+        }
+
         function resetRow(row) {
             $('input, select, textarea', row).each(function (index, elem) {
                 var $element = $(elem);
@@ -65,7 +97,9 @@
 
         return {
             $el: $table,
-            getData: getData
+            getData: getData,
+            getFormData: getFormData,
+            checkValidity: checkValidity
         };
     };
 })(jQuery);
