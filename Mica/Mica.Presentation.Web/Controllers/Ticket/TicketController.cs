@@ -73,17 +73,18 @@ namespace Mica.Presentation.Web.Controllers.Ticket
             return PartialView("DeleteDialog", GetDeleteViewModel(id));
         }
 
-        public override bool Save(TicketModel model)
+        [HttpPost]
+        public override StatusCodeResult Save([FromBody]TicketModel ticket)
         {
             if (ModelState.IsValid)
             {
-                if (model.Id == 0)
+                if (ticket.Id == 0)
                 {
-                    this.Service.Add(model);
+                    if (this.Service.Add(ticket)) return Ok();
                 }
             }
 
-            return true;
+            return BadRequest();
         }
     }
 }

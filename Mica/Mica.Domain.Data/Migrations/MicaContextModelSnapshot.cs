@@ -287,12 +287,17 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
-                    b.Property<string>("PersonInChargeId");
+                    b.Property<DateTime>("OperationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("PersonInChargeId")
+                        .HasColumnName("PersonInChargeId");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(12, 2)");
 
                     b.Property<string>("SaleById")
+                        .IsRequired()
                         .HasColumnName("SaleById");
 
                     b.Property<long>("StatusId");
@@ -563,7 +568,8 @@ namespace Mica.Domain.Data.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "SaleBy")
                         .WithMany()
-                        .HasForeignKey("SaleById");
+                        .HasForeignKey("SaleById")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Mica.Domain.Data.Models.Ticket.TicketStatusEntity", "Status")
                         .WithMany()

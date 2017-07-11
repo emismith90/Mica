@@ -48,7 +48,10 @@ namespace Mica.Presentation.Web
                 .AddEntityFrameworkStores<MicaContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(jsonOptions =>
+             {
+                 jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+             });
 
             services.AddOptions();
 

@@ -73,7 +73,7 @@ namespace Mica.Application.Services.Ticket
                 ticketModel.EffortOperations = Mapper.Map<EffortOperationModel[]>(effortOperations.ToArray());
 
                 var inventoryOperations = _inventoryOperationRepository.GetAll()
-                                        .Where(eo => eo.TicketId.HasValue && eo.TicketId == id);
+                                        .Where(io => io.TicketId.HasValue && io.TicketId == id);
                 ticketModel.InventoryOperations = Mapper.Map<InventoryOperationModel[]>(inventoryOperations.ToArray());
 
                 return ticketModel;
@@ -93,7 +93,8 @@ namespace Mica.Application.Services.Ticket
                     foreach (var effortOp in model.EffortOperations)
                     {
                         effortOp.TicketId = ticketKey;
-                        effortOp.Note += $". Tự động tạo bởi lệnh (#{ticketKey} {model.Name})";
+                        effortOp.Note += $"(Tự động tạo bởi lệnh #{ticketKey} '{model.Name}')";
+                        effortOp.OperationDate = DateTime.Now;
                         this._effortOperationRepository.Add(Mapper.Map<EffortOperationEntity>(effortOp));
                         this.UnitOfWork.Commit();
                     }
@@ -104,7 +105,8 @@ namespace Mica.Application.Services.Ticket
                     foreach (var inventoryOp in model.InventoryOperations)
                     {
                         inventoryOp.TicketId = ticketKey;
-                        inventoryOp.Note += $". Tự động tạo bởi lệnh (#{ticketKey} {model.Name})";
+                        inventoryOp.Note += $"(Tự động tạo bởi lệnh #{ticketKey} '{model.Name}')";
+                        inventoryOp.OperationDate = DateTime.Now;
                         this._inventoryOperationRepository.Add(Mapper.Map<InventoryOperationEntity>(inventoryOp));
 
                         this._inventoryService.UpdateInventoryStock(inventoryOp.MaterialId, inventoryOp.Quantity);
@@ -123,7 +125,7 @@ namespace Mica.Application.Services.Ticket
                 _inventoryModelCache.FlushCollection();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 this.UnitOfWork.RollBack();
                 return false;

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Mica.Domain.Data.Migrations
 {
-    public partial class V10 : Migration
+    public partial class Micav10 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -193,8 +193,10 @@ namespace Mica.Domain.Data.Migrations
                         .Annotation("MySql:ValueGeneratedOnAddOrUpdate", true),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Note = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    OperationDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    PersonInChargeId = table.Column<string>(nullable: true),
                     Quantity = table.Column<decimal>(type: "decimal(12, 2)", nullable: false),
-                    SaleById = table.Column<string>(nullable: true),
+                    SaleById = table.Column<string>(nullable: false),
                     StatusId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -219,11 +221,17 @@ namespace Mica.Domain.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Tickets_AspNetUsers_PersonInChargeId",
+                        column: x => x.PersonInChargeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Tickets_AspNetUsers_SaleById",
                         column: x => x.SaleById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_TicketStatuses_StatusId",
                         column: x => x.StatusId,
@@ -306,6 +314,7 @@ namespace Mica.Domain.Data.Migrations
                     CreatedById = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: true)
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
+                    EffortId = table.Column<long>(nullable: false),
                     ModifiedById = table.Column<string>(nullable: true),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: true)
                         .Annotation("MySql:ValueGeneratedOnAddOrUpdate", true),
@@ -323,6 +332,12 @@ namespace Mica.Domain.Data.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EffortOperations_Efforts_EffortId",
+                        column: x => x.EffortId,
+                        principalTable: "Efforts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_EffortOperations_AspNetUsers_ModifiedById",
                         column: x => x.ModifiedById,
@@ -390,6 +405,11 @@ namespace Mica.Domain.Data.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EffortOperations_EffortId",
+                table: "EffortOperations",
+                column: "EffortId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EffortOperations_ModifiedById",
                 table: "EffortOperations",
                 column: "ModifiedById");
@@ -447,6 +467,11 @@ namespace Mica.Domain.Data.Migrations
                 column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tickets_PersonInChargeId",
+                table: "Tickets",
+                column: "PersonInChargeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_SaleById",
                 table: "Tickets",
                 column: "SaleById");
@@ -497,9 +522,6 @@ namespace Mica.Domain.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Efforts");
-
-            migrationBuilder.DropTable(
                 name: "EffortOperations");
 
             migrationBuilder.DropTable(
@@ -522,6 +544,9 @@ namespace Mica.Domain.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Efforts");
 
             migrationBuilder.DropTable(
                 name: "Materials");

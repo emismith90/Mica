@@ -16,6 +16,17 @@ namespace Mica.Domain.Data.TypeBuilders.Ticket
 
             builder.Property(c => c.SaleById)
                 .HasColumnName("SaleById");
+            builder.Property(c => c.PersonInChargeId)
+               .HasColumnName("PersonInChargeId");
+
+            builder.HasOne(m => m.PersonInCharge)
+               .WithMany()
+               .HasForeignKey(m => m.PersonInChargeId);
+            builder.HasOne(m => m.SaleBy)
+               .WithMany()
+               .HasForeignKey(m => m.SaleById)
+               .IsRequired();
+
             builder.HasOne(m => m.Client)
                 .WithMany()
                 .HasForeignKey(m => m.ClientId)
@@ -26,7 +37,11 @@ namespace Mica.Domain.Data.TypeBuilders.Ticket
                 .IsRequired();
 
             builder.Property(c => c.Deadline)
-                .HasColumnType("datetime");
+                .HasColumnType("datetime")
+                .IsRequired();
+            builder.Property(c => c.OperationDate)
+                .HasColumnType("datetime")
+                .IsRequired();
             builder.Property(c => c.Quantity)
                 .HasColumnType("decimal(12, 2)")
                 .IsRequired();

@@ -8,8 +8,8 @@ using Mica.Domain.Data.Contexts;
 namespace Mica.Domain.Data.Migrations
 {
     [DbContext(typeof(MicaContext))]
-    [Migration("20170619070548_V1.0")]
-    partial class V10
+    [Migration("20170711164839_Mica-v1.0")]
+    partial class Micav10
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -114,6 +114,8 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnName("CreatedOn")
                         .HasColumnType("datetime");
 
+                    b.Property<long>("EffortId");
+
                     b.Property<string>("ModifiedById")
                         .HasColumnName("ModifiedById");
 
@@ -137,6 +139,8 @@ namespace Mica.Domain.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("EffortId");
 
                     b.HasIndex("ModifiedById");
 
@@ -284,10 +288,17 @@ namespace Mica.Domain.Data.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
+                    b.Property<DateTime>("OperationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("PersonInChargeId")
+                        .HasColumnName("PersonInChargeId");
+
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(12, 2)");
 
                     b.Property<string>("SaleById")
+                        .IsRequired()
                         .HasColumnName("SaleById");
 
                     b.Property<long>("StatusId");
@@ -299,6 +310,8 @@ namespace Mica.Domain.Data.Migrations
                     b.HasIndex("CreatedById");
 
                     b.HasIndex("ModifiedById");
+
+                    b.HasIndex("PersonInChargeId");
 
                     b.HasIndex("SaleById");
 
@@ -493,6 +506,11 @@ namespace Mica.Domain.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
+                    b.HasOne("Mica.Domain.Data.Models.Effort.EffortEntity", "Effort")
+                        .WithMany()
+                        .HasForeignKey("EffortId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "ModifiedBy")
                         .WithMany()
                         .HasForeignKey("ModifiedById");
@@ -545,9 +563,14 @@ namespace Mica.Domain.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ModifiedById");
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "PersonInCharge")
+                        .WithMany()
+                        .HasForeignKey("PersonInChargeId");
+
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser", "SaleBy")
                         .WithMany()
-                        .HasForeignKey("SaleById");
+                        .HasForeignKey("SaleById")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Mica.Domain.Data.Models.Ticket.TicketStatusEntity", "Status")
                         .WithMany()

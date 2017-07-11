@@ -59,7 +59,7 @@
         }
 
         function checkValidity() {
-            var data = getFormData();
+            var data = serializeData();
 
             var validateMessage = '';
             var isValid = true;
@@ -75,7 +75,7 @@
             return isValid;
         }
 
-        function getFormData() {
+        function serializeData() {
             var data = [];
             var $rows = getData();
             $rows.each(function(index, row) {
@@ -98,7 +98,7 @@
         return {
             $el: $table,
             getData: getData,
-            getFormData: getFormData,
+            serializeData: serializeData,
             checkValidity: checkValidity
         };
     };

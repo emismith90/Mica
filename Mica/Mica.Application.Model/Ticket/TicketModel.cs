@@ -32,6 +32,9 @@ namespace Mica.Application.Models.Ticket
         [DisplayName("Thời hạn hoàn thành")]
         [Required]
         public DateTime Deadline { get; set; }
+        [DisplayName("Ngày thực hiện")]
+        [Required]
+        public DateTime OperationDate { get; set; }
 
         [Required(ErrorMessage = "Trường bắt buộc phải điền")]
         [Range(0, 1000000000, ErrorMessage = "Phải nằm trong khoảng {1} tới {2}")]

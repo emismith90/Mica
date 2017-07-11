@@ -15,6 +15,7 @@ namespace Mica.Domain.Data.Models.Ticket
         public long StatusId { get; set; }
         public string PersonInChargeId { get; set; }
 
+        public DateTime OperationDate { get; set; }
         public DateTime Deadline { get; set; }
         public decimal Quantity { get; set; }
 

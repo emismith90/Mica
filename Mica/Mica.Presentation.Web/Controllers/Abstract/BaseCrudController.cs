@@ -24,30 +24,39 @@ namespace Mica.Presentation.Web.Controllers.Abstract
         {
             return View("AddEdit", GetAddEditViewModel(id));
         }
-        public virtual bool Save(TModel model)
+
+        [HttpPost]
+        public virtual StatusCodeResult Save(TModel model)
         {
             if (ModelState.IsValid)
             {
                 if (model.Id.Equals(default(TKey)))
                 {
-                    return this.Service.Add(model);
+                    if (this.Service.Add(model)) return Ok();
                 }
                 else
                 {
-                    return this.Service.Update(model);
+                    if (this.Service.Update(model)) return Ok();
                 }
             }
 
-            return false;
+            return BadRequest();
         }
 
         public virtual IActionResult DeleteView(TKey id)
         {
             return View("Delete", GetDeleteViewModel(id));
         }
-        public virtual bool Delete(TModel model)
+
+        [HttpPost]
+        public virtual StatusCodeResult Delete(TModel model)
         {
-            return this.Service.Remove(model.Id);
+            if (this.Service.Remove(model.Id))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         protected virtual object GetAddEditViewModel(TKey id)
