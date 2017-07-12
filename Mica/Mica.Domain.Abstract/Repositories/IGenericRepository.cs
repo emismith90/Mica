@@ -12,8 +12,8 @@ namespace Mica.Domain.Abstract.Repositories
         TEntity GetById(TEntityKey id);
         IQueryable<TEntity> GetAll();
 
-        TEntityKey Add(TEntity obj);
-        TEntityKey Update(TEntity obj);
+        void Add(TEntity obj);
+        void Update(TEntity obj);
         void Remove(TEntityKey id);
 
         int SaveChanges();

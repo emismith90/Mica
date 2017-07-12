@@ -26,6 +26,8 @@
       "wwwroot/js/utils/*.js",
       "wwwroot/js/common/*.js",
 
+      "wwwroot/js/shared/*.js",
+
       "wwwroot/js/ticket/mica.ticket._init.js",
       "wwwroot/js/ticket/mica.ticket.create-ticket.effort-op.js",
       "wwwroot/js/ticket/mica.ticket.create-ticket.inventory-op.js",

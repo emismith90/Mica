@@ -1,2 +1,1 @@
-﻿Mica.Ticket = {};
-Mica.Ticket.CreateTicket = {};
+﻿Mica.Ticket.CreateTicket = {};

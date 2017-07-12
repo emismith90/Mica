@@ -56,7 +56,8 @@ namespace Mica.Application.Services.Ticket
             return new TicketModel
             {
                 Quantity = 1,
-                Deadline = DateTime.Now
+                Deadline = DateTime.Now,
+                OperationDate = DateTime.Now
             };
         }
 
@@ -85,14 +86,22 @@ namespace Mica.Application.Services.Ticket
             this.UnitOfWork.BeginTransaction();
             try
             {
-                var ticketKey = this.Repository.Add(Mapper.Map<TicketEntity>(model));
+                var ticket = Mapper.Map<TicketEntity>(model);
+                if(string.IsNullOrEmpty(ticket.PersonInChargeId))
+                {
+                    ticket.PersonInChargeId = null;
+                }
+
+                this.Repository.Add(ticket);
                 this.UnitOfWork.Commit();
+                var ticketKey = ticket.Id;
 
                 if (model.EffortOperations!= null && model.EffortOperations.Any())
                 {
                     foreach (var effortOp in model.EffortOperations)
                     {
                         effortOp.TicketId = ticketKey;
+                        effortOp.Quantity = -effortOp.Quantity;
                         effortOp.Note += $"(Tự động tạo bởi lệnh #{ticketKey} '{model.Name}')";
                         effortOp.OperationDate = DateTime.Now;
                         this._effortOperationRepository.Add(Mapper.Map<EffortOperationEntity>(effortOp));
@@ -105,6 +114,7 @@ namespace Mica.Application.Services.Ticket
                     foreach (var inventoryOp in model.InventoryOperations)
                     {
                         inventoryOp.TicketId = ticketKey;
+                        inventoryOp.Quantity = -inventoryOp.Quantity;
                         inventoryOp.Note += $"(Tự động tạo bởi lệnh #{ticketKey} '{model.Name}')";
                         inventoryOp.OperationDate = DateTime.Now;
                         this._inventoryOperationRepository.Add(Mapper.Map<InventoryOperationEntity>(inventoryOp));

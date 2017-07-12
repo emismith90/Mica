@@ -30,16 +30,14 @@ namespace Mica.Domain.EF.Repositories
             return DbSet.AsNoTracking();
         }
 
-        public virtual TEntityKey Add(TEntity obj)
+        public virtual void Add(TEntity obj)
         {
             DbSet.Add(obj);
-            return obj.Id;
         }
 
-        public virtual TEntityKey Update(TEntity obj)
+        public virtual void Update(TEntity obj)
         {
             DbSet.Update(obj);
-            return obj.Id;
         }
 
         public virtual void Remove(TEntityKey id)

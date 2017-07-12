@@ -46,6 +46,10 @@
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.select.js" />
     <Content Include="wwwroot\js\lumino.glyphs.js" />
     <Content Include="wwwroot\js\onpageload.js" />
+    <Content Include="wwwroot\js\shared\mica.service.aquarium.js" />
+    <Content Include="wwwroot\js\shared\mica.service.jar.js" />
+    <Content Include="wwwroot\js\shared\mica.service.httpservice.js" />
+    <Content Include="wwwroot\js\shared\mica.services.httpservice.js" />
     <Content Include="wwwroot\js\ticket\mica.ticket.addedit.js" />
     <Content Include="wwwroot\js\ticket\mica.ticket.create-ticket.effort-op.js" />
     <Content Include="wwwroot\js\ticket\mica.ticket.create-ticket.form.js" />
@@ -53,6 +57,8 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\js\ticket\mica.ticket._init.js" />
+    <Content Include="wwwroot\js\utils\mica - Copy.utils.query-string.js" />
+    <Content Include="wwwroot\js\utils\mica.utils.inheritance.js" />
     <Content Include="wwwroot\js\utils\mica.utils.query-string.js" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.bower.json" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.editorconfig" />
