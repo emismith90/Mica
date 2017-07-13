@@ -1,5 +1,5 @@
-﻿(function (window) {
-    function Q() {
+﻿Mica.use('QueryString', ['window', function (window) {
+    function QueryString() {
         var getObject = function () {
             var vars = {};
             if (window.location.href.indexOf('?') < 0) return {};
@@ -32,6 +32,6 @@
         };
     };
 
-    Mica.Utils.QueryString = new Q();
-})(window);
+    return new QueryString();
+}]);
 

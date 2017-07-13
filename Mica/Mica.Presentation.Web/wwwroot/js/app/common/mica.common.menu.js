@@ -1,5 +1,5 @@
-﻿(function (window, $) {
-    function M() {
+﻿Mica.use('Menu', ['window', 'jQuery', function (window, $) {
+    function Menu() {
         var setActive = function () {
             var pathname = window.location.pathname;
             if (!pathname) pathname = "/Home"
@@ -12,5 +12,5 @@
         };
     };
 
-    Mica.Common.Menu = new M();
-})(window, jQuery);
+    return new Menu();
+}]);

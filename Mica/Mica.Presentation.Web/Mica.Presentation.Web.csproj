@@ -31,12 +31,26 @@
     <Content Include="wwwroot\css\inventory\material-page.css" />
     <Content Include="wwwroot\css\ticket\ticket-page.css" />
     <Content Include="wwwroot\css\ticket\ticket-status-page.css" />
-    <Content Include="wwwroot\js\common\mica.common.imt.js" />
-    <Content Include="wwwroot\js\common\mica.common.menu.js" />
-    <Content Include="wwwroot\js\common\mica.common.modal.js">
+    <Content Include="wwwroot\js\app\app.js" />
+    <Content Include="wwwroot\js\app\common\mica.common.imt.js" />
+    <Content Include="wwwroot\js\app\common\mica.common.menu.js" />
+    <Content Include="wwwroot\js\app\common\mica.common.smart-link.js" />
+    <Content Include="wwwroot\js\app\shared\mica.jsonhttpservice.js" />
+    <Content Include="wwwroot\js\app\shared\mica.httpservice.js" />
+    <Content Include="wwwroot\js\app\ticket\mica.ticket.addedit.js" />
+    <Content Include="wwwroot\js\app\ticket\mica.ticket.create-ticket.effort-op.js" />
+    <Content Include="wwwroot\js\app\ticket\mica.ticket.create-ticket.form.js" />
+    <Content Include="wwwroot\js\app\ticket\mica.ticket.create-ticket.inventory-op.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\js\common\mica.common.smart-link.js" />
+    <Content Include="wwwroot\js\app\utils\mica.utils.inheritance.js" />
+    <Content Include="wwwroot\js\app\utils\mica.utils.query-string.js" />
+    <Content Include="wwwroot\js\bootstrap.js" />
+    <Content Include="wwwroot\js\app\common\mica.common.modal.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\js\framework\aa.js" />
+    <Content Include="wwwroot\js\framework\aquarium.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.element.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.form.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.math.js" />
@@ -45,18 +59,6 @@
     </Content>
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.select.js" />
     <Content Include="wwwroot\js\lumino.glyphs.js" />
-    <Content Include="wwwroot\js\onpageload.js" />
-    <Content Include="wwwroot\js\shared\mica.service.aquarium.js" />
-    <Content Include="wwwroot\js\shared\mica.service.httpservice.js" />
-    <Content Include="wwwroot\js\ticket\mica.ticket.addedit.js" />
-    <Content Include="wwwroot\js\ticket\mica.ticket.create-ticket.effort-op.js" />
-    <Content Include="wwwroot\js\ticket\mica.ticket.create-ticket.form.js" />
-    <Content Include="wwwroot\js\ticket\mica.ticket.create-ticket.inventory-op.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\js\ticket\mica.ticket._init.js" />
-    <Content Include="wwwroot\js\utils\mica.utils.inheritance.js" />
-    <Content Include="wwwroot\js\utils\mica.utils.query-string.js" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.bower.json" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.editorconfig" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.gitignore" />

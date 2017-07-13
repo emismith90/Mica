@@ -22,20 +22,22 @@
     "inputFiles": [
       "wwwroot/js/lumino.glyphs.js",
       "wwwroot/js/jquery.plugins/*.js",
-      "wwwroot/js/site.js",
-      "wwwroot/js/utils/*.js",
-      "wwwroot/js/common/*.js",
 
-      "wwwroot/js/shared/*.js",
+      "wwwroot/js/framework/aa.js",
+      "wwwroot/js/bootstrap.js",
 
-      "wwwroot/js/ticket/mica.ticket._init.js",
-      "wwwroot/js/ticket/mica.ticket.create-ticket.effort-op.js",
-      "wwwroot/js/ticket/mica.ticket.create-ticket.inventory-op.js",
-      "wwwroot/js/ticket/mica.ticket.create-ticket.form.js",
-      "wwwroot/js/ticket/mica.ticket.addedit.js",
-      "wwwroot/js/ticket/*.js",
+      "wwwroot/js/app/utils/*.js",
 
-      "wwwroot/js/onpageload.js"
+      "wwwroot/js/app/common/*.js",
+      "wwwroot/js/app/shared/*.js",
+
+      "wwwroot/js/app/ticket/mica.ticket.create-ticket.effort-op.js",
+      "wwwroot/js/app/ticket/mica.ticket.create-ticket.inventory-op.js",
+      "wwwroot/js/app/ticket/mica.ticket.create-ticket.form.js",
+      "wwwroot/js/app/ticket/mica.ticket.addedit.js",
+      "wwwroot/js/app/ticket/*.js",
+
+      "wwwroot/js/app/app.js"
     ],
     // Optionally specify minification options
     "minify": {

@@ -1,5 +1,5 @@
-﻿(function () {
-    function I() {
+﻿Mica.use('Inheritance', function () {
+    function Inheritance() {
         var inheritsFrom = function (child, parent) {
             child.prototype = Object.create(parent.prototype);
         };
@@ -7,5 +7,5 @@
         return { inheritsFrom: inheritsFrom };
     };
 
-    Mica.Utils.Inheritance = new I();
-})();
+    return new Inheritance();
+});

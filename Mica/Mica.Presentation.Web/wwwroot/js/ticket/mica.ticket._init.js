@@ -1,1 +1,0 @@
-﻿Mica.Ticket.CreateTicket = {};

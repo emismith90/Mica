@@ -1,5 +1,5 @@
-﻿(function (window, $, q) {
-    Mica.Common.SmartLink = function ($scope, options) {
+﻿Mica.use('SmartLink', ['window', 'document', 'jQuery', 'QueryString', function (window, document, $, q) {
+    return function ($scope, options) {
         var settings = {
             hrefDefault: ''
         };
@@ -39,4 +39,4 @@
             event.preventDefault();
         });
     };
-})(window, jQuery, Mica.Utils.QueryString);
+}]);

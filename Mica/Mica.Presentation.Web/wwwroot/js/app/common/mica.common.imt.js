@@ -1,5 +1,5 @@
-﻿(function ($) {
-    Mica.Common.InMemoryTable = function (options) {
+﻿Mica.use('InMemoryTable', ['jQuery', 'document', function ($, document) {
+    return function (options) {
         var defaults = {
             $scope: $(document),
             tableSelector: '#imt-table',
@@ -63,7 +63,7 @@
 
             var validateMessage = '';
             var isValid = true;
-            data.forEach(function(dataRow, index) {
+            data.forEach(function (dataRow, index) {
                 var msg = settings.validateRow(dataRow);
                 if (msg) {
                     isValid = false;
@@ -78,7 +78,7 @@
         function serializeData() {
             var data = [];
             var $rows = getData();
-            $rows.each(function(index, row) {
+            $rows.each(function (index, row) {
                 var rowData = settings.rowData($(row));
                 if (rowData) data.push(rowData);
             });
@@ -102,4 +102,5 @@
             checkValidity: checkValidity
         };
     };
-})(jQuery);
+}]);
+
