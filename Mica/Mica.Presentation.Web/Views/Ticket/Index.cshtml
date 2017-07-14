@@ -1,0 +1,95 @@
+﻿@model IPagedList<TicketModel>
+@{
+    ViewData["Title"] = "Danh sách lệnh";
+    var linkToThisController = "/Ticket";
+}
+
+@Html.Partial("_Breadcrumb")
+@Html.Partial("_PageHeader")
+
+<div class="row">
+    <div class="col-lg-12">
+        <a class="btn btn-default create-new--btn"
+           href="@linkToThisController/AddEditView/0">
+            <i class="glyphicon glyphicon-plus"></i>
+            Tạo mới
+        </a>
+    </div>
+</div><!--/.row-->
+
+@Html.Partial("_SmartPager", Model, new ViewDataDictionary(ViewData)
+{
+    { "mc-sl-to", linkToThisController }
+})
+
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("_TableSearchBox", new ViewDataDictionary(ViewData)
+        {
+            { "asp-controller", "Ticket" }
+        })
+
+        <table class="table table-striped table-hover allow-edit allow-delete ticket-detail">
+            @if (Model != null && Model.Any())
+            {
+                var dummyDetail = Model.FirstOrDefault();
+                <thead>
+                    <tr>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Id", Html.DisplayNameFor(m => dummyDetail.Id))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Name", Html.DisplayNameFor(m => dummyDetail.Name))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Quantity", Html.DisplayNameFor(m => dummyDetail.Quantity))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "PersonInChargeName", Html.DisplayNameFor(m => dummyDetail.PersonInChargeName))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "StatusName ", Html.DisplayNameFor(m => dummyDetail.StatusName))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "OperationDate", Html.DisplayNameFor(m => dummyDetail.OperationDate))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Deadline", Html.DisplayNameFor(m => dummyDetail.Deadline))</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var index = 0; index < Model.Count; index++)
+                    {
+                        <tr>
+                            <td>
+                                <a class="hover-view js-open-modal" title="Sửa"
+                                   href="javascript:void(0);"
+                                   data-toggle="modal" data-target="#ticket-modal"
+                                   mc-modal-content-url="@linkToThisController/EditView/@Model[index].Id">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
+                                <span class="normal-view">@Model[index].Id</span>
+                            </td>
+                            <td>
+                                <a class="js-open-modal" title="Xem"
+                                   href="javascript:void(0);"
+                                   data-toggle="modal" data-target="#ticket-modal"
+                                   mc-modal-content-url="@linkToThisController/ReadonlyView/@Model[index].Id">
+                                    @Model[index].Name
+                                </a>
+                            </td>
+                            <th>@Model[index].Quantity</th>
+                            <th>@Model[index].PersonInChargeName</th>
+                            <th>@Model[index].StatusName</th>
+                            <th>@string.Format("{0:d}", TimeZoneInfo.ConvertTime(Model[index].OperationDate, TimeZoneInfo.Local))</th>
+                            <th>@string.Format("{0:d}", TimeZoneInfo.ConvertTime(Model[index].Deadline, TimeZoneInfo.Local))</th>
+                            <td>
+                                <a class="hover-view js-open-modal" title="Xóa"
+                                   href="javascript:void(0);"
+                                   data-toggle="modal" data-target="#ticket-modal"
+                                   mc-modal-content-url="@linkToThisController/DeleteView/@Model[index].Id">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+</div><!--/.row-->
+
+<div class="modal fade" id="ticket-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>

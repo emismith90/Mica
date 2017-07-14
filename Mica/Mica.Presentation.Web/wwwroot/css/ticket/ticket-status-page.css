@@ -1,0 +1,8 @@
+﻿.table.ticket-status-detail th:nth-child(2) {
+    width: 15em;
+}
+
+.table.ticket-status-detail th:nth-child(4), .table.ticket-status-detail td:nth-child(4) {
+    width: 8em;
+    text-align: right;
+}

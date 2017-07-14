@@ -1,0 +1,88 @@
+﻿@model IPagedList<TicketStatusModel>
+@{
+    ViewData["Title"] = "Danh sách trạng thái lệnh";
+    var linkToThisController = "/TicketStatus";
+}
+
+@Html.Partial("_Breadcrumb")
+@Html.Partial("_PageHeader")
+
+<div class="row">
+    <div class="col-lg-12">
+        <button type="button" class="btn btn-default create-new--btn js-open-modal"
+                data-toggle="modal" data-target="#ticket-status-modal"
+                mc-modal-content-url="@linkToThisController/AddEditView/0">
+            <i class="glyphicon glyphicon-plus"></i>
+            Tạo mới
+        </button>
+    </div>
+</div><!--/.row-->
+
+@Html.Partial("_SmartPager", Model, new ViewDataDictionary(ViewData)
+{
+    { "mc-sl-to", linkToThisController }
+})
+
+<div class="row">
+    <div class="col-lg-12">
+        @Html.Partial("_TableSearchBox", new ViewDataDictionary(ViewData)
+        {
+            { "asp-controller", "TicketStatus" }
+        })
+
+        <table class="table table-striped table-hover allow-edit allow-delete ticket-status-detail">
+            @if (Model != null && Model.Any())
+            {
+                var dummyDetail = Model.FirstOrDefault();
+                <thead>
+                    <tr>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Id", Html.DisplayNameFor(m => dummyDetail.Id))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Name", Html.DisplayNameFor(m => dummyDetail.Name))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Description", Html.DisplayNameFor(m => dummyDetail.Description))</th>
+                        <th>@Html.RenderTableHeaderAnchor(linkToThisController, "Order", Html.DisplayNameFor(m => dummyDetail.Order))</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var index = 0; index < Model.Count; index++)
+                    {
+                        <tr>
+                            <td>
+                                <a class="hover-view js-open-modal" title="Sửa"
+                                    href="javascript:void(0);"
+                                    data-toggle="modal" data-target="#ticket-status-modal"
+                                    mc-modal-content-url="@linkToThisController/AddEditView/@Model[index].Id">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
+                                <span class="normal-view">@Model[index].Id</span>
+                            </td>
+                            <td>@Model[index].Name</td>
+                            <td>@Model[index].Description</td>
+                            <td>@Model[index].Order</td>
+
+                            <td>
+                                <a class="hover-view js-open-modal" title="Xóa"
+                                    href="javascript:void(0);"
+                                    data-toggle="modal" data-target="#ticket-status-modal"
+                                    mc-modal-content-url="@linkToThisController/DeleteView/@Model[index].Id">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+</div><!--/.row-->
+
+<div class="modal fade" id="ticket-status-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -1,0 +1,42 @@
+﻿table input, table select, table textarea{
+    max-width: none;
+}
+
+table td input, table td select {
+    width: 100%;
+}
+
+
+.table.ticket-detail th:nth-child(3), .table.ticket-detail td:nth-child(3) {
+    width: 8em;
+    text-align: right;
+}
+.table.ticket-detail th:nth-child(4) {
+    width: 15em;
+}
+.table.ticket-detail th:nth-child(5), .table.ticket-detail td:nth-child(5) {
+    width: 8em;
+    text-align: center;
+}
+
+.table.ticket-detail th:nth-child(6), .table.ticket-detail td:nth-child(6),
+.table.ticket-detail th:nth-child(7), .table.ticket-detail td:nth-child(7) {
+    width: 8em;
+    text-align: right;
+}
+
+
+.table.ticket-effort-op-detail th:nth-child(2), .table.ticket-effort-op-detail td:nth-child(2), .table.ticket-effort-op-detail td:nth-child(2) input,
+.table.ticket-effort-op-detail th:nth-child(3), .table.ticket-effort-op-detail td:nth-child(3), .table.ticket-effort-op-detail td:nth-child(3) input,
+.table.ticket-effort-op-detail th:nth-child(4), .table.ticket-effort-op-detail td:nth-child(4), .table.ticket-effort-op-detail td:nth-child(4) input {
+    width: 10em;
+    text-align: right;
+}
+
+.read-mode select, .read-mode input, .read-mode textarea {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    opacity: 0.8;
+}

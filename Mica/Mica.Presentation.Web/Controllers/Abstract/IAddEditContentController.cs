@@ -3,10 +3,11 @@ using Mica.Application.Models;
 
 namespace Mica.Presentation.Web.Controllers.Abstract
 {
-    public interface IAddEditContentController<TModel, TKey>
+    public interface IAddEditContentController<TModel, TKey> 
        where TModel : ModelBase<TKey>
     {
-        bool Save(TModel model);
-        IActionResult AddEditDialog(TKey id);
+        StatusCodeResult Save(TModel model);
+
+        IActionResult AddEditView(TKey id);
     }
 }

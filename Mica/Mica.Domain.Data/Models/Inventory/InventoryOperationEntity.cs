@@ -1,4 +1,6 @@
-﻿using Mica.Infrastructure.Models.Abstract;
+﻿using Mica.Domain.Data.Models.Ticket;
+using Mica.Infrastructure.Models.Abstract;
+using System;
 
 namespace Mica.Domain.Data.Models.Inventory
 {
@@ -7,14 +9,15 @@ namespace Mica.Domain.Data.Models.Inventory
         public long MaterialId { get; set; }
         public long? TicketId { get; set; }
         public decimal Quantity { get; set; }
-        public string Description { get; set; }
+        public string Note { get; set; }
+        public DateTime OperationDate { get; set; }
 
         public virtual MaterialEntity Material { get; set; }
         public virtual TicketEntity Ticket { get; set; }
 
         public string ToSearchableString()
         {
-            return $"{Material?.Name} {Material?.Code} {Description}";
+            return $"{Material.Name} {Material.Code} {Ticket?.Name} {Note}";
         }
     }
 }

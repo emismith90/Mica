@@ -20,11 +20,6 @@ namespace Mica.Domain.EF.Repositories
             DbSet = Db.Set<TEntity>();
         }
 
-        public virtual void Add(TEntity obj)
-        {
-            DbSet.Add(obj);
-        }
-
         public virtual TEntity GetById(TEntityKey id)
         {
             return DbSet.Find(id);
@@ -33,6 +28,11 @@ namespace Mica.Domain.EF.Repositories
         public virtual IQueryable<TEntity> GetAll()
         {
             return DbSet.AsNoTracking();
+        }
+
+        public virtual void Add(TEntity obj)
+        {
+            DbSet.Add(obj);
         }
 
         public virtual void Update(TEntity obj)
@@ -54,12 +54,7 @@ namespace Mica.Domain.EF.Repositories
         {
             return Db.SaveChanges();
         }
-
-        public virtual TEntity CreateDefaultObject()
-        {
-            return (TEntity) Activator.CreateInstance(typeof(TEntity));
-        }
-
+        
         public void Dispose()
         {
             Db.Dispose();

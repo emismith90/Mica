@@ -1,0 +1,114 @@
+﻿@using System.Linq
+@using Mica.Infrastructure.Extensions
+
+@model IPagedList
+
+@if (Model != null)
+{
+    var linkTo = ViewData["mc-sl-to"] != null ? ViewData["mc-sl-to"]?.ToString() : "/Default";
+    var from = Model.PageSize * (Model.PageNumber - 1) + 1;
+    var to = from + Model.Count - 1;
+    <div class="row">
+        <div class="col-lg-12">
+            <div>
+                @if (Model.TotalItemCount == 0)
+                {
+                    <span>Không có kết quả</span>
+                }
+                else
+                {
+                    <span>Kết quả từ @from đến @to trên @Model.TotalItemCount kết quả.</span>
+                }
+            </div>
+
+            @if (Model.TotalPageCount > 1)
+            {
+                <ul class="pagination">
+                    @{
+                        var defaultCssClass = string.Empty;
+                        var disableCssClass = "disabled";
+                        var activeCssClass = "active";
+
+                        var prevPageClass = Model.HasPreviousPage ? defaultCssClass : $"{defaultCssClass} {disableCssClass}";
+                        var nextPageClass = Model.HasNextPage ? defaultCssClass : $"{defaultCssClass} {disableCssClass}";
+                    }
+
+                    <li class="@prevPageClass">
+                        <a title="Trang đầu"
+                           mc-sl-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
+                           mc-sl-to="@linkTo"
+                           mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="1">«</a>
+                    </li>
+                    <li class="@prevPageClass">
+                        <a title="Trang trước"
+                           mc-sl-can-redirect="@(Model.HasPreviousPage ? "True" : "False")"
+                           mc-sl-to="@linkTo"
+                           mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@(Model.PageNumber - 1)">‹</a>
+                    </li>
+
+                    @if (Model.TotalPageCount > 5) // in case of very long long list
+                    {
+                        var start = Model.PageNumber - 2;
+                        var stop = Model.PageNumber + 2;
+                        if (start > 1)
+                        {
+                            <li>
+                                <a title="1"
+                                   mc-sl-to="@linkTo"
+                                   mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="1">1</a>
+                            </li>
+                            <li><a href="javscript:void(0);">...</a></li>
+                        }
+
+                        for (var pgNumber = start.NoLessThan(1); pgNumber <= stop.NoGreaterThan(Model.TotalPageCount); pgNumber++)
+                        {
+                            var isActive = Model.PageNumber == pgNumber;
+                            <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
+                                <a title="@pgNumber"
+                                   mc-sl-to="@linkTo"
+                                   mc-sl-can-redirect="@(!isActive ? "True" : "False")"
+                                   mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@pgNumber">@pgNumber</a>
+                            </li>
+                        }
+
+                        if (stop < Model.TotalPageCount)
+                        {
+                            <li><a href="javscript:void(0);">...</a></li>
+                            <li class="@nextPageClass">
+                                <a title="@Model.TotalPageCount"
+                                   mc-sl-to="@linkTo"
+                                   mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@Model.TotalPageCount">@Model.TotalPageCount</a>
+                            </li>
+                        }
+                    }
+                    else // just render it all
+                    {
+                        for (var pgNumber = 1; pgNumber <= Model.TotalPageCount; pgNumber++)
+                        {
+                            var isActive = Model.PageNumber == pgNumber;
+                            <li class="@(isActive ? $"{defaultCssClass} {activeCssClass}" : defaultCssClass)">
+                                <a title="@pgNumber"
+                                   mc-sl-to="@linkTo"
+                                   mc-sl-can-redirect="@(!isActive ? "True" : "False")"
+                                   mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@pgNumber">@pgNumber</a>
+                            </li>
+                        }
+                    }
+
+                    <li class="@nextPageClass">
+                        <a title="Trang tiếp"
+                           mc-sl-to="@linkTo"
+                           mc-sl-can-redirect="@(Model.HasNextPage ? "True" : "False")"
+                           mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@(Model.PageNumber + 1)">›</a>
+                    </li>
+                    <li class="@nextPageClass">
+                        <a title="Trang cuối"
+                           mc-sl-to="@linkTo"
+                           mc-sl-can-redirect="@(Model.HasNextPage ? "True" : "False")"
+                           mc-sl-route-pageSize="@Model.PageSize" mc-sl-route-pageNumber="@Model.TotalPageCount">»</a>
+                    </li>
+                </ul>
+            }
+        </div>
+    </div><!--/.row-->
+}

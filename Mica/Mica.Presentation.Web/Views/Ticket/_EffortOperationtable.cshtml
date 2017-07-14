@@ -1,0 +1,129 @@
+﻿@model TicketAddEditViewModel
+@{
+    var effortOperations = Model.Model.EffortOperations;
+    var editMode = Convert.ToBoolean(ViewData["edit-mode"]);
+
+    var editModeStyle = editMode ? "edit-mode" : "read-mode";
+}
+<div id="effort-area" class="@editModeStyle">
+    @if (editMode)
+    {
+        <div class="create-new--btn">
+            <a title="Thêm" class="js-imt-add" href="javascript:void(0);"
+               imt-target-tbl="#effort-tbl"><i class="glyphicon glyphicon-plus"></i>Công</a>
+        </div>
+    }
+    else
+    {
+        <h3>Công</h3>
+    }
+
+    <div>
+        <table id="imt-table" class="table table-striped table-hover allow-delete ticket-effort-op-detail">
+            @if (effortOperations != null && effortOperations.Any())
+            {
+                var dummyDetail = effortOperations.FirstOrDefault();
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.EffortName)</th>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.Quantity)</th>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.EffortUnitPrice)</th>
+                        <th>@Html.DisplayNameFor(m => dummyDetail.EffortPrice)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var index = 0; index < effortOperations.Count(); index++)
+                    {
+                        <tr imt-data>
+                            <td>
+                                @if (editMode)
+                                {
+                                    <select class="form-control" name="EffortId" required
+                                            imt-default-value="@effortOperations[index].EffortId">
+                                        <option value="0">Chọn loại công...</option>
+                                        @if (Model.Efforts != null && Model.Efforts.Any())
+                                        {
+                                            foreach (var effort in Model.Efforts)
+                                            {
+                                                if (effort.Id == effortOperations[index].EffortId)
+                                                {
+                                                    <option selected value="@effort.Id" data-rate="@effort.UnitPrice">@effort.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@effort.Id" data-rate="@effort.UnitPrice">@effort.Name</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    @effortOperations[index].EffortName
+                                }
+                            </td>
+                            <td>
+                                @if (editMode)
+                                {
+                                    <input class="form-control" type="number" name="Quantity" required min="0" max="999999"
+                                           imt-default-value="@effortOperations[index].Quantity"
+                                           value="@effortOperations[index].Quantity" />
+                                }
+                                else
+                                {
+                                    @effortOperations[index].Quantity
+                                }
+                            </td>
+                            <td>
+                                @if (editMode)
+                                {
+                                    <input class="form-control" readonly name="UnitPrice"
+                                           imt-default-value="@effortOperations[index].EffortUnitPrice"
+                                           value="@effortOperations[index].EffortUnitPrice.ToString("N1")" />
+                                }
+                                else
+                                {
+                                    @effortOperations[index].EffortUnitPrice.ToString("N1")
+                                }
+                            </td>
+                            <td>
+                                @if (editMode)
+                                {
+                                    <input class="form-control" readonly name="Total"
+                                           imt-default-value="@effortOperations[index].EffortPrice"
+                                           value="@effortOperations[index].EffortPrice.ToString("N1")" />
+                                }
+                                else
+                                {
+                                    @effortOperations[index].EffortPrice.ToString("N1")
+                                }
+                            </td>
+                            <td>
+                                @if (editMode)
+                                {
+                                    <a title="Xóa" class="js-imt-delete"
+                                       href="javascript:void(0);">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Tổng cộng</td>
+                        <td id="effort-summary">@effortOperations.Sum(m => m.EffortPrice).ToString("N1")</td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+            }
+        </table>
+        <div>
+            <div id="imt-validation-summary" class="text-danger"></div>
+        </div>
+    </div>
+</div>

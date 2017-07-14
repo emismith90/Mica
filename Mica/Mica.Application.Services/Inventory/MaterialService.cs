@@ -3,39 +3,50 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoMapper;
 using Mica.Application.Services.Abstract.Cache;
+using Mica.Application.Services.Abstract.Inventory;
 using Mica.Application.Models.Inventory;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Abstract.UoW;
-using Mica.Domain.Abstract.Repositories.Inventory;
+using Mica.Domain.Abstract.Repositories;
 
 namespace Mica.Application.Services.Inventory
 {
-    public class MaterialService : CrudWithSearchServiceBase<long, MaterialModel, MaterialEntity>, IMaterialService
+    public class MaterialService 
+        : CrudWithSearchServiceBase<long, MaterialModel, MaterialEntity>, IMaterialService
     {
         public MaterialService(
-            IMapper mapper, 
-            IUnitOfWork unitOfWork, 
+            IMapper mapper,
+            IUnitOfWork unitOfWork,
             ITypedCacheService<MaterialModel, long> cache,
-            IMaterialRepository repository) 
+            IGenericRepository<MaterialEntity, long> repository)
             : base(mapper, unitOfWork, cache, repository)
         {
         }
 
-        public virtual IList<SelectListItem> GetMaterialsForPickup()
+        public override MaterialModel CreateDefaultObject()
         {
-            return Cache.GetOrFetchDependKey("GetMaterialsForPickup",
+            return new MaterialModel
+            {
+                Active = true
+            };
+        }
+
+        public virtual IList<SelectListItem> GetForPickup()
+        {
+            return Cache.GetOrFetchDependKey("GetForPickup",
                 () =>
                 {
                     var queryableResult = Repository
                                             .GetAll()
                                             .Where(m => m.Active)
-                                            .Select(m => new SelectListItem {
-                                                Text = string.Format("{0} ({1})", m.Name, m.Code),
+                                            .OrderBy(m => m.Name)
+                                            .Select(m => new SelectListItem
+                                            {
+                                                Text = string.Format("{0} ({1}) ({2})", m.Name, m.Code, m.Unit),
                                                 Value = m.Id.ToString()
                                             });
 
-                    return Mapper
-                            .Map<IList<SelectListItem>>(queryableResult.ToList());
+                    return queryableResult.ToList();
                 });
         }
     }

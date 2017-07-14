@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Mica.Application.Services.Inventory;
 using Mica.Application.Models.Inventory;
 using Mica.Presentation.Web.Controllers.Abstract;
+using Mica.Application.Services.Abstract.Inventory;
 
 namespace Mica.Presentation.Web.Controllers.Inventory
 {
-    public class InventoryOperationController : BaseCrudController<InventoryOperationModel, long, IInventoryOperationService>
+    public class InventoryOperationController : BaseDialogCrudController<InventoryOperationModel, long, IInventoryOperationService>
     {
         private readonly IMaterialService _materialService;
         public InventoryOperationController(IInventoryOperationService inventoryOperationService,
             IMaterialService materialService) : base(inventoryOperationService)
-        {
+        { 
             _materialService = materialService;
         }
         public IActionResult Filter(string materialId, string query, int pageNumber = 1, int pageSize = 10, string orderBy = "", string orderDirection = "")
@@ -25,7 +25,7 @@ namespace Mica.Presentation.Web.Controllers.Inventory
             return Index(query, pageNumber, pageSize, orderBy, orderDirection);
         }
 
-        public override IActionResult AddEditDialog(long id)
+        public override IActionResult AddEditView(long id)
         {
             if (id != 0) // not allow edit
             {
@@ -35,10 +35,10 @@ namespace Mica.Presentation.Web.Controllers.Inventory
             var vm = new InventoryOperationAddEditViewModel
             {
                 Model = this.Service.CreateDefaultObject(),
-                Materials = this._materialService.GetMaterialsForPickup()
+                Materials = this._materialService.GetForPickup()
             };
 
-            return PartialView(vm);
+            return PartialView("AddEditDialog", vm);
         }
     }
 }

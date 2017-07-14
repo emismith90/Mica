@@ -14,5 +14,18 @@ namespace Mica.Application.Models.Inventory
         public string MaterialCode { get; set; }
         [DisplayName("Tên vật tư")]
         public string MaterialName { get; set; }
+        [DisplayName("Đơn vị")]
+        public string MaterialUnit { get; set; }
+        [DisplayName("Giá/đơn vị")]
+        public decimal MaterialUnitPrice { get; set; }
+
+        [DisplayName("Tổng")]
+        public decimal MaterialPrice
+        {
+            get
+            {
+                return InStock * MaterialUnitPrice;
+            }
+        }
     }
 }

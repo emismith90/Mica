@@ -1,0 +1,22 @@
+﻿.table.effort-operation-detail th:first-child, .table.effort-operation-detail td:first-child {
+    width: 5em;
+    text-align: center;
+}
+
+.table.effort-operation-detail th:nth-child(2) {
+    width: 15em;
+}
+
+.table.effort-operation-detail th:nth-child(3) {
+    width: 15em;
+}
+.table.effort-operation-detail th:nth-child(4), .table.effort-operation-detail td:nth-child(4) {
+    width: 10em;
+    text-align: right;
+}
+.table.effort-operation-detail th:nth-child(6), .table.effort-operation-detail td:nth-child(6) {
+    width: 10em;
+}
+.table.effort-operation-detail td:nth-child(6) {
+    opacity: 0.5;
+}

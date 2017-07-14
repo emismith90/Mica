@@ -26,7 +26,10 @@
             <div class="form-group">
                 <label asp-for="Birthday" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <input asp-for="Birthday" data-provide="datepicker" maxlength="255" class="form-control datepicker" />
+                    <input data-provide="datepicker" maxlength="255" class="form-control datepicker" type="datetime"
+                           data-val="true"
+                           id="Birthday" name="Birthday"
+                           value="@string.Format("{0:d}", TimeZoneInfo.ConvertTime(Model.Birthday.HasValue ? Model.Birthday.Value : DateTime.Now, TimeZoneInfo.Local))">
                     <span asp-validation-for="Birthday" class="text-danger"></span>
                 </div>
             </div>
