@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
 using Mica.Application.Models.Effort;
@@ -50,6 +51,21 @@ namespace Mica.Application.Services.Effort
             {
                 OperationDate = DateTime.Now
             };
+        }
+
+        public IList<EffortOperationModel> FindByTicket(long ticketId)
+        {
+            var cacheKey = $"{Cache.GenericCollectionKey}[ticketid:{ticketId}]";
+            return Cache.GetOrFetchDependKey(cacheKey,
+                () =>
+                {
+                    var queryableResult = Repository
+                                       .GetAll()
+                                       .Where(io => io.TicketId.HasValue && io.TicketId.Value == ticketId);
+
+                    return Mapper
+                            .Map<IList<EffortOperationModel>>(queryableResult.ToList());
+                });
         }
     }
 }

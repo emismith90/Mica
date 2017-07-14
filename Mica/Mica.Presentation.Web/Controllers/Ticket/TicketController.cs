@@ -41,36 +41,27 @@ namespace Mica.Presentation.Web.Controllers.Ticket
             _effortOperationService = effortOperationService;
         }
 
-        protected override object GetAddEditViewModel(long id)
+        public IActionResult EditView(long id)
         {
-            return new TicketAddEditViewModel
+            return PartialView("EditingDialog", new TicketAddEditViewModel(Service.GetById(id))
             {
-                Model = this.Service.CreateDefaultObject(),
-
                 Clients = this._clientService.GetForPickup(),
 
                 Statuses = this._ticketStatusService.GetForPickup(),
 
                 Sales = this._userService.GetForPickup(),
-                PersonInCharges = this._userService.GetForPickup(),
+                PersonInCharges = this._userService.GetForPickup()
+            });
+        }
 
-                Materials = this._materialService.GetAll(),
-                InventoryOperations = new List<InventoryOperationModel>
-                {
-                    this._inventoryOperationService.CreateDefaultObject()
-                },
-
-                Efforts = this._effortService.GetAll(),
-                EffortOperations = new List<EffortOperationModel>
-                {
-                    this._effortOperationService.CreateDefaultObject()
-                }
-            };
+        public IActionResult ReadonlyView(long id)
+        {
+            return PartialView("ViewDialog", GetReadOnlyViewModel(id));
         }
 
         public override IActionResult DeleteView(long id)
         {
-            return PartialView("DeleteDialog", GetDeleteViewModel(id));
+            return PartialView("DeleteDialog", GetReadOnlyViewModel(id));
         }
 
         [HttpPost]
@@ -85,6 +76,40 @@ namespace Mica.Presentation.Web.Controllers.Ticket
             }
 
             return BadRequest();
+        }
+
+        public StatusCodeResult Update(TicketModel ticket)
+        {
+            if (ModelState.IsValid)
+            {
+                if (ticket.Id != 0)
+                {
+                    if (this.Service.Update(ticket)) return Ok();
+                }
+            }
+
+            return BadRequest();
+        }
+
+        protected override object GetAddEditViewModel(long id)
+        {
+            return new TicketAddEditViewModel(this.Service.CreateDefaultObject())
+            {
+                Clients = this._clientService.GetForPickup(),
+
+                Statuses = this._ticketStatusService.GetForPickup(),
+
+                Sales = this._userService.GetForPickup(),
+                PersonInCharges = this._userService.GetForPickup(),
+
+                Materials = this._materialService.GetAll(),
+                Efforts = this._effortService.GetAll(),
+            };
+        }
+
+        protected object GetReadOnlyViewModel(long id)
+        {
+            return new TicketAddEditViewModel(Service.GetById(id));
         }
     }
 }

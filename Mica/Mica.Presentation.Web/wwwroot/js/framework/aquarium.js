@@ -47,16 +47,3 @@
     };
 
 })(window);
-
-////USAGE
-//var aquarium = new Aquarium('mica', true);
-//aquarium.whenPet('shark', 'whale', function (food) {
-//    console.log(food);
-//});
-
-//aquarium.whenPet('shark', function (food) {
-//    console.log('s2:' + food);
-//})
-
-//aquarium.pet('shark', 'feeding sharks');
-//aquarium.pet('whale', 'feeding whales');

@@ -15,13 +15,16 @@ using Mica.Application.Services.Abstract.Inventory;
 using Mica.Domain.Abstract.Repositories.Ticket;
 using Mica.Domain.Abstract.Repositories.Effort;
 using Mica.Domain.Abstract.Repositories.Inventory;
+using Mica.Application.Services.Abstract.Effort;
 
 namespace Mica.Application.Services.Ticket
 {
     public class TicketService : CrudWithSearchServiceBase<long, TicketModel, TicketEntity>, ITicketService
     {
         private readonly IEffortOperationRepository _effortOperationRepository;
+        private readonly IEffortOperationService _effortOperationService;
         private readonly IInventoryOperationRepository _inventoryOperationRepository;
+        private readonly IInventoryOperationService _inventoryOperationService;
 
         private readonly ITypedCacheService<EffortOperationModel, long> _effortOperationModelCache;
         private readonly ITypedCacheService<InventoryOperationModel, long> _inventoryOperationModelCache;
@@ -35,7 +38,9 @@ namespace Mica.Application.Services.Ticket
             ITypedCacheService<TicketModel, long> cache,
             ITicketRepository repository,
             IEffortOperationRepository effortOperationRepository,
+            IEffortOperationService effortOperationService,
             IInventoryOperationRepository inventoryOperationRepository,
+            IInventoryOperationService inventoryOperationService,
             IInventoryService inventoryService,
             ITypedCacheService<EffortOperationModel, long> effortOperationModelCache,
             ITypedCacheService<InventoryOperationModel, long> inventoryOperationModelCache,
@@ -43,7 +48,9 @@ namespace Mica.Application.Services.Ticket
             : base(mapper, unitOfWork, cache, repository)
         {
             this._effortOperationRepository = effortOperationRepository;
+            this._effortOperationService = effortOperationService;
             this._inventoryOperationRepository = inventoryOperationRepository;
+            this._inventoryOperationService = inventoryOperationService;
             this._inventoryService = inventoryService;
 
             this._effortOperationModelCache = effortOperationModelCache;
@@ -57,10 +64,12 @@ namespace Mica.Application.Services.Ticket
             {
                 Quantity = 1,
                 Deadline = DateTime.Now,
-                OperationDate = DateTime.Now
+                OperationDate = DateTime.Now,
+
+                EffortOperations = new[] { this._effortOperationService.CreateDefaultObject() },
+                InventoryOperations = new[] { this._inventoryOperationService.CreateDefaultObject() }
             };
         }
-
         public override TicketModel GetById(long id)
         {
             return Cache.GetOrFetchItem(id, () =>
@@ -69,17 +78,13 @@ namespace Mica.Application.Services.Ticket
 
                 var ticketModel = Mapper.Map<TicketModel>(ticketEntity);
 
-                var effortOperations = _effortOperationRepository.GetAll()
-                                    .Where(eo => eo.TicketId.HasValue && eo.TicketId == id);
-                ticketModel.EffortOperations = Mapper.Map<EffortOperationModel[]>(effortOperations.ToArray());
-
-                var inventoryOperations = _inventoryOperationRepository.GetAll()
-                                        .Where(io => io.TicketId.HasValue && io.TicketId == id);
-                ticketModel.InventoryOperations = Mapper.Map<InventoryOperationModel[]>(inventoryOperations.ToArray());
+                ticketModel.EffortOperations = this._effortOperationService.FindByTicket(id).ToArray();
+                ticketModel.InventoryOperations = this._inventoryOperationService.FindByTicket(id).ToArray();
 
                 return ticketModel;
             });
         }
+
 
         public override bool Add(TicketModel model)
         {
@@ -147,21 +152,18 @@ namespace Mica.Application.Services.Ticket
             this.UnitOfWork.BeginTransaction();
             try
             {
-                var model = Repository.GetById(id);
-
-                Repository.Remove(id);
-                this.UnitOfWork.Commit();
-
                 foreach (var effortOpId in _effortOperationRepository.GetAll()
                                   .Where(eo => eo.TicketId.HasValue && eo.TicketId == id)
-                                  .Select(eo => eo.TicketId.Value))
+                                  .Select(eo => eo.Id)
+                                  .ToList())
                 {
                     this._effortOperationRepository.Remove(effortOpId);
                     this.UnitOfWork.Commit();
                 }
 
                 foreach (var inventoryOp in _inventoryOperationRepository.GetAll()
-                                        .Where(eo => eo.TicketId.HasValue && eo.TicketId == id))
+                                        .Where(eo => eo.TicketId.HasValue && eo.TicketId == id)
+                                        .ToList())
                 {
                     this._inventoryOperationRepository.Remove(inventoryOp.Id);
                     this._inventoryService.UpdateInventoryStock(inventoryOp.MaterialId, inventoryOp.Quantity, true);
@@ -173,25 +175,20 @@ namespace Mica.Application.Services.Ticket
                     return false;
                 }
 
-                Cache.FlushItem(model.Id);
+                Repository.Remove(id);
+                this.UnitOfWork.Commit();
+
+                Cache.FlushItem(id);
                 _effortOperationModelCache.FlushCollection();
                 _inventoryOperationModelCache.FlushCollection();
                 _inventoryModelCache.FlushCollection();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 this.UnitOfWork.RollBack();
                 return false;
             }
         }
-
-        #region forbid
-        public override bool Update(TicketModel model)
-        {
-            // note: too tired of giving this shit zzz...
-            throw new NotSupportedException();
-        }
-        #endregion
     }
 }

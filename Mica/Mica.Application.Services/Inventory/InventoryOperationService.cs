@@ -146,12 +146,29 @@ namespace Mica.Application.Services.Inventory
             }
         }
 
+        public IList<InventoryOperationModel> FindByTicket(long ticketId)
+        {
+            var cacheKey = $"{Cache.GenericCollectionKey}[ticketid:{ticketId}]";
+            return Cache.GetOrFetchDependKey(cacheKey,
+                () =>
+                {
+                    var queryableResult = Repository
+                                       .GetAll()
+                                       .Where(io => io.TicketId.HasValue && io.TicketId.Value == ticketId);
+
+                    return Mapper
+                            .Map<IList<InventoryOperationModel>>(queryableResult.ToList());
+                });
+        }
+
         #region forbid
         public override bool Update(InventoryOperationModel model)
         {
             // note: too tired of giving this shit zzz...
             throw new NotSupportedException();
         }
+
+       
         #endregion
     }
 }

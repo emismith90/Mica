@@ -16,7 +16,7 @@
         this.$injector = new DependencyResolver();
 
         // event aggregator for components
-        this.$aquarium = new Aquarium(this.appName, true);
+        this.$aquarium = new Aquarium(this.appName);
 
         registerBaseService.apply(this);
 
@@ -27,21 +27,21 @@
             var isArray = Array.isArray(array);
             if (isArray && array.length == 0) return this;
 
-            var obj = isArray ? array[array.length - 1] : array;
+            var resolver = isArray ? array[array.length - 1] : array;
 
             // metadata
             this.invokeMetadatas[name] = {
                 name: name,
                 dependencies: isArray ? array.slice(0, array.length - 1) : [],
-                obj: obj
+                resolver: resolver
             };
 
             var dependencies = this.$injector.resolveAll(this.invokeMetadatas[name].dependencies);
             if (!dependencies) {
-                this.invokeMetadatas[name].$instance = this.invokeMetadatas[name].obj.apply(this);
+                this.invokeMetadatas[name].$instance = this.invokeMetadatas[name].resolver.apply(this);
             }
             else {
-                this.invokeMetadatas[name].$instance = this.invokeMetadatas[name].obj.apply(this, dependencies);
+                this.invokeMetadatas[name].$instance = this.invokeMetadatas[name].resolver.apply(this, dependencies);
             }
 
             return this;
@@ -52,13 +52,13 @@
             var isArray = Array.isArray(array);
             if (isArray && array.length == 0) return this;
 
-            var obj = isArray ? array[array.length - 1] : array;
+            var resolver = isArray ? array[array.length - 1] : array;
 
             // metadata
             this.$injector.register(name, {
                 name: name,
                 dependencies: isArray ? array.slice(0, array.length - 1) : [],
-                obj: obj
+                resolver: resolver
             });
 
             return this;
@@ -69,12 +69,12 @@
             app.$injector.register('$injector', {
                 name: '$injector',
                 dependencies: [],
-                obj: function () { return app.$injector }
+                resolver: function () { return app.$injector }
             });
             app.$injector.register('$aquarium', {
                 name: '$aquarium',
                 dependencies: [],
-                obj: function () { return app.$aquarium }
+                resolver: function () { return app.$aquarium }
             });
         }
 
@@ -90,10 +90,10 @@
                 if (!this.serviceMetadatas[dependencyName].$instance) {
                     var dependencies = this.resolveAll(this.serviceMetadatas[dependencyName].dependencies);
                     if (!dependencies) {
-                        this.serviceMetadatas[dependencyName].$instance = this.serviceMetadatas[dependencyName].obj.apply(this);
+                        this.serviceMetadatas[dependencyName].$instance = this.serviceMetadatas[dependencyName].resolver.apply(this);
                     }
                     else {
-                        this.serviceMetadatas[dependencyName].$instance = this.serviceMetadatas[dependencyName].obj.apply(this, dependencies);
+                        this.serviceMetadatas[dependencyName].$instance = this.serviceMetadatas[dependencyName].resolver.apply(this, dependencies);
                     }
                 }
 
@@ -155,28 +155,3 @@
     }
 })(window);
 
-////USAGE
-//var app = new AtomicApp();
-
-//app.use('jquery', jQuery)
-//    .use('serviceA', [function () {
-//        return {
-//            greeting: function (name) {
-//                return 'Hello ' + name;
-//            }
-//        };
-//    }])
-//    .use('serviceB', ['serviceA', function (a) {
-//        return {
-//            print: function () {
-//                console.log(a.greeting('Hung.Le'));
-//            }
-//        }
-//    }])
-//    .run('main', ['jquery', 'serviceB', function ($$, b) {
-//        b.print();
-//        if ($$) {
-//            // jQuery is loaded  
-//            alert("jQuery!");
-//        } 
-//    }]);

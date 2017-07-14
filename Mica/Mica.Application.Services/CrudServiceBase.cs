@@ -75,7 +75,7 @@ namespace Mica.Application.Services
                 Cache.FlushItem(model.Id);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -91,7 +91,7 @@ namespace Mica.Application.Services
                 Cache.FlushItem(model.Id);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -107,7 +107,7 @@ namespace Mica.Application.Services
                 Cache.FlushItem(id);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
