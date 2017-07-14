@@ -1,0 +1,33 @@
+﻿@model TicketAddEditViewModel
+
+@{
+    ViewData["Title"] = "Tạo lệnh sản xuất";
+}
+
+@Html.Partial("_Breadcrumb")
+@Html.Partial("_PageHeader")
+
+<form id="create-ticket-form" class="form-horizontal">
+    @Html.Partial("_TicketDetail", Model, new ViewDataDictionary(ViewData)
+                                        {
+                                            { "allow-edit-ref-content", true }
+                                        })
+
+    <br />
+    <div>
+        <a class="btn btn-primary js-ticket-create" href="javascript:void(0);">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            Lưu
+        </a>
+        <a class="btn btn-default" href="/Ticket/">
+            <i class="glyphicon glyphicon-remove"></i>
+            Hủy
+        </a>
+    </div>
+    <br />
+    <br />
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

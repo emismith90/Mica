@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Mica.Application.Models;
+﻿using Mica.Application.Models;
 using Mica.Application.Services.Abstract;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Mica.Presentation.Web.Controllers.Abstract
 {
-    public abstract class BaseCrudController<TModel, TKey, TService> : Controller, ICrudController<TModel, TKey>
+     public abstract class BaseCrudController<TModel, TKey, TService> : Controller, ICrudController<TModel, TKey>
         where TModel : ModelBase<TKey>
         where TService : IContentLookupListingService<TModel>, ICrudService<TModel, TKey>
     {
@@ -19,55 +19,61 @@ namespace Mica.Presentation.Web.Controllers.Abstract
             var result = this.Service.GetAll(query, pageNumber, pageSize, orderBy, orderDirection);
             return View("Index", result);
         }
-
-        public virtual IActionResult AddEditDialog(TKey id)
+        
+        public virtual IActionResult AddEditView(TKey id)
         {
-            TModel model;
-            if (id.Equals(default(TKey)))
-            {
-                model = this.Service.CreateDefaultObject();
-            }
-            else
-            {
-                model = this.Service.GetById(id);
-            }
-
-            return PartialView("AddEditDialog", model);
+            return View("AddEdit", GetAddEditViewModel(id));
         }
-        public virtual bool Save(TModel model)
+
+        [HttpPost]
+        public virtual StatusCodeResult Save(TModel model)
         {
             if (ModelState.IsValid)
             {
                 if (model.Id.Equals(default(TKey)))
                 {
-                    return this.Service.Add(model);
+                    if (this.Service.Add(model)) return Ok();
                 }
                 else
                 {
-                    return this.Service.Update(model);
+                    if (this.Service.Update(model)) return Ok();
                 }
             }
 
-            return false;
+            return BadRequest();
         }
 
-        public virtual IActionResult DeleteDialog(TKey id)
+        public virtual IActionResult DeleteView(TKey id)
         {
-            TModel model;
+            return View("Delete", GetDeleteViewModel(id));
+        }
+
+        [HttpPost]
+        public virtual StatusCodeResult Delete(TModel model)
+        {
+            if (this.Service.Remove(model.Id))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        protected virtual object GetAddEditViewModel(TKey id)
+        {
             if (id.Equals(default(TKey)))
             {
-                model = this.Service.CreateDefaultObject();
+                return this.Service.CreateDefaultObject();
             }
             else
             {
-                model = this.Service.GetById(id);
+                return this.Service.GetById(id);
             }
-
-            return PartialView("DeleteDialog", model);
         }
-        public virtual bool Delete(TModel model)
+
+        protected virtual object GetDeleteViewModel(TKey id)
         {
-            return this.Service.Remove(model.Id);
+            return GetAddEditViewModel(id);
         }
     }
 }

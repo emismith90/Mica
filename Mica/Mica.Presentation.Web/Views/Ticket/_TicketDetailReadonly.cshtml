@@ -1,0 +1,81 @@
+﻿@model TicketAddEditViewModel
+
+@{
+    var ticket = Model.Model;
+}
+<div id="ticket-detail-readonly">
+    <input asp-for="Model.Id" hidden />
+    <div class="form-group">
+        <label asp-for="Model.Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @ticket.Name
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model.ClientId" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @if (ticket.Client != null)
+            {
+                <span>@ticket.Client.Name / @ticket.Client.PhoneNumber / @ticket.Client.SkypeId</span>
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model.SaleById" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @ticket.SaleByName
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Model.StatusId" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @ticket.StatusName
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model.PersonInChargeId" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @ticket.PersonInChargeName
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <label asp-for="Model.Quantity" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @ticket.Quantity
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model.OperationDate" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @string.Format("{0:d}", TimeZoneInfo.ConvertTime(ticket.OperationDate, TimeZoneInfo.Local))
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model.Deadline" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @string.Format("{0:d}", TimeZoneInfo.ConvertTime(ticket.Deadline, TimeZoneInfo.Local))
+        </div>
+    </div>
+
+    <hr />
+    @Html.Partial("_InventoryOperationTable", Model, new ViewDataDictionary(ViewData)
+                                                        {
+                                                            { "edit-mode", false }
+                                                        })
+
+    <hr />
+    @Html.Partial("_EffortOperationTable", Model, new ViewDataDictionary(ViewData)
+                                                        {
+                                                            { "edit-mode", false }
+                                                        })
+
+    <hr />
+    <div class="form-group">
+        <label asp-for="Model.Note" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @ticket.Note
+        </div>
+    </div>
+</div>

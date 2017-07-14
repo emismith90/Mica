@@ -4,8 +4,8 @@ using Mica.Application.Services.Abstract.Effort;
 
 namespace Mica.Presentation.Web.Controllers.Inventory
 {
-    public class EffortController : BaseCrudController<EffortModel, long, IEffortService>
+    public class EffortController : BaseDialogCrudController<EffortModel, long, IEffortService>
     {
-        public EffortController(IEffortService miaterialService) : base(miaterialService) { }
+        public EffortController(IEffortService effortService) : base(effortService) { }
     }
 }

@@ -2,31 +2,33 @@
 using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
-using Mica.Application.Models.Inventory;
+using Mica.Domain.Abstract.Repositories.Inventory;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Abstract.UoW;
 using Mica.Infrastructure.Helpers;
-using Mica.Application.Services.Abstract.Cache;
-using Mica.Domain.Abstract.Repositories.Inventory;
 using Mica.Infrastructure.Extensions;
+using Mica.Application.Services.Abstract.Cache;
+using Mica.Application.Services.Abstract.Inventory;
+using Mica.Application.Models.Inventory;
+
 
 namespace Mica.Application.Services.Inventory
 {
     public class InventoryOperationService
         : CrudWithSearchServiceBase<long, InventoryOperationModel, InventoryOperationEntity>, IInventoryOperationService
     {
-        private readonly IInventoryRepository _inventoryrepository;
+        private readonly IInventoryService _inventoryService;
         private readonly ITypedCacheService<InventoryModel, long> _inventoryCache;
 
         public InventoryOperationService(IMapper mapper,
             IUnitOfWork unitOfWork,
             ITypedCacheService<InventoryOperationModel, long> cache,
             IInventoryOperationRepository repository,
-            IInventoryRepository inventoryrepository,
+            IInventoryService inventoryService,
             ITypedCacheService<InventoryModel, long> inventoryCache)
             : base(mapper, unitOfWork, cache, repository)
         {
-            this._inventoryrepository = inventoryrepository;
+            this._inventoryService = inventoryService;
             this._inventoryCache = inventoryCache;
         }
 
@@ -35,7 +37,7 @@ namespace Mica.Application.Services.Inventory
         {
             if (string.IsNullOrEmpty(orderBy))
             {
-                orderBy = "CreatedOn";
+                orderBy = "OperationDate";
                 orderDirection = "desc";
             }
 
@@ -46,7 +48,7 @@ namespace Mica.Application.Services.Inventory
         {
             if (string.IsNullOrEmpty(orderBy))
             {
-                orderBy = "CreatedOn";
+                orderBy = "OperationDate";
                 orderDirection = "desc";
             }
 
@@ -57,7 +59,7 @@ namespace Mica.Application.Services.Inventory
         {
             if (string.IsNullOrEmpty(orderBy))
             {
-                orderBy = "CreatedOn";
+                orderBy = "OperationDate";
                 orderDirection = "desc";
             }
 
@@ -78,17 +80,25 @@ namespace Mica.Application.Services.Inventory
         }
         #endregion
 
+        public override InventoryOperationModel CreateDefaultObject()
+        {
+            return new InventoryOperationModel
+            {
+                OperationDate = DateTime.Now
+            };
+        }
+
         public override bool Add(InventoryOperationModel model)
         {
             this.UnitOfWork.BeginTransaction();
             try
             {
                 if (model.Quantity == 0) return true; // no need to track this shit transaction.
-
-                Repository.Add(Mapper.Map<InventoryOperationEntity>(model));
+                var entity = Mapper.Map<InventoryOperationEntity>(model);
+                Repository.Add(entity);
                 this.UnitOfWork.Commit();
 
-                UpdateInventoryStock(model.MaterialId, model.Quantity);
+                _inventoryService.UpdateInventoryStock(model.MaterialId, model.Quantity);
                 this.UnitOfWork.Commit();
 
                 if (!this.UnitOfWork.EndTransaction())
@@ -100,7 +110,7 @@ namespace Mica.Application.Services.Inventory
                 _inventoryCache.FlushItem(model.MaterialId);
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
                 this.UnitOfWork.RollBack();
                 return false;
@@ -117,7 +127,7 @@ namespace Mica.Application.Services.Inventory
                 Repository.Remove(id);
                 this.UnitOfWork.Commit();
 
-                UpdateInventoryStock(model.MaterialId, model.Quantity, true);
+                _inventoryService.UpdateInventoryStock(model.MaterialId, model.Quantity, true);
                 this.UnitOfWork.Commit();
 
                 if (!this.UnitOfWork.EndTransaction())
@@ -136,37 +146,19 @@ namespace Mica.Application.Services.Inventory
             }
         }
 
-        private void UpdateInventoryStock(long inventoryId, decimal quantity, bool reverse = false)
+        public IList<InventoryOperationModel> FindByTicket(long ticketId)
         {
-            var needCreate = false;
+            var cacheKey = $"{Cache.GenericCollectionKey}[ticketid:{ticketId}]";
+            return Cache.GetOrFetchDependKey(cacheKey,
+                () =>
+                {
+                    var queryableResult = Repository
+                                       .GetAll()
+                                       .Where(io => io.TicketId.HasValue && io.TicketId.Value == ticketId);
 
-            var inventoryItem = this._inventoryrepository
-                .Find(i => i.MaterialId == inventoryId)
-                .SingleOrDefault();
-            if (inventoryItem == null)
-            {
-                inventoryItem = this._inventoryrepository.CreateDefaultObject();
-                inventoryItem.MaterialId = inventoryId;
-                needCreate = true;
-            }
-
-            if (reverse)
-            {
-                inventoryItem.InStock -= quantity;
-            }
-            else
-            {
-                inventoryItem.InStock += quantity;
-            }
-
-            if (needCreate)
-            {
-                this._inventoryrepository.Add(inventoryItem);
-            }
-            else
-            {
-                this._inventoryrepository.Update(inventoryItem);
-            }
+                    return Mapper
+                            .Map<IList<InventoryOperationModel>>(queryableResult.ToList());
+                });
         }
 
         #region forbid
@@ -175,6 +167,8 @@ namespace Mica.Application.Services.Inventory
             // note: too tired of giving this shit zzz...
             throw new NotSupportedException();
         }
+
+       
         #endregion
     }
 }

@@ -18,7 +18,7 @@
 }
 
 .table.inventory-operation-detail th:nth-child(6), .table.inventory-operation-detail td:nth-child(6) {
-    width: 15em;
+    width: 12em;
 }
 
 .table.inventory-operation-detail td:nth-child(6) {

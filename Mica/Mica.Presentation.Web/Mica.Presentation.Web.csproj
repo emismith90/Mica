@@ -20,6 +20,7 @@
   <ItemGroup>
     <Content Include="wwwroot\css\client\client-page.css" />
     <Content Include="wwwroot\css\control.css" />
+    <Content Include="wwwroot\css\effort\effort-operation-page.css" />
     <Content Include="wwwroot\css\effort\effort-page.css" />
     <Content Include="wwwroot\css\inventory\inventory-operation-page.css" />
     <Content Include="wwwroot\css\inventory\inventory-page.css" />
@@ -28,23 +29,36 @@
     <Content Include="wwwroot\css\modal.css" />
     <Content Include="wwwroot\css\form.css" />
     <Content Include="wwwroot\css\inventory\material-page.css" />
-    <Content Include="wwwroot\js\common\mica.common.modal.js">
+    <Content Include="wwwroot\css\ticket\ticket-page.css" />
+    <Content Include="wwwroot\css\ticket\ticket-status-page.css" />
+    <Content Include="wwwroot\js\app\app.js" />
+    <Content Include="wwwroot\js\app\common\mica.common.imt.js" />
+    <Content Include="wwwroot\js\app\common\mica.common.menu.js" />
+    <Content Include="wwwroot\js\app\common\mica.common.smart-link.js" />
+    <Content Include="wwwroot\js\app\shared\mica.jsonhttpservice.js" />
+    <Content Include="wwwroot\js\app\shared\mica.httpservice.js" />
+    <Content Include="wwwroot\js\app\ticket\mica.ticket.addedit.js" />
+    <Content Include="wwwroot\js\app\ticket\mica.ticket.create-ticket.effort-op.js" />
+    <Content Include="wwwroot\js\app\ticket\mica.ticket.create-ticket.form.js" />
+    <Content Include="wwwroot\js\app\ticket\mica.ticket.create-ticket.inventory-op.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\js\common\mica.common.smart-link.js" />
-    <Content Include="wwwroot\js\inventory\mica.inventory.inventory-operation-page.js" />
-    <Content Include="wwwroot\js\inventory\mica.inventory.material-page.js">
+    <Content Include="wwwroot\js\app\utils\mica.utils.inheritance.js" />
+    <Content Include="wwwroot\js\app\utils\mica.utils.query-string.js" />
+    <Content Include="wwwroot\js\bootstrap.js" />
+    <Content Include="wwwroot\js\app\common\mica.common.modal.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="wwwroot\js\framework\aa.js" />
+    <Content Include="wwwroot\js\framework\aquarium.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.element.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.form.js" />
+    <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.math.js" />
     <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.modal.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="wwwroot\js\jquery.plugins\jquery.plugins.select.js" />
     <Content Include="wwwroot\js\lumino.glyphs.js" />
-    <Content Include="wwwroot\js\onpageload.js" />
-    <Content Include="wwwroot\js\utils\mica.utils.nav-item.js" />
-    <Content Include="wwwroot\js\utils\mica.utils.query-string.js" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.bower.json" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.editorconfig" />
     <Content Include="wwwroot\lib\bootstrap-datepicker\.gitignore" />
@@ -983,7 +997,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.2" />
@@ -1022,9 +1036,6 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\js\effort\" />
   </ItemGroup>
 
 </Project>

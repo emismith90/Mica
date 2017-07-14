@@ -1,0 +1,31 @@
+﻿@model TicketAddEditViewModel
+
+@{
+    var ticket = Model.Model;
+    ViewData["Title"] = $"Xóa lệnh sản xuất (#{ticket.Id}) {ticket.Name}";
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2>@ViewData["Title"].</h2>
+    </div>
+    <div class="modal-body">
+        <div class="text-danger">Bạn có chắc muốn xóa trạng thái '@ticket.Name' (#@ticket.Id) với nội dung: </div>
+
+        <form id="form" class="form-horizontal form-readonly">
+            @Html.Partial("_TicketDetailReadonly", Model)
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger js-save-btn @(ticket.Id == 0 ? "disabled" : string.Empty)"
+                mc-modal-post-url="/Ticket/Delete/">
+            <i class="glyphicon glyphicon-trash"></i>
+            Xóa
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="glyphicon glyphicon-remove"></i>
+            Hủy
+        </button>
+    </div>
+</div>

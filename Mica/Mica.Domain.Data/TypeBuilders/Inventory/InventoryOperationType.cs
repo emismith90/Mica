@@ -10,25 +10,25 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
         {
             base.Configure(builder);
 
-            builder.HasOne(m => m.Material)
-                .WithMany()
-                .HasForeignKey(m => m.MaterialId)
-                .IsRequired();
-            builder
-                .HasIndex(b => b.MaterialId)
-                .IsUnique();
-
-            builder.HasOne(m => m.Ticket)
-                .WithMany()
-                .HasForeignKey(m => m.TicketId);
-
-            builder.Property(c => c.Description)
+            builder.Property(c => c.Note)
                .HasColumnType("nvarchar(1000)")
                .HasMaxLength(1000);
 
             builder.Property(c => c.Quantity)
                .HasColumnType("decimal(12, 2)")
                .IsRequired();
+
+            builder.Property(c => c.OperationDate)
+              .HasColumnType("datetime")
+              .IsRequired();
+
+            builder.HasOne(m => m.Material)
+                .WithMany()
+                .HasForeignKey(m => m.MaterialId)
+                .IsRequired();
+            builder.HasOne(m => m.Ticket)
+                .WithMany()
+                .HasForeignKey(m => m.TicketId);
         }
     }
 }

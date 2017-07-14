@@ -10,6 +10,10 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
         {
             base.Configure(builder);
 
+            builder.Property(c => c.InStock)
+                .HasColumnType("decimal(12, 2)")
+                .IsRequired();
+
             builder.HasOne(m => m.Material)
                 .WithMany()
                 .HasForeignKey(m => m.MaterialId)
@@ -17,10 +21,6 @@ namespace Mica.Domain.Data.TypeBuilders.Inventory
             builder
                 .HasIndex(b => b.MaterialId)
                 .IsUnique();
-
-            builder.Property(c => c.InStock)
-                .HasColumnType("decimal(12, 2)")
-                .IsRequired();
         }
     }
 }

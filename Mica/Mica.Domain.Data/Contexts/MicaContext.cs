@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Mica.Domain.Data.Models;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Data.Models.Effort;
 using Mica.Domain.Data.Models.Client;
+using Mica.Domain.Data.Models.Ticket;
 using Mica.Domain.Data.TypeBuilders.Extensions;
-using Mica.Domain.Data.TypeBuilders;
 using Mica.Domain.Data.TypeBuilders.Inventory;
 using Mica.Domain.Data.TypeBuilders.Effort;
 using Mica.Domain.Data.TypeBuilders.Client;
+using Mica.Domain.Data.TypeBuilders.Ticket;
 
 namespace Mica.Domain.Data.Contexts
 {
@@ -21,10 +21,12 @@ namespace Mica.Domain.Data.Contexts
         public DbSet<InventoryOperationEntity> InventoryOperations { get; set; }
 
         public DbSet<EffortEntity> Efforts { get; set; }
+        public DbSet<EffortOperationEntity> EffortOperations { get; set; }
 
         public DbSet<ClientEntity> Clients { get; set; }
 
         public DbSet<TicketEntity> Tickets { get; set; }
+        public DbSet<TicketStatusEntity> TicketStatuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,10 +35,12 @@ namespace Mica.Domain.Data.Contexts
             modelBuilder.AddConfiguration(new InventoryOperationType());
 
             modelBuilder.AddConfiguration(new EffortType());
+            modelBuilder.AddConfiguration(new EffortOperationType());
 
             modelBuilder.AddConfiguration(new ClientType());
 
             modelBuilder.AddConfiguration(new TicketType());
+            modelBuilder.AddConfiguration(new TicketStatusType());
 
             base.OnModelCreating(modelBuilder);
         }
