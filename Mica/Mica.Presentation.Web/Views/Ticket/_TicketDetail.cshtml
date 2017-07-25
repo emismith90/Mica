@@ -87,6 +87,18 @@
 
     <hr />
     <div class="form-group">
+        <label asp-for="Model.Attachments" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            @Html.Partial("_FilePicker", Model, new ViewDataDictionary(ViewData)
+                                                        {
+                                                            { "name", "ticket-attachment" },
+                                                            { "class", "form-control" },
+                                                            { "multiple", true }
+                                                        })
+            <span asp-validation-for="Model.Attachments" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
         <label asp-for="Model.Note" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <textarea asp-for="Model.Note" maxlength="1000" class="form-control"></textarea>

@@ -5,6 +5,7 @@ using Mica.Application.Models.Effort;
 using Mica.Application.Models.Inventory;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Mica.Application.Models.Ticket
 {
@@ -58,5 +59,8 @@ namespace Mica.Application.Models.Ticket
 
         [DisplayName("Người thực hiện")]
         public string PersonInChargeName { get; set; }
+
+        [DisplayName("Đính kèm")]
+        public string[] Attachments { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 @Html.Partial("_Breadcrumb")
 @Html.Partial("_PageHeader")
 
-<form id="create-ticket-form" class="form-horizontal">
+<form id="create-ticket-form" class="form-horizontal" enctype="multipart/form-data">
     @Html.Partial("_TicketDetail", Model, new ViewDataDictionary(ViewData)
                                         {
                                             { "allow-edit-ref-content", true }
