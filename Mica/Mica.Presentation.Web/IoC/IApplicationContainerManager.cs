@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Mica.Infrastructure.IoC
+namespace Mica.Presentation.Web.IoC
 {
     public interface IApplicationContainerManager : IDisposable
     {

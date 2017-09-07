@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Antares.Essentials" Version="1.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Mica.Domain.Data\Mica.Domain.Data.csproj" />
   </ItemGroup>
 

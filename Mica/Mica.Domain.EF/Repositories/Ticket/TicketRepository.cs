@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Antares.Essentials.Data.Repositories;
 using Mica.Domain.Data.Contexts;
 using Mica.Domain.Data.Models.Ticket;
 using Mica.Domain.Abstract.Repositories.Ticket;

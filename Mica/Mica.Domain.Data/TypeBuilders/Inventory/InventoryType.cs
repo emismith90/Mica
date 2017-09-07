@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Antares.Essentials.Data.TypeBuilders;
 using Mica.Domain.Data.Models.Inventory;
 
 namespace Mica.Domain.Data.TypeBuilders.Inventory

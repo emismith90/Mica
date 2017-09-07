@@ -1,12 +1,13 @@
-﻿using Mica.Application.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Antares.Essentials.Application.Models;
+using Antares.Essentials.Application.Services;
 using Mica.Application.Services.Abstract;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Mica.Presentation.Web.Controllers.Abstract
 {
      public abstract class BaseCrudController<TModel, TKey, TService> : Controller, ICrudController<TModel, TKey>
         where TModel : ModelBase<TKey>
-        where TService : IContentLookupListingService<TModel>, ICrudService<TModel, TKey>
+        where TService : IContentLookupListingService<TModel>, ICrudService<TModel, TKey>, IModelCreatorService<TModel>
     {
         protected readonly TService Service;
         public BaseCrudController(TService service)

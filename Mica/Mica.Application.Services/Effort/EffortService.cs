@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoMapper;
-using Mica.Domain.Abstract.Repositories;
-using Mica.Domain.Abstract.UoW;
+using Antares.Essentials.Data.Repositories;
+using Antares.Essentials.Data.UoW;
 using Mica.Application.Services.Abstract.Effort;
 using Mica.Application.Services.Abstract.Cache;
 using Mica.Application.Models.Effort;

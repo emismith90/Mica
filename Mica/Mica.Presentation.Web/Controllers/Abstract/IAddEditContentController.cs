@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Mica.Application.Models;
+using Antares.Essentials.Application.Models;
 
 namespace Mica.Presentation.Web.Controllers.Abstract
 {

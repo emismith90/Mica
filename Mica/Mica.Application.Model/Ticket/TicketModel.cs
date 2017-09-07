@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Antares.Essentials.Application.Models;
 using Mica.Application.Models.Client;
 using Mica.Application.Models.Effort;
 using Mica.Application.Models.Inventory;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 
 namespace Mica.Application.Models.Ticket
 {

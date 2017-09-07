@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Antares.Essentials.Configuration;
 
 namespace Mica.Infrastructure.Configuration.Options
 {

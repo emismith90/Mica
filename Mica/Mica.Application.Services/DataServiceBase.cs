@@ -1,8 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using AutoMapper;
-using Mica.Domain.Abstract.UoW;
-using Mica.Infrastructure.Caching.Abstract;
-using Mica.Infrastructure.Configuration.Options;
+﻿using AutoMapper;
+using Antares.Essentials.Data.UoW;
 
 namespace Mica.Application.Services
 {

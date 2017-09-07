@@ -1,4 +1,5 @@
-﻿using Mica.Domain.Data.Models.Inventory;
+﻿using Antares.Essentials.Data.Repositories;
+using Mica.Domain.Data.Models.Inventory;
 
 namespace Mica.Domain.Abstract.Repositories.Inventory
 {

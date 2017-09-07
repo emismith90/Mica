@@ -1,11 +1,9 @@
-﻿using Autofac;
+﻿using Antares.Essentials.Data.Repositories;
+using Antares.Essentials.Data.UoW;
+using Autofac;
 using Mica.Domain.Data.Contexts;
-using Mica.Domain.EF.Repositories;
-using Mica.Domain.EF.UoW;
-using Mica.Domain.Abstract.Repositories;
-using Mica.Domain.Abstract.UoW;
 
-namespace Mica.Infrastructure.IoC.Autofac.Modules
+namespace Mica.Presentation.Web.Autofac.Modules
 {
     public class DomainModule : Module
     {

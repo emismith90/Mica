@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using AutoMapper;
+using Antares.Essentials.Data.UoW;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Abstract.Repositories.Inventory;
-using Mica.Domain.Abstract.UoW;
 using Mica.Application.Models.Inventory;
 using Mica.Application.Services.Abstract.Cache;
 using Mica.Application.Services.Abstract.Inventory;

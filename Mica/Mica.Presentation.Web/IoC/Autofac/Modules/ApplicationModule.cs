@@ -3,7 +3,7 @@ using Mica.Application.Mapper;
 using Mica.Application.Services.Abstract.Cache;
 using Mica.Application.Services.Cache;
 
-namespace Mica.Infrastructure.IoC.Autofac.Modules
+namespace Mica.Presentation.Web.Autofac.Modules
 {
     public class ApplicationModule : Module
     {

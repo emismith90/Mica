@@ -9,10 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using Mica.Infrastructure.IoC;
-using Mica.Infrastructure.IoC.Autofac;
 using Mica.Infrastructure.Logger;
 using Mica.Domain.Data.Contexts;
+using Mica.Presentation.Web.IoC;
+using Mica.Presentation.Web.IoC.Autofac;
 
 namespace Mica.Presentation.Web
 {
