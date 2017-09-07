@@ -1,5 +1,5 @@
 ﻿using System;
-using Mica.Infrastructure.Models.Abstract;
+using Antares.Essentials.Data.Entities;
 
 namespace Mica.Domain.Data.Models.Client
 {

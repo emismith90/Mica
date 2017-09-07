@@ -1,0 +1,10 @@
+﻿<span>
+    @if (Convert.ToBoolean(ViewData["multiple"]))
+    {
+        <input mc-file-picker post-to="/Resources/Upload" name="@ViewData["name"]" type="file" multiple class="@ViewData["class"]">
+    }
+    else
+    {
+        <input mc-file-picker post-to="/Resources/Upload" name="@ViewData["name"]" type="file" class="@ViewData["class"]">
+    }
+</span>  

@@ -32,9 +32,11 @@
     <Content Include="wwwroot\css\ticket\ticket-page.css" />
     <Content Include="wwwroot\css\ticket\ticket-status-page.css" />
     <Content Include="wwwroot\js\app\app.js" />
+    <Content Include="wwwroot\js\app\common\mica.common.file-picker.js" />
     <Content Include="wwwroot\js\app\common\mica.common.imt.js" />
     <Content Include="wwwroot\js\app\common\mica.common.menu.js" />
     <Content Include="wwwroot\js\app\common\mica.common.smart-link.js" />
+    <Content Include="wwwroot\js\app\shared\mica.fileUploadHttpservice.js" />
     <Content Include="wwwroot\js\app\shared\mica.jsonhttpservice.js" />
     <Content Include="wwwroot\js\app\shared\mica.httpservice.js" />
     <Content Include="wwwroot\js\app\ticket\mica.ticket.addedit.js" />
@@ -996,6 +998,9 @@
     <Content Include="wwwroot\lib\jquery\src\wrap.js" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Antares.Essentials" Version="1.0.8" />
+    <PackageReference Include="Autofac" Version="4.6.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
@@ -1011,7 +1016,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
   </ItemGroup>
   <ItemGroup>
@@ -1023,7 +1027,6 @@
     <ProjectReference Include="..\Mica.Application.Model\Mica.Application.Models.csproj" />
     <ProjectReference Include="..\Mica.Application.Services.Abstract\Mica.Application.Services.Abstract.csproj" />
     <ProjectReference Include="..\Mica.Application.Services\Mica.Application.Services.csproj" />
-    <ProjectReference Include="..\Mica.Infrastructure.IoC.Autofac\Mica.Infrastructure.IoC.Autofac.csproj" />
     <ProjectReference Include="..\Mica.Infrastructure\Mica.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -1036,6 +1039,9 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\resources\" />
   </ItemGroup>
 
 </Project>

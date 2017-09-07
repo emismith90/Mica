@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoMapper;
-using Mica.Domain.Abstract.Repositories;
-using Mica.Domain.Abstract.UoW;
+using Antares.Essentials.Data.UoW;
+using Antares.Essentials.Data.Repositories;
+using Antares.Essentials.Helpers;
 using Mica.Application.Services.Abstract.Ticket;
 using Mica.Application.Services.Abstract.Cache;
 using Mica.Application.Models.Ticket;
 using Mica.Domain.Data.Models.Ticket;
-using Mica.Infrastructure.Helpers;
 
 namespace Mica.Application.Services.Ticket
 {

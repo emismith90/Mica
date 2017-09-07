@@ -1,4 +1,5 @@
-﻿using Mica.Domain.Data.Models.Effort;
+﻿using Antares.Essentials.Data.Repositories;
+using Mica.Domain.Data.Models.Effort;
 
 namespace Mica.Domain.Abstract.Repositories.Effort
 {

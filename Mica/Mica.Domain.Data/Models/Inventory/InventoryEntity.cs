@@ -1,4 +1,6 @@
-﻿namespace Mica.Domain.Data.Models.Inventory
+﻿using Antares.Essentials.Data.Entities;
+
+namespace Mica.Domain.Data.Models.Inventory
 {
     public class InventoryEntity : EntityBase<long>
     {

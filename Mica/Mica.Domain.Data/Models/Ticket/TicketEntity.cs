@@ -1,7 +1,7 @@
-﻿using Mica.Domain.Data.Models.Client;
-using Mica.Infrastructure.Models.Abstract;
+﻿using System;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
+using Antares.Essentials.Data.Entities;
+using Mica.Domain.Data.Models.Client;
 
 namespace Mica.Domain.Data.Models.Ticket
 {

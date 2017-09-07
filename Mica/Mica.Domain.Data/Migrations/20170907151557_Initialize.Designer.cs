@@ -8,8 +8,8 @@ using Mica.Domain.Data.Contexts;
 namespace Mica.Domain.Data.Migrations
 {
     [DbContext(typeof(MicaContext))]
-    [Migration("20170711164839_Mica-v1.0")]
-    partial class Micav10
+    [Migration("20170907151557_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,8 +19,7 @@ namespace Mica.Domain.Data.Migrations
             modelBuilder.Entity("Mica.Domain.Data.Models.Client.ClientEntity", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id");
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(1000)")
@@ -78,8 +77,7 @@ namespace Mica.Domain.Data.Migrations
             modelBuilder.Entity("Mica.Domain.Data.Models.Effort.EffortEntity", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id");
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -106,22 +104,18 @@ namespace Mica.Domain.Data.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnName("CreatedById");
+                    b.Property<string>("CreatedById");
 
                     b.Property<DateTime?>("CreatedOn")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<long>("EffortId");
 
-                    b.Property<string>("ModifiedById")
-                        .HasColumnName("ModifiedById");
+                    b.Property<string>("ModifiedById");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnName("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Note")
@@ -152,8 +146,7 @@ namespace Mica.Domain.Data.Migrations
             modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.InventoryEntity", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id");
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("InStock")
                         .HasColumnType("decimal(12, 2)");
@@ -173,22 +166,18 @@ namespace Mica.Domain.Data.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnName("CreatedById");
+                    b.Property<string>("CreatedById");
 
                     b.Property<DateTime?>("CreatedOn")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<long>("MaterialId");
 
-                    b.Property<string>("ModifiedById")
-                        .HasColumnName("ModifiedById");
+                    b.Property<string>("ModifiedById");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnName("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Note")
@@ -219,8 +208,7 @@ namespace Mica.Domain.Data.Migrations
             modelBuilder.Entity("Mica.Domain.Data.Models.Inventory.MaterialEntity", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id");
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -261,23 +249,19 @@ namespace Mica.Domain.Data.Migrations
 
                     b.Property<long>("ClientId");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnName("CreatedById");
+                    b.Property<string>("CreatedById");
 
                     b.Property<DateTime?>("CreatedOn")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("CreatedOn")
                         .HasColumnType("datetime");
 
                     b.Property<DateTime>("Deadline")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("ModifiedById")
-                        .HasColumnName("ModifiedById");
+                    b.Property<string>("ModifiedById");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnName("ModifiedOn")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Name")
@@ -323,8 +307,7 @@ namespace Mica.Domain.Data.Migrations
             modelBuilder.Entity("Mica.Domain.Data.Models.Ticket.TicketStatusEntity", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id");
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(1000)")

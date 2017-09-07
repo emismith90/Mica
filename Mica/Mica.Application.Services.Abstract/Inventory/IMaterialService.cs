@@ -1,5 +1,6 @@
-﻿using Mica.Application.Models.Inventory;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Antares.Essentials.Application.Services;
+using Mica.Application.Models.Inventory;
 
 namespace Mica.Application.Services.Abstract.Inventory
 {
@@ -7,7 +8,8 @@ namespace Mica.Application.Services.Abstract.Inventory
           : ICrudService<MaterialModel, long>, 
             IContentListingService<MaterialModel>,
             IContentLookupListingService<MaterialModel>,
-            IContentPickupService<SelectListItem>
+            IContentPickupService<SelectListItem>,
+            IModelCreatorService<MaterialModel>
     {
     }   
 }

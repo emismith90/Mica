@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Mica.Domain.Abstract.UoW;
+using Antares.Essentials.Data.UoW;
+using Antares.Essentials.Data.Repositories;
+using Antares.Essentials.Application.Models;
+using Antares.Essentials.Data.Entities;
+using Antares.Essentials.Helpers;
+using Antares.Essentials.Extensions;
 using Mica.Application.Services.Abstract;
-using Mica.Application.Models;
-using Mica.Infrastructure.Helpers;
-using Mica.Domain.Abstract.Repositories;
-using Mica.Infrastructure.Extensions;
-using Mica.Infrastructure.Models.Abstract;
 using Mica.Application.Services.Abstract.Cache;
 
 namespace Mica.Application.Services

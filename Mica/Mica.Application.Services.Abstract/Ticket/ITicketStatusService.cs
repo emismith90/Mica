@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Antares.Essentials.Application.Services;
 using Mica.Application.Models.Ticket;
 
 namespace Mica.Application.Services.Abstract.Ticket
@@ -7,7 +8,8 @@ namespace Mica.Application.Services.Abstract.Ticket
         ICrudService<TicketStatusModel, long>, 
         IContentListingService<TicketStatusModel>, 
         IContentLookupListingService<TicketStatusModel>,
-        IContentPickupService<SelectListItem>
+        IContentPickupService<SelectListItem>,
+        IModelCreatorService<TicketStatusModel>
     {
     }
 }

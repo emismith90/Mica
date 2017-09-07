@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Antares.Essentials.Caching;
+using Antares.Essentials.Helpers;
 using Mica.Application.Services.Abstract.Cache;
-using Mica.Infrastructure.Caching.Abstract;
-using Mica.Infrastructure.Helpers;
 
 namespace Mica.Application.Services.Cache
 {
@@ -16,8 +16,8 @@ namespace Mica.Application.Services.Cache
         public string GenericItemKey { get; protected set; }
         public string GenericCollectionKey { get; protected set; }
 
-        protected readonly IMicaCache Cache;
-        public TypedCacheService(IMicaCache cache)
+        protected readonly ICache Cache;
+        public TypedCacheService(ICache cache)
         {
             Cache = cache;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using Mica.Infrastructure.Helpers;
+using Antares.Essentials.Application.Services;
+using Antares.Essentials.Helpers;
 
 namespace Mica.Application.Services.Abstract
 {

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Antares.Essentials.Application.Models;
 
 namespace Mica.Application.Models.Inventory
 {

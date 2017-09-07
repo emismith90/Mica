@@ -1,4 +1,4 @@
-﻿using Mica.Application.Models;
+﻿using Antares.Essentials.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mica.Presentation.Web.Controllers.Abstract

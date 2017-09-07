@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Antares.Essentials" Version="1.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Mica.Application.Model\Mica.Application.Models.csproj" />
     <ProjectReference Include="..\Mica.Infrastructure\Mica.Infrastructure.csproj" />
   </ItemGroup>

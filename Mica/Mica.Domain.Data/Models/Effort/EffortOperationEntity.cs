@@ -1,6 +1,6 @@
-﻿using Mica.Domain.Data.Models.Ticket;
-using Mica.Infrastructure.Models.Abstract;
-using System;
+﻿using System;
+using Antares.Essentials.Data.Entities;
+using Mica.Domain.Data.Models.Ticket;
 
 namespace Mica.Domain.Data.Models.Effort
 {

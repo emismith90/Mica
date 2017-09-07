@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Antares.Essentials.Application.Models;
 using Mica.Application.Models.Client;
 using Mica.Application.Models.Effort;
 using Mica.Application.Models.Inventory;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Mica.Application.Models.Ticket
 {
@@ -58,5 +58,8 @@ namespace Mica.Application.Models.Ticket
 
         [DisplayName("Người thực hiện")]
         public string PersonInChargeName { get; set; }
+
+        [DisplayName("Đính kèm")]
+        public string[] Attachments { get; set; }
     }
 }

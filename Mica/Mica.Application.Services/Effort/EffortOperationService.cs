@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
+using Antares.Essentials.Helpers;
+using Antares.Essentials.Data.UoW;
 using Mica.Application.Models.Effort;
 using Mica.Domain.Data.Models.Effort;
 using Mica.Application.Services.Abstract.Cache;
-using Mica.Domain.Abstract.UoW;
 using Mica.Domain.Abstract.Repositories.Effort;
 using Mica.Application.Services.Abstract.Effort;
-using Mica.Infrastructure.Helpers;
 
 namespace Mica.Application.Services.Effort
 {

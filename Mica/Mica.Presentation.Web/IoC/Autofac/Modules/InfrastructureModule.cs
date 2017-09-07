@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Autofac;
-using Mica.Infrastructure.Caching.Abstract;
-using Mica.Infrastructure.Caching.Memory;
-using Mica.Infrastructure.Configuration;
+using Antares.Essentials.Caching.Configurations;
+using Antares.Essentials.Configuration;
 using Mica.Infrastructure.Configuration.Options;
 using Mica.Infrastructure.Logger;
 
-namespace Mica.Infrastructure.IoC.Autofac.Modules
+namespace Mica.Presentation.Web.Autofac.Modules
 {
     public class InfrastructureModule : Module
     {
@@ -37,8 +36,8 @@ namespace Mica.Infrastructure.IoC.Autofac.Modules
                .As<IMemoryCache>()
                .SingleInstance();
 
-            builder.RegisterType<MicaMemoryCache>()
-               .As<IMicaCache>()
+            builder.RegisterType<Antares.Essentials.Caching.MemoryCache>()
+               .As<Antares.Essentials.Caching.ICache>()
                .SingleInstance();
         }
     }

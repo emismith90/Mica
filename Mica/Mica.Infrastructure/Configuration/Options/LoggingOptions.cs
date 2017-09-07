@@ -1,6 +1,7 @@
-﻿using Mica.Infrastructure.Extensions;
+﻿using System;
 using Serilog.Events;
-using System;
+using Antares.Essentials.Configuration;
+using Antares.Essentials.Extensions;
 
 namespace Mica.Infrastructure.Configuration.Options
 {

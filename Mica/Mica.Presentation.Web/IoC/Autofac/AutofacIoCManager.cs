@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Mica.Infrastructure.IoC.Autofac.Modules;
+using Mica.Presentation.Web.Autofac.Modules;
 
-namespace Mica.Infrastructure.IoC.Autofac
+namespace Mica.Presentation.Web.IoC.Autofac
 {
     public class AutofacIoCManager : IApplicationContainerManager
     {

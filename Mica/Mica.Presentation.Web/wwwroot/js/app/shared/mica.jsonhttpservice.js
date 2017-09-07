@@ -5,8 +5,6 @@
 
             service.fishes = $.extend({}, DEFAULT_FISHES, localFishes);
             service.ajax = function (url, data, type) {
-                $aquarium.pet(service.fishes.ongoing);
-
                 $.ajax({
                     url: url,
                     data: JSON.stringify(data),

@@ -2,12 +2,12 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoMapper;
+using Antares.Essentials.Data.Repositories;
+using Antares.Essentials.Data.UoW;
 using Mica.Application.Services.Abstract.Cache;
 using Mica.Application.Services.Abstract.Inventory;
 using Mica.Application.Models.Inventory;
 using Mica.Domain.Data.Models.Inventory;
-using Mica.Domain.Abstract.UoW;
-using Mica.Domain.Abstract.Repositories;
 
 namespace Mica.Application.Services.Inventory
 {

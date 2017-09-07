@@ -1,5 +1,5 @@
-﻿using Mica.Application.Models.Inventory;
-using Mica.Application.Services.Abstract;
+﻿using Antares.Essentials.Application.Services;
+using Mica.Application.Models.Inventory;
 
 namespace Mica.Application.Services.Abstract.Inventory
 {

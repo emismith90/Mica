@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using AutoMapper;
-using Mica.Domain.Abstract.UoW;
+using Antares.Essentials.Data.UoW;
 using Mica.Domain.Data.Models.Ticket;
 using Mica.Domain.Data.Models.Effort;
 using Mica.Domain.Data.Models.Inventory;

@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Antares.Essentials.Data.Extensions;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Data.Models.Effort;
 using Mica.Domain.Data.Models.Client;
 using Mica.Domain.Data.Models.Ticket;
-using Mica.Domain.Data.TypeBuilders.Extensions;
 using Mica.Domain.Data.TypeBuilders.Inventory;
 using Mica.Domain.Data.TypeBuilders.Effort;
 using Mica.Domain.Data.TypeBuilders.Client;
