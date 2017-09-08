@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Antares.Essentials.Data.Repositories;
 using Mica.Domain.Data.Contexts;
 using Mica.Domain.Data.Models.Ticket;
 using Mica.Domain.Abstract.Repositories.Ticket;
 
 namespace Mica.Domain.EF.Repositories.Ticket
 {
-    public class TicketRepository : GenericRepository<TicketEntity, long>, ITicketRepository
+    public class TicketRepository : MicaGenericRepository<TicketEntity, long>, ITicketRepository
     {
         public TicketRepository(MicaContext context) : base(context) { }
 

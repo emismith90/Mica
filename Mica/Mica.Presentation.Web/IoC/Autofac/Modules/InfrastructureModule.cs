@@ -22,7 +22,7 @@ namespace Mica.Presentation.Web.Autofac.Modules
             builder.RegisterType<LoggingOptions>()
                 .As<ILoggingOptions>()
                 .SingleInstance();
-            builder.RegisterType<CachingOptions>()
+            builder.RegisterType<Mica.Infrastructure.Configuration.Options.CachingOptions>()
                 .As<ICachingOptions>()
                 .SingleInstance();
 

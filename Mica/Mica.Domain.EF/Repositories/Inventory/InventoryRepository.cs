@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Antares.Essentials.Data.Repositories;
 using Mica.Domain.Data.Contexts;
 using Mica.Domain.Data.Models.Inventory;
 using Mica.Domain.Abstract.Repositories.Inventory;
 
 namespace Mica.Domain.EF.Repositories.Inventory
 {
-    public class InventoryRepository : GenericRepository<InventoryEntity, long>, IInventoryRepository
+    public class InventoryRepository : MicaGenericRepository<InventoryEntity, long>, IInventoryRepository
     {
         public InventoryRepository(MicaContext context) : base(context) { }
 

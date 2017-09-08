@@ -2,6 +2,8 @@
 using Antares.Essentials.Data.UoW;
 using Autofac;
 using Mica.Domain.Data.Contexts;
+using Mica.Domain.EF.Repositories;
+using Mica.Domain.EF.UoW;
 
 namespace Mica.Presentation.Web.Autofac.Modules
 {
@@ -14,11 +16,10 @@ namespace Mica.Presentation.Web.Autofac.Modules
                  .AsImplementedInterfaces()
                  .InstancePerLifetimeScope();
 
-            builder.RegisterGeneric(typeof(GenericRepository<,>))
+            builder.RegisterGeneric(typeof(MicaGenericRepository<,>))
                         .As(typeof(IGenericRepository<,>))
                         .InstancePerDependency();
-
-            builder.RegisterType<UnitOfWork>()
+            builder.RegisterType<MicaUnitOfWork>()
                 .As<IUnitOfWork>();
             builder.RegisterType(typeof(MicaContext))
                 .InstancePerLifetimeScope();

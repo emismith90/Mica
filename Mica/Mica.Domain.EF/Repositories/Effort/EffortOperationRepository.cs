@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Antares.Essentials.Data.Repositories;
 using Mica.Domain.Data.Contexts;
 using Mica.Domain.Data.Models.Effort;
 using Mica.Domain.Abstract.Repositories.Effort;
 
 namespace Mica.Domain.EF.Repositories.Effort
 {
-    public class EffortOperationRepository : GenericRepository<EffortOperationEntity, long>, IEffortOperationRepository
+    public class EffortOperationRepository : MicaGenericRepository<EffortOperationEntity, long>, IEffortOperationRepository
     {
         public EffortOperationRepository(MicaContext context) : base(context) { }
 
