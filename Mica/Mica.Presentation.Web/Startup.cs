@@ -76,7 +76,10 @@ namespace Mica.Presentation.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                ServeUnknownFileTypes = true
+            });
 
             var context = app.ApplicationServices.GetService<MicaContext>();
 

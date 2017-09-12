@@ -47,9 +47,13 @@ namespace Mica.Domain.Data.TypeBuilders.Ticket
                 .HasColumnType("decimal(12, 2)")
                 .IsRequired();
 
+            builder.Property(c => c.Attachments)
+                .HasColumnType("nvarchar(9999)")
+                .HasMaxLength(9999);
+
             builder.Property(c => c.Note)
-                .HasColumnType("nvarchar(1000)")
-                .HasMaxLength(1000);
+               .HasColumnType("nvarchar(1000)")
+               .HasMaxLength(1000);
         }
     }
 }

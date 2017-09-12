@@ -19,6 +19,7 @@ namespace Mica.Domain.Data.Models.Ticket
         public DateTime Deadline { get; set; }
         public decimal Quantity { get; set; }
 
+        public string Attachments { get; set; }
         public string Note { get; set; }
 
         public virtual ClientEntity Client { get; set; }

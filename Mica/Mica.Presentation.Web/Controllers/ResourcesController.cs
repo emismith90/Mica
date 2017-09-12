@@ -26,7 +26,7 @@ namespace Mica.Presentation.Web.Controllers
             {
                 if (file.Length > 0)
                 {
-                    var serverName = string.Format("{0}-{2}.{1}", 
+                    var serverName = string.Format("{0}-{2}{1}", 
                         Path.GetFileNameWithoutExtension(file.FileName),
                         Path.GetExtension(file.FileName),
                         DateTime.Now.ToUniversalTime().Ticks);
