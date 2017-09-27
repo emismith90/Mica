@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Antares.Essentials.Helpers;
+using Antares.Essentials.Utilities;
 
 namespace Mica.Application.Services.Abstract.Cache
 {

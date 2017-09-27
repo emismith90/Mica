@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antares.Essentials.Caching;
-using Antares.Essentials.Helpers;
+using Antares.Essentials.Utilities;
 using Mica.Application.Services.Abstract.Cache;
 
 namespace Mica.Application.Services.Cache

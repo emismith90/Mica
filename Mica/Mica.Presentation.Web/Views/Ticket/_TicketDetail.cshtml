@@ -97,6 +97,10 @@
                                                         })
 
             <ul mc-file-list>
+                @foreach (var file in Model.Model.Attachments)
+                {
+                    <li><a href="/resources/@file">@file</a> <i class="glyphicon glyphicon-remove js-remove-file"></i></li>
+                }
             </ul>
             <span asp-validation-for="Model.Attachments" class="text-danger"></span>
         </div>

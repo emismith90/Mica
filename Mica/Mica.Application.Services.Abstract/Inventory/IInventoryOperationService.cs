@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Antares.Essentials.Helpers;
+using Antares.Essentials.Utilities;
 using Antares.Essentials.Application.Services;
 using Mica.Application.Models.Inventory;
 

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoMapper;
 using Antares.Essentials.Data.UoW;
 using Antares.Essentials.Data.Repositories;
-using Antares.Essentials.Helpers;
+using Antares.Essentials.Utilities;
 using Mica.Application.Services.Abstract.Ticket;
 using Mica.Application.Services.Abstract.Cache;
 using Mica.Application.Models.Ticket;

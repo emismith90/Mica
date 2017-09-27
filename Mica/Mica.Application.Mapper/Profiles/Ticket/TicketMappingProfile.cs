@@ -14,10 +14,10 @@ namespace Mica.Application.Mapper.Profiles.Ticket
             map.ForMember(m => m.SaleByName, opt => opt.MapFrom(e => e.SaleBy.UserName));
             map.ForMember(m => m.StatusName, opt => opt.MapFrom(e => e.Status.Name));
             map.ForMember(m => m.PersonInChargeName, opt => opt.MapFrom(e => e.PersonInCharge.UserName));
-            map.ForMember(m => m.Attachments, opt => opt.MapFrom(e => e.Attachments.Split(new[] { ';' })));
+            map.ForMember(m => m.Attachments, opt => opt.MapFrom(e => e.Attachments == null ? null : e.Attachments.Split(new[] { ';' })));
 
             var reverseMap = this.CreateMap<TicketModel, TicketEntity>();
-            reverseMap.ForMember(m => m.Attachments, opt => opt.MapFrom(e => string.Join(";", e.Attachments)));
+            reverseMap.ForMember(m => m.Attachments, opt => opt.MapFrom(e => e.Attachments == null ? null : string.Join(";", e.Attachments)));
         }
     }
 }
