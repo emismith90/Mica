@@ -7,4 +7,8 @@
     {
         <input mc-file-picker post-to="api/Resources/Upload" name="@ViewData["name"]" type="file" class="@ViewData["class"]">
     }
+<<<<<<< HEAD
 </div>
+=======
+</span>
+>>>>>>> master

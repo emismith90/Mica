@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Mica.Presentation.Web.Controllers.Abstract;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace Mica.Presentation.Web.Controllers
 {
-    public class ResourcesController : Controller
+    [Route("api/Resources")]
+    public class ResourcesApiController : ApiController
     {
         private IHostingEnvironment _environment;
 
-        public ResourcesController(IHostingEnvironment environment)
+        public ResourcesApiController(IHostingEnvironment environment)
         {
             _environment = environment;
         }
        
         [HttpPost]
-        public async Task<string[]> Upload(ICollection<IFormFile> files)
+        public async Task<OkObjectResult> Upload(ICollection<IFormFile> files)
         {
             var serverFileNames = new List<string>();
             var resourcesPath = Path.Combine(_environment.WebRootPath, "resources");
@@ -39,7 +41,7 @@ namespace Mica.Presentation.Web.Controllers
                 }
             }
 
-            return serverFileNames.ToArray();
+            return Ok(serverFileNames.ToArray());
         }
     }
 }
