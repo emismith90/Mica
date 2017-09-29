@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Antares.Essentials.Caching" Version="1.0.0" />
     <PackageReference Include="Antares.Essentials.Configuration" Version="1.0.0" />
     <PackageReference Include="Antares.Essentials.Utilities" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="1.1.3" />

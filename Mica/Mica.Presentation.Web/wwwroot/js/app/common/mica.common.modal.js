@@ -1,4 +1,4 @@
-﻿Mica.use('DynamicModal', ['$aquarium', 'jQuery', 'document', 'HttpService', function ($aquarium, $, document, HttpService) {
+﻿Mica.use('DynamicModal', ['$aquarium', 'jQuery', 'document', 'HttpService', 'FilePicker', function ($aquarium, $, document, HttpService, FilePicker) {
     return function ($scope, options) {
         var currentTarget = null;
         var settings = {
@@ -32,6 +32,8 @@
 
                 $(settings.modalContentSelector, currentTarget).html(food);
                 $(currentTarget).registerModal();
+
+                new FilePicker(currentTarget)
             });
 
         $(settings.openModalBtn, $scope).on('click', function () {

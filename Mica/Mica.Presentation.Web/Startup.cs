@@ -13,6 +13,7 @@ using Mica.Infrastructure.Logger;
 using Mica.Domain.Data.Contexts;
 using Mica.Presentation.Web.IoC;
 using Mica.Presentation.Web.IoC.Autofac;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Mica.Presentation.Web
 {
@@ -53,6 +54,11 @@ namespace Mica.Presentation.Web
                  jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
              });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
+
             services.AddOptions();
 
             // Create the IServiceProvider based on the container.
@@ -75,6 +81,15 @@ namespace Mica.Presentation.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseStaticFiles(new StaticFileOptions()
             {

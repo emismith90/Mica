@@ -20,10 +20,16 @@ namespace Mica.Presentation.Web.Controllers
         }
        
         [HttpPost]
+        [Route("Upload")]
         public async Task<OkObjectResult> Upload(ICollection<IFormFile> files)
         {
             var serverFileNames = new List<string>();
             var resourcesPath = Path.Combine(_environment.WebRootPath, "resources");
+            if (!Directory.Exists(resourcesPath))
+            {
+                Directory.CreateDirectory(resourcesPath);
+            }
+
             foreach (var file in files)
             {
                 if (file.Length > 0)
